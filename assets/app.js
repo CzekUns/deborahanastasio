@@ -46,10 +46,20 @@
     el.className="ig-tile image-tile";
     el.innerHTML='<img src="'+m.img+'" alt="'+m.title+'" loading="lazy"><span class="tile-tag">'+(i%2?"ARCHIVIO / LIVE":"DEBORAH ANASTASIO")+'</span>';
   });
+  // Spazi editoriali DAB: grafica tipografica, senza attribuire foto non verificate alla band.
+  [2,8].forEach(function(i){
+    var p=posts[i];
+    p.title=i===2?"DAB · Deborah Anastasio Band":"DAB · Sul palco";
+    p.type="DAB / La band";p.img=null;
+    p.caption=i===2?"DAB. Deborah Anastasio Band. Una storia musicale da vivere insieme. #DAB #DeborahAnastasioBand":"Il suono, i musicisti, il palco. DAB è la dimensione collettiva del live. #DAB #LiveMusic";
+    p.idea="Copertina editoriale DAB. Sostituire soltanto con veri materiali della band, con crediti e approvazione.";
+    var el=grid&&grid.querySelector('[data-post="'+i+'"]');
+    if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<span class="dab-tile-wordmark">DAB</span><small>DEBORAH ANASTASIO BAND</small>';}
+  });
   var stories=[
     {title:"La mia voce",detail:"Chi è Deborah, come racconta la musica e quali emozioni vuole trasmettere. Da riempire con una sua vera presentazione in video."},
     {title:"Cerimonie",detail:"Brevi estratti autorizzati, momenti di una giornata e informazioni chiare sulle cerimonie effettivamente proposte."},
-    {title:"Live",detail:"Performance reali con audio curato, luogo e crediti corretti."},
+    {title:"DAB · La band",detail:"Deborah Anastasio Band: performance, musicisti, prove e backstage. Foto, nomi e riprese vanno verificati e autorizzati."},
     {title:"Backstage",detail:"Prove, preparazione, micro-momenti prima di salire sul palco e rapporto autentico con il pubblico."},
     {title:"Contatti",detail:"Come verificare una data, quali informazioni inviare e dove trovare il sito ufficiale."}
   ];
@@ -66,6 +76,11 @@
     v.headline=i%2?"San Valentino<br>Dinner Show<br>Villa Gauro":"Deborah<br>Anastasio";
     v.method="Anteprima statica del materiale fotografico originale. Quando saranno forniti i video autorizzati, sostituire la foto con il filmato corrispondente.";
   });
+  // Storyboard n.3 dedicato a DAB; la foto ripetuta è soltanto un segnaposto.
+  videos[2].title="DAB · La band";
+  videos[2].headline="DAB<br>La band.";
+  videos[2].caption="Deborah Anastasio Band · DAB. Esibizioni e persone della band, presto con filmati originali. #DAB";
+  videos[2].method="Sostituire la fotografia segnaposto con video autentici della DAB. Aprire sulla performance, dare spazio ai musicisti e usare audio live autorizzato.";
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
   var closeBtn=document.getElementById("dialog-close");

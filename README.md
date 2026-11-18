@@ -98,3 +98,7 @@ Foto ricevute dall'utente e aggiunte a GitHub come WebP 4:5 ottimizzati, in riso
 Finché non ci sono altri materiali scelti, **gli stessi due asset vengono riutilizzati sia su Instagram sia su TikTok**. La Home TikTok è il primo schermo della sezione `#tiktok`; il profilo Instagram apre direttamente la sezione `#instagram`. I post del feed Instagram e le viste singole rispettano il rapporto **4:5**. La griglia profilo resta fatta di anteprime più piccole come nell'app.
 
 Queste sono copie ottimizzate per il prototipo: conservare i JPG originali e sostituire con risoluzioni più alte prima della presentazione definitiva. Non sono stati caricati video in questa modifica.
+
+## Direzione artistica v0.2 — Deborah e DAB
+
+Aggiunta la guida [Identità estetica](docs/IDENTITA-ESTETICA.md) e lo stylesheet `assets/brand.css`. **DAB** significa **Deborah Anastasio Band**, la band di Deborah: ha ora un richiamo nella visione, una sezione dedicata nel [sito concept](#site-dab), una storia in evidenza e contenuti editoriali nelle simulazioni social. La sigla tipografica è una proposta, non un marchio ufficiale. Non vengono inventati musicisti, performance né fotografie della band.
