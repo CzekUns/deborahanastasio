@@ -50,11 +50,11 @@
   [2,8].forEach(function(i){
     var p=posts[i];
     p.title=i===2?"DAB · Deborah Anastasio Band":"DAB · Sul palco";
-    p.type="DAB / La band";p.img=null;
+    p.type="DAB / La band";p.img="./assets/brand/approved/DAB.svg?v=brand-approved-pr1-20261118";p.brandAsset="DAB";
     p.caption=i===2?"DAB. Deborah Anastasio Band. Una storia musicale da vivere insieme. #DAB #DeborahAnastasioBand":"Il suono, i musicisti, il palco. DAB è la dimensione collettiva del live. #DAB #LiveMusic";
     p.idea="Copertina editoriale DAB. Sostituire soltanto con veri materiali della band, con crediti e approvazione.";
     var el=grid&&grid.querySelector('[data-post="'+i+'"]');
-    if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<span class="dab-tile-wordmark">DAB</span><small>DEBORAH ANASTASIO BAND</small>';}
+    if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<img class="dab-tile-logo" src="./assets/brand/approved/DAB.svg?v=brand-approved-pr1-20261118" alt="DAB · Deborah Anastasio Band" loading="lazy">';}
   });
   var stories=[
     {title:"La mia voce",detail:"Chi è Deborah, come racconta la musica e quali emozioni vuole trasmettere. Da riempire con una sua vera presentazione in video."},
