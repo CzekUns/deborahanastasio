@@ -127,6 +127,8 @@
   ttBack.setAttribute("aria-label","Torna alla presentazione");
   ttBack.innerHTML=symbol("back");
   tt.appendChild(ttBack);
+  var ttTop=tt.querySelector(".tiktok-top");
+  if(ttTop)ttTop.innerHTML='<button type="button" data-tt-top="following">Seguiti</button><button type="button" data-tt-top="foryou" class="tt-top-active">Per te</button><button type="button" data-tt-top="search" aria-label="Cerca">'+symbol("search")+'</button>';
   ttNav.setAttribute("aria-label","Navigazione TikTok dimostrativa");
   ttNav.innerHTML=[
     '<button type="button" data-tt-screen="home" aria-label="Per te">'+symbol("home")+'<small>Home</small></button>',
@@ -249,6 +251,13 @@
     if(element.hasAttribute("data-native-leave")){closeOverlay();return;}
     if(element.hasAttribute("data-ig-screen")){setIgScreen(element.dataset.igScreen);return;}
     if(element.hasAttribute("data-tt-screen")){setTtScreen(element.dataset.ttScreen);return;}
+    if(element.hasAttribute("data-tt-top")){
+      var view=element.dataset.ttTop;
+      if(view==="search")setTtScreen("search");
+      if(view==="foryou")setTtScreen("home");
+      if(view==="following")toast("Nessun account seguito in questa demo");
+      return;
+    }
     if(element.hasAttribute("data-native-post")){openPost(Number(element.dataset.nativePost));return;}
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
     if(element.hasAttribute("data-story-step")){openStory(selectedStory+Number(element.dataset.storyStep));return;}
@@ -314,6 +323,13 @@
   /* The profile/search tab scroll must not switch the video behind it. */
   ttPanel.addEventListener("touchstart",function(e){e.stopPropagation();},{passive:true});
   ttPanel.addEventListener("touchend",function(e){e.stopPropagation();},{passive:true});
+  tt.addEventListener("click",function(e){
+    if(currentTt!=="home"||!media.matches)return;
+    if(e.target.closest(".video-bg")||e.target.closest(".video-headline")){
+      var play=document.getElementById("video-play");
+      if(play)play.click();
+    }
+  });
   var swipeStart=null;
   igScreen.addEventListener("touchstart",function(e){
     if(currentIg!=="reels"||e.touches.length!==1)return;
