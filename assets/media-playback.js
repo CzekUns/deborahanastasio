@@ -52,7 +52,8 @@
       var label=soundRequested?"Disattiva audio":"Attiva audio";
       b.setAttribute("aria-label",label);
       b.setAttribute("aria-pressed",soundRequested?"true":"false");
-      b.textContent=soundRequested?"♪ Audio attivo":"♫ Attiva audio";
+      var nextText=soundRequested?"♪ Audio attivo":"♫ Attiva audio";
+      if(b.textContent!==nextText)b.textContent=nextText;
     });
   }
   function ensureButtons(){
@@ -140,10 +141,8 @@
     if(!v || v.tagName!=="VIDEO")return;
     if(blockedByScreen(v)){safePause(v);return;}
     stopAll(v); active=v;
-    // Native player controls can start a video after a user chooses sound.
-    if(soundRequested && v.muted){
-      v.muted=false;
-    }
+    // Leave muted fallback intact: forcing unmute during a play event can
+    // trigger another autoplay rejection on mobile browsers.
   },true);
   document.addEventListener("visibilitychange",function(){
     if(document.hidden)stopAll();else refreshContext();
