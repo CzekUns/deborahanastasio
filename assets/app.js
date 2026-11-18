@@ -14,7 +14,7 @@
   };
   var uploaded={
     pink:"./assets/deborah-cover-rosa-4x5.webp",
-    gallery:"./assets/deborah-gallery-san-valentino-4x5.webp"
+    gallery:"./assets/deborah-sanvalentino-editorial-4x5.webp"
   };
   var posts=[
     {title:"Un momento che resta",type:"Wedding Diary",img:media.wedding,caption:"Ci sono momenti in cui una canzone riesce a dire tutto. ✨\n\nQual è il brano che portereste per sempre con voi? #weddingmusic #musicalive #napoli",idea:"Reel di un momento significativo, con ingresso musicale entro i primi due secondi."},
@@ -40,6 +40,9 @@
     var item=assetPair[i%2];
     p.img=item.img;p.title=item.title;p.caption=item.caption;p.idea=item.idea;
   });
+  // Archival San Valentino poster: a real editorial still, never attach an unrelated video.
+  posts[1].editorialStatic=true;
+  posts[1].videoSrc=null;
   var grid=document.getElementById("ig-grid");
   if(grid)grid.querySelectorAll("[data-post]").forEach(function(el,i){
     var m=assetPair[i%2];
