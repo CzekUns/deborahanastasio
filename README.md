@@ -102,3 +102,7 @@ Queste sono copie ottimizzate per il prototipo: conservare i JPG originali e sos
 ## Direzione artistica v0.2 — Deborah e DAB
 
 Aggiunta la guida [Identità estetica](docs/IDENTITA-ESTETICA.md) e lo stylesheet `assets/brand.css`. **DAB** significa **Deborah Anastasio Band**, la band di Deborah: ha ora un richiamo nella visione, una sezione dedicata nel [sito concept](#site-dab), una storia in evidenza e contenuti editoriali nelle simulazioni social. La sigla tipografica è una proposta, non un marchio ufficiale. Non vengono inventati musicisti, performance né fotografie della band.
+
+## Studio vettoriale DA / DAB
+
+Nuova [anteprima indipendente dei monogrammi](identita-svg.html) e [cartella SVG](assets/brand/README.md). Il baffo della A è un unico tracciato, applicato sopra le lettere Playfair Display convertite in vettori. La bozza non sostituisce ancora il design della demo principale.
