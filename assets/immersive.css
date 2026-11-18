@@ -107,3 +107,13 @@
   body.social-tiktok .video-headline{font-size:37px}
 }
 @media(prefers-reduced-motion:reduce){.ig-reel-photo,.native-story-view:before,body.social-tiktok .tiktok-player.playing .video-bg img{animation:none!important}}
+
+/* Desktop mockups remain fully functional when their native tab bar is used. */
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-profile-line,
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-bio,
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-buttons,
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-stories,
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-content-tabs,
+.ig-phone[data-screen]:not([data-screen="profile"])>.ig-grid{display:none!important}
+.ig-phone[data-screen="home"] .ig-top{display:none}
+@media(min-width:801px){.ig-native-screen{min-height:575px}.ig-reels-stage{height:620px}.ig-demo-menu{font-size:24px}}
