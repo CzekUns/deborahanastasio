@@ -30,3 +30,47 @@
 .dab-hero-link{display:inline-block;margin:18px 0 0 20px;font:700 11px/1.6 var(--brand-ui);color:#fff;text-decoration:underline;text-underline-offset:5px}
 @media(max-width:800px){.dab-vision{grid-template-columns:1fr;margin:0 24px 80px}.dab-vision-mark{min-height:230px}.dab-vision-mark strong{font-size:clamp(108px,23vw,180px)}.dab-vision-copy{padding:36px}.site-band{grid-template-columns:1fr}.site-band-graphic{min-height:310px}.site-band-graphic .dab-large{font-size:clamp(125px,28vw,205px)}.site-band-text{padding:52px 30px 60px}}
 @media(max-width:540px){.dab-vision{margin:0 18px 70px}.dab-vision-mark{min-height:205px;padding:25px}.dab-vision-mark strong{font-size:clamp(101px,28vw,142px)}.dab-vision-copy{padding:32px 26px}.dab-vision-copy h2{font-size:41px}.site-band-graphic{min-height:270px}.site-band-graphic .dab-large{font-size:clamp(118px,30vw,160px)}.site-band-text{padding:45px 25px 55px}.site-band-text h2{font-size:58px}.dab-hero-link{display:block;margin:18px 0 0}.ig-tile.typographic-tile.dab-tile{padding:10px}.dab-tile-wordmark{font-size:clamp(30px,10vw,49px)!important}.ig-tile.dab-tile small{font-size:6px}}
+
+
+/* Logo test · reference DAB approvata · 18 novembre 2026.
+   File master in assets/brand/: tutte le applicazioni usano gli stessi SVG. */
+.identity .identity-mark-svg{
+  width:61px;height:45px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  margin:0;padding:4px 5px;background:var(--brand-deep);border-radius:3px;letter-spacing:normal;
+}
+.identity-mark-svg img{display:block;width:100%;height:100%;object-fit:contain}
+.art-seal.art-seal-logo{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px;
+  padding:8px 5px;transform:rotate(8deg);
+}
+.art-seal-logo img{width:85%;height:54px;display:block;object-fit:contain}
+.art-seal-logo span{font:700 8px/1.1 var(--brand-ui);letter-spacing:.1em;margin:0;color:var(--brand-ivory)}
+.dab-vision-mark .dab-vision-logo{
+  width:100%;max-width:440px;max-height:225px;object-fit:contain;align-self:center;display:block;
+}
+.site-logo.site-logo-brand{display:flex;align-items:center;gap:10px;font-family:var(--brand-ui);white-space:normal;flex:0 0 auto}
+.site-logo-icon{background:var(--brand-deep);width:61px;height:50px;display:flex;align-items:center;justify-content:center;padding:4px;flex:0 0 auto;border-radius:2px}
+.site-logo-icon img{width:100%;height:100%;object-fit:contain;display:block}
+.site-logo-wordmark{font:700 12px/1.25 var(--brand-ui);letter-spacing:.13em;color:var(--brand-ebony)}
+.site-logo-wordmark strong{display:block;font-weight:700}
+.artist-wordmark{width:min(100%,390px);background:var(--brand-deep);padding:12px 18px;margin:33px 0 0;box-sizing:border-box}
+.artist-wordmark img{width:100%;height:auto;display:block}
+.site-band-graphic .site-band-logo{width:min(100%,540px);height:auto;max-height:340px;object-fit:contain;display:block;margin:auto}
+@media(max-width:800px){
+  .dab-vision-mark .dab-vision-logo{max-height:185px}
+  .site-logo.site-logo-brand{gap:8px}
+  .site-logo-icon{width:56px;height:45px}
+  .site-logo-wordmark{font-size:11px;letter-spacing:.09em}
+  .site-band-graphic .site-band-logo{max-height:260px;width:min(100%,455px)}
+}
+@media(max-width:540px){
+  .identity .identity-mark-svg{width:50px;height:39px}
+  .art-seal.art-seal-logo{padding:5px 3px}
+  .art-seal-logo img{height:40px}
+  .art-seal-logo span{font-size:7px}
+  .dab-vision-mark .dab-vision-logo{max-height:165px}
+  .site-logo-icon{width:49px;height:41px}
+  .site-logo-wordmark{font-size:9.5px;letter-spacing:.075em}
+  .artist-wordmark{width:min(100%,355px);margin-top:28px;padding:12px}
+  .site-band-graphic .site-band-logo{max-height:245px}
+}
