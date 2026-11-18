@@ -336,6 +336,12 @@
   tt.addEventListener("click",function(e){
     if(currentTt!=="home"||!media.matches)return;
     if(e.target.closest(".video-bg")||e.target.closest(".video-headline")){
+      var realVideo=document.getElementById("deborah-video-playback");
+      // First intentional tap can unlock audible playback on mobile.
+      if(realVideo && realVideo.muted && window.DeborahMedia && !window.DeborahMedia.isSoundRequested()){
+        window.DeborahMedia.toggleSound(realVideo);
+        return;
+      }
       var play=document.getElementById("video-play");
       if(play)play.click();
     }
