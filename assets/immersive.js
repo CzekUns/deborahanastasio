@@ -24,7 +24,7 @@
   var videos=demo.videos;
   var posts=demo.posts;
   var stories=demo.stories;
-  var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp"];
+  var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-editorial-4x5.webp","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp"];
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function plain(v){return esc(v).replace(/\n/g,"<br>");}
   function logo(){return '<span class="native-da-avatar native-da-photo"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="" loading="lazy"></span>';}
