@@ -67,7 +67,7 @@
   var igHeaderBack=document.querySelector(".ig-top .ui-icon:first-child");
   if(igHeaderBack){igHeaderBack.outerHTML='<a class="ig-demo-back" href="#visione" aria-label="Torna alla presentazione">'+symbol("back")+'</a>';}
   var igHeaderMenu=document.querySelector(".ig-top .ui-icon:last-child");
-  if(igHeaderMenu){igHeaderMenu.outerHTML='<button class="ig-demo-menu" type="button" data-native-action="help" aria-label="Informazioni e ritorno alla presentazione">☰</button>';}
+  if(igHeaderMenu){igHeaderMenu.outerHTML='<button class="ig-demo-menu" type="button" data-action="profile-info" aria-label="Informazioni e ritorno alla presentazione">☰</button>';}
   var igHeaderName=document.querySelector(".ig-top strong");
   igScreen.id="ig-native-screen";
   igScreen.className="ig-native-screen";
@@ -239,7 +239,6 @@
     }
   },true);
   document.addEventListener("click",function(e){
-    if(!media.matches)return;
     var element=e.target.closest("button,a");
     if(!element)return;
     if(element.hasAttribute("data-native-close")){closeOverlay();return;}
@@ -296,6 +295,9 @@
     if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowRight")openStory(selectedStory+1);
     if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowLeft")openStory(selectedStory-1);
   });
+  /* The profile/search tab scroll must not switch the video behind it. */
+  ttPanel.addEventListener("touchstart",function(e){e.stopPropagation();},{passive:true});
+  ttPanel.addEventListener("touchend",function(e){e.stopPropagation();},{passive:true});
   var swipeStart=null;
   igScreen.addEventListener("touchstart",function(e){
     if(currentIg!=="reels"||e.touches.length!==1)return;
