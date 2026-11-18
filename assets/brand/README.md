@@ -1,21 +1,35 @@
-# DAB · master vettoriale dal pass approvato
+# Identità vettoriale approvata — Deborah Anastasio / DAB
 
-**Riferimento:** la foto del pass bordeaux approvata dall'artista/committente. La foto originale resta il riferimento estetico; gli SVG sono ricostruzioni manuali ripulite, non tracciati pixel-perfect.
+**Fonte:** [PR #1, branch `design/dab-master-refinement`](https://github.com/CzekUns/deborahanastasio/pull/1) · master approvati dall'utente il 18 novembre 2026.
 
-## Marchi correnti
+## Asset di produzione
 
-- [DAB](DAB-monogramma.svg): monogramma avorio, curva champagne, denominazione «Deborah Anastasio **BAND**» (BAND in oro).
-- [DA](DA-monogramma.svg): stesse lettere D e A del master DAB, fregio compattato per le due iniziali.
-- [Deborah Anastasio](deborah-anastasio.svg): firma estesa coordinata al master, non copia esatta del lettering della fotografia.
+La famiglia ufficiale si trova in **[`assets/brand/approved/`](approved/)**. Per ognuno dei tre marchi sono presenti quattro SVG con sfondo trasparente:
 
-La linea dorata ha una forma specifica: nasce **sotto la D**, attraversa obliquamente la **A**, sale sulla **B** e si assottiglia all'estremità destra. Non deve essere sostituita con una generica onda sinusoidale o con una «S lunga» calligrafica.
+| Marchio | Fondo scuro / bordeaux | Fondo chiaro / avorio | Monocromatico |
+|---|---|---|---|
+| DAB (Deborah Anastasio Band) | [`DAB.svg`](approved/DAB.svg) | [`DAB-avorio.svg`](approved/DAB-avorio.svg) | `DAB-mono-avorio.svg`, `DAB-mono-bordeaux.svg` |
+| DA | [`DA.svg`](approved/DA.svg) | [`DA-avorio.svg`](approved/DA-avorio.svg) | `DA-mono-avorio.svg`, `DA-mono-bordeaux.svg` |
+| Deborah Anastasio · firma estesa | [`Deborah-Anastasio.svg`](approved/Deborah-Anastasio.svg) | [`Deborah-Anastasio-avorio.svg`](approved/Deborah-Anastasio-avorio.svg) | `Deborah-Anastasio-mono-avorio.svg`, `Deborah-Anastasio-mono-bordeaux.svg` |
 
-**LIVE** è una dicitura applicativa del pass, non parte del logo principale. Il marchio di base ha fondo trasparente.
+I nomi con suffisso `-avorio` identificano la **versione da mostrare su sfondo avorio** (lettere bordeaux). La versione senza suffisso è quella con lettering avorio su bordeaux. Anche le versioni monocromatiche sono trasparenti.
 
-## Implementazione
+Tutti i master sono in **contorni SVG**, senza dipendenze da font installati sul dispositivo. Il DAB conserva il baffo champagne che segue la curva sotto la D, attraversa la A e passa sopra la B; la firma estesa reca il piccolo fregio sulla prima A di ANASTASIO. Le versioni sono copie **byte-identiche dei master contenuti nella PR #1**: nessun tracciato è stato ricostruito o corretto durante l'integrazione.
 
-- La struttura DAB è composta da tracciati SVG autonomi (D, A, B, fregio); nel repository la didascalia del DAB e le parole della firma estesa restano testo SVG con font di sistema per fallback. Le varianti esportate nello ZIP consegnato in chat hanno anche il lettering trasformato in tracciati.
-- Il sito e i social del prototipo non devono sostituire indiscriminatamente gli asset approvati finché layout, riduzione in icona e contrasto non siano controllati.
-- Le vecchie versioni geometriche restano recuperabili nella cronologia Git.
+## Alias e compatibilità
 
-[Anteprima delle tre derivazioni](../../identita-svg.html)
+I vecchi percorsi `DAB-monogramma.svg`, `DA-monogramma.svg` e `deborah-anastasio.svg` sono stati sostituiti con lo stesso contenuto dei tre master per sfondo scuro. Sono disponibili come alias per compatibilità; **per nuove pagine usare sempre `approved/`**, scegliendo la variante corretta per lo sfondo.
+
+`TAVOLA-identita.svg` e `firma-baffo.svg` restano tracce storiche dei tentativi precedenti: **non sono i master approvati**. La tavola di confronto corrente è [`identita-svg.html`](../../identita-svg.html).
+
+## Uso sul sito
+
+- Testata della presentazione: monogramma DA su tassello bordeaux e firma estesa bordeaux su fondo chiaro.
+- Copertina della presentazione: firma avorio su fotografia con velo scuro, DA sul sigillo.
+- Blocco band: DAB master avorio/champagne su fondo bordeaux.
+- Testata del sito concept: DA e firma vettoriale per fondo avorio.
+- Sezione artista: firma avorio su tassello bordeaux.
+- Sezione DAB: marchio master completo su fondo scuro.
+- Miniature DAB Instagram: marchio master con sfondo bordeaux. Gli avatar fotografici di Instagram/TikTok rimangono volutamente foto.
+
+Questi cambi non modificano i video, l'audio, i testi commerciali o i dati social. La PR è conservata come origine del lavoro anche se la copia dei master è già presente sul branch `main`.
