@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "source": "GitHub main — verified video paths; refreshable by live repository discovery",
+  "videos": [
+    {
+      "path": "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4",
+      "sha": "ad552accd98ea942241cf380416ec3dfd9b57a25",
+      "title": "Video 01",
+      "size_bytes": 11017182
+    },
+    {
+      "path": "deborah_media/AQNXFOCJHgNHNgGljCNciKX6gMVnHxlx0eNYs27tPjhC2ahiAcEqIIOTEelmlpgR4KsLA2ZyoBGnn_Dj1gOER0it3o5XzYIYcZ1cAHU.mp4",
+      "sha": "95aa36676c054bd0ea55f01d3b4c15ff1e4099a2",
+      "title": "Video 02",
+      "size_bytes": 11967797
+    },
+    {
+      "path": "deborah_media/AQOYLfrawBnk5Wka0ygxaTCpXlLH4ka3_A1WrWSDd8qxiAXGkp07tnudvIp9XeZZBrCi_oib78aJZvpivgtLQSoH9ERRwFkJNJZhEyU.mp4",
+      "sha": "c3d12c0b468dd180ed4260a06a07535c12ebf8d5",
+      "title": "Video 03",
+      "size_bytes": 23183202
+    },
+    {
+      "path": "deborah_media/tiktok_debora.anastasio_7702445165201362209.mp4",
+      "sha": "661b57ed6f4a6012020f817ef05ced9bcd209f6c",
+      "title": "Video 04",
+      "size_bytes": 7698406
+    }
+  ]
+}
