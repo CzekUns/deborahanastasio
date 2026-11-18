@@ -59,3 +59,30 @@ Il nome Deborah Anastasio appare in cronache pubbliche di eventi musicali, inclu
 ---
 
 Concept v0.1 · Novembre 2026. Non affiliato a Meta, Instagram, ByteDance o TikTok.
+
+## Aggiornamento mobile immersivo (18 novembre 2026)
+
+Su **smartphone** le sezioni Instagram e TikTok si aprono **senza cornice di telefono e senza pannelli di presentazione**: l'interfaccia occupa l'intero schermo come una simulazione delle app.
+
+**Instagram:**
+- profilo full-width, bio, highlights, griglia e tab post;
+- barra inferiore Home / Esplora / Crea / Reels / Profilo;
+- home-feed e ricerca demo, con post apribili e caption;
+- stories a schermo intero, con avanzamento e chiusura;
+- vista del singolo post con commenti di prova;
+- anteprima Direct con messaggi locali che **non vengono inviati**.
+
+**TikTok:**
+- video storyboard a schermo intero, con swipe verso il prossimo/precedente;
+- pulsanti laterali e barra inferiore Home / Scopri / Crea / Posta / Profilo;
+- tap sullo storyboard per fermare/riprendere l'effetto visuale;
+- vista profilo, griglia video proposta, ricerca e commenti di prova;
+- sul profilo la barra inferiore passa al tema chiaro.
+
+**Avvertenze:** sono simulazioni originali e indipendenti. I video sono animazioni di immagini segnaposto, **non registrazioni o performance reali** e non contengono audio della cantante. Nessuna piattaforma riceve post, DM, commenti o dati. I contenuti digitati per prova restano solo nello stato temporaneo della pagina. La demo esplicita il carattere dimostrativo, senza statistiche fittizie.
+
+Gli ambienti possono essere aperti direttamente con:
+- URL della pubblicazione + #instagram
+- URL della pubblicazione + #tiktok
+
+Il layout desktop mantiene le cornici smartphone e le note strategiche.
