@@ -1,5 +1,7 @@
 # HANDOFF A CHATGPT WORK — Identità Deborah Anastasio / DAB
 
+> **AGGIORNAMENTO SUCCESSIVO — 18 NOVEMBRE 2026, APPROVAZIONE COMPLETA.** Il proprietario ha esplicitamente approvato i 12 SVG contenuti nella [PR #1](https://github.com/CzekUns/deborahanastasio/pull/1), **inclusa la firma estesa**. I tre master DAB, DA, DEBORAH ANASTASIO sono stati copiati byte-per-byte in `assets/brand/approved/` su `main`; gli alias legacy sono stati allineati. Tutte le descrizioni precedenti di «firma non approvata» e «vettoriale incompleto» in questo documento riguardano lo **stato storico prima della PR** e sono superate. Per i prossimi lavori usare i 12 master approvati senza alterarne le curve. Vedi [assets/brand/README.md](../assets/brand/README.md).
+
 **Stato:** 18 novembre 2026 · consegna da seguire prima di altre modifiche grafiche  
 **Repository:** `CzekUns/deborahanastasio` · branch `main` (può evolvere)  
 **Sito demo:** https://czekuns.github.io/deborahanastasio/#sito
