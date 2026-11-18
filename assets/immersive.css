@@ -260,3 +260,36 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
     border:2px solid #fff!important;
   }
 }
+
+/* Real video players; the cover remains independently swappable. */
+.native-feed-video,
+.native-detail-video,
+.dialog-video{
+  width:100%;display:block;background:#100d13;object-fit:contain;
+  aspect-ratio:4/5;
+}
+.native-feed-video{height:100%;cursor:pointer}
+.native-detail-video{max-height:min(72dvh,760px)}
+.dialog-video{margin:14px 0 24px}
+.ig-reel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#09070a}
+.ig-reels-gradient{pointer-events:none}
+.tiktok-player .real-social-video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#09070b;
+  z-index:0;
+}
+.tiktok-player.has-real-video .video-headline{display:none!important}
+.tiktok-player.has-real-video .video-bg img{display:none!important}
+.tiktok-player .video-vignette{pointer-events:none}
+.tiktok-player .tiktok-sound-toggle{
+  color:white;font-size:29px;background:transparent;border:0;min-height:41px;
+  line-height:1;display:flex;justify-content:center;align-items:center;
+}
+.tile-reel-mark{position:absolute;top:8px;right:8px;color:white;
+  font-size:16px;text-shadow:0 2px 8px #000c;z-index:3}
+.ig-grid .ig-tile.has-video img{object-fit:cover}
+@media(max-width:800px){
+ .native-feed-visual{aspect-ratio:4/5}
+ .native-feed-video{aspect-ratio:4/5}
+ .native-detail-video{max-height:68dvh}
+ body.social-tiktok .tiktok-player .real-social-video{object-fit:contain}
+}
