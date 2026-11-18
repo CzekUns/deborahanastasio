@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deborah Anastasio · Anteprima identità</title>
+<style>
+:root { color-scheme: light; --wine:#3e1728; --paper:#f6f0e5; --ink:#281d22; --edge:#e3d5c7; }
+* { box-sizing:border-box; }
+body { margin:0; background:#faf7f2; color:var(--ink); font:16px/1.45 system-ui,sans-serif; }
+main { width:min(100% - 2rem, 68rem); margin:auto; padding:2.25rem 0; }
+h1,h2 { font-family:Georgia,serif; font-weight:normal; line-height:1.1; }
+h1 { font-size:clamp(2rem, 5vw, 4rem); margin:0 0 1.4rem; }
+h2 { font-size:1.55rem; margin:1.45rem 0 .7rem; }
+img { display:block; width:100%; height:auto; }
+figure { margin:0; }
+.header-test { min-height:68px; width:100%; display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--wine); color:var(--paper); }
+.header-test .mark { width:56px; flex:none; }
+.header-test .wordmark { max-width:148px; min-width:0; }
+.header-test .menu { margin-left:auto; font-size:.875rem; }
+.palette { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.card { display:grid; place-items:center; min-height:clamp(108px,19vw,220px); padding:12px; border:1px solid var(--edge); }
+.dark { background:var(--wine); color:var(--paper); }
+.light { background:var(--paper); }
+.card img { max-width:390px; }
+.card .da { max-width:236px; }
+.sizes { display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end; padding:12px; }
+.sizes figure { display:grid; justify-items:center; gap:6px; }
+.sizes img { width:var(--size); }
+.sizes figcaption { font-size:.78rem; }
+.supplement { margin-top:1.4rem; font-size:.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Deborah Anastasio</h1>
+  <h2>Prova in testata</h2>
+  <div class="header-test">
+    <img class="mark" src="DA.svg" alt="">
+    <img class="wordmark" src="Deborah-Anastasio.svg" alt="Deborah Anastasio">
+    <span class="menu">Menu</span>
+  </div>
+  <h2>Deborah Anastasio Band</h2>
+  <div class="palette">
+    <figure class="card dark"><img src="DAB.svg" alt="Marchio DAB su bordeaux"></figure>
+    <figure class="card light"><img src="DAB-avorio.svg" alt="Marchio DAB su avorio"></figure>
+  </div>
+  <h2>Monogramma DA</h2>
+  <div class="palette">
+    <figure class="card dark"><img class="da" src="DA.svg" alt="Monogramma DA su bordeaux"></figure>
+    <figure class="card light"><img class="da" src="DA-avorio.svg" alt="Monogramma DA su avorio"></figure>
+  </div>
+  <h2>Firma estesa</h2>
+  <div class="palette">
+    <figure class="card dark"><img src="Deborah-Anastasio.svg" alt="Firma Deborah Anastasio su bordeaux"></figure>
+    <figure class="card light"><img src="Deborah-Anastasio-avorio.svg" alt="Firma Deborah Anastasio su avorio"></figure>
+  </div>
+  <h2>Riduzioni DA</h2>
+  <div class="sizes dark">
+    <figure style="--size:32px"><img src="DA.svg" alt=""><figcaption>32 px</figcaption></figure>
+    <figure style="--size:64px"><img src="DA.svg" alt=""><figcaption>64 px</figcaption></figure>
+    <figure style="--size:128px"><img src="DA.svg" alt=""><figcaption>128 px</figcaption></figure>
+  </div>
+  <h2>Riduzioni DAB</h2>
+  <div class="sizes dark">
+    <figure style="--size:32px"><img src="DAB.svg" alt=""><figcaption>32 px</figcaption></figure>
+    <figure style="--size:64px"><img src="DAB.svg" alt=""><figcaption>64 px</figcaption></figure>
+    <figure style="--size:128px"><img src="DAB.svg" alt=""><figcaption>128 px</figcaption></figure>
+  </div>
+</main>
+</body>
+</html>
