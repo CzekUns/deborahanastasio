@@ -86,3 +86,15 @@ Gli ambienti possono essere aperti direttamente con:
 - URL della pubblicazione + #tiktok
 
 Il layout desktop mantiene le cornici smartphone e le note strategiche.
+
+
+## Asset autentici (18 novembre 2026)
+
+Foto ricevute dall'utente e aggiunte a GitHub come WebP 4:5 ottimizzati, in risoluzione leggera per questa prima demo mobile:
+
+- `assets/deborah-cover-rosa-4x5.webp` — fotografia con sfondo rosa, usata come copertina e avatar Instagram;
+- `assets/deborah-gallery-san-valentino-4x5.webp` — locandina dalla galleria (San Valentino, Dinner Show, Villa Gauro), trattata come materiale d'archivio e non come evento futuro.
+
+Finché non ci sono altri materiali scelti, **gli stessi due asset vengono riutilizzati sia su Instagram sia su TikTok**. La Home TikTok è il primo schermo della sezione `#tiktok`; il profilo Instagram apre direttamente la sezione `#instagram`. I post del feed Instagram e le viste singole rispettano il rapporto **4:5**. La griglia profilo resta fatta di anteprime più piccole come nell'app.
+
+Queste sono copie ottimizzate per il prototipo: conservare i JPG originali e sostituire con risoluzioni più alte prima della presentazione definitiva. Non sono stati caricati video in questa modifica.
