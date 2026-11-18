@@ -140,3 +140,10 @@ Sono stati verificati **4 video MP4 distinti** nel branch `main` (un quinto perc
 Le copertine provvisorie sono mappate ai **nomi reali dei file** in `assets/video-covers.json`. Per cambiarle basta aggiornare il percorso dell'immagine: nessun video viene modificato. TikTok e Reels mostrano ciascun filmato distinto una sola volta, mentre il muro Instagram può ripeterli provvisoriamente per riempire la griglia.
 
 La cartella `deborah_media/.chunks/` contiene frammenti binari di un tentativo di trasferimento alternativo; non sono video riproducibili e non vengono mostrati dall'applicazione.
+## Identità approvata da PR #1 — 18 novembre 2026
+
+L'utente ha **approvato il set finale** delle tre identità DAB, DA, DEBORAH ANASTASIO e delle quattro versioni cromatiche per ciascuna. I 12 SVG sono in `assets/brand/approved/` e costituiscono la sola famiglia da utilizzare nel sito. Sono tutti tracciati vettoriali, inclusa la firma estesa; non dipendono da font fallback.
+
+La testata della presentazione, il sito ufficiale, i riquadri DAB e la pagina `identita-svg.html` sono aggiornati con la versione per sfondo appropriato. Le foto-avatar restano quelle precedentemente scelte per Instagram/TikTok. Nessun filmato è stato modificato. La [PR #1](https://github.com/CzekUns/deborahanastasio/pull/1) rimane come archivio della revisione; i master sono già stati integrati in `main` con commit dedicato.
+
+Per il sistema di colori, utilizzi e alias di compatibilità leggere `assets/brand/README.md`.
