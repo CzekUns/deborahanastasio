@@ -125,7 +125,8 @@
   function openPost(i){
     var post=posts[i];if(!post)return;
     var html='<span class="dialog-kicker">INSTAGRAM / PROPOSTA POST '+String(i+1).padStart(2,"0")+'</span>';
-    if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Fotografia d’atmosfera, segnaposto non attribuibile all’artista">';
+    if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" playsinline controls preload="metadata"></video>';
+    else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
     html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2><p>'+escapeText(post.idea)+'</p>';
     html+='<div class="dialog-sample"><b>CAPTION PROPOSTA</b><p>'+paragraphs(post.caption)+'</p></div>';
     html+='<p class="dialog-small">Contenuto creativo dimostrativo. Da realizzare e verificare con materiali autentici di Deborah.</p>';
@@ -198,13 +199,14 @@
     void videoHeadline.offsetHeight;
     videoHeadline.style.animation="";
     videoCaption.textContent=v.caption;
-    document.getElementById("video-count").textContent=String(videoIndex+1).padStart(2,"0")+" / 05";
+    document.getElementById("video-count").textContent=String(videoIndex+1).padStart(2,"0")+" / "+String(videos.length).padStart(2,"0");
     document.querySelectorAll("[data-video]").forEach(function(el){el.classList.toggle("active",Number(el.dataset.video)===videoIndex);});
     videoLike.classList.toggle("liked",!!likes[videoIndex]);
     videoLike.querySelector("span").textContent=likes[videoIndex]?"♥":"♡";
     videoPlayer.classList.add("playing");
     videoPlayer.classList.remove("paused");
     videoPlay.textContent="Ⅱ";
+    window.dispatchEvent(new CustomEvent("deborah:videochange",{detail:{index:videoIndex}}));
   }
   document.getElementById("video-prev").addEventListener("click",function(){setVideo(videoIndex-1);});
   document.getElementById("video-next").addEventListener("click",function(){setVideo(videoIndex+1);});
