@@ -24,16 +24,10 @@
   var videos=demo.videos;
   var posts=demo.posts;
   var stories=demo.stories;
-  var allStoryImages=[
-    "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=850&q=85",
-    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=850&q=85",
-    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=850&q=85",
-    "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=850&q=85",
-    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=850&q=85"
-  ];
+  var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp"];
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function plain(v){return esc(v).replace(/\n/g,"<br>");}
-  function logo(){return '<span class="native-da-avatar">da.</span>';}
+  function logo(){return '<span class="native-da-avatar native-da-photo"><img src="./assets/deborah-cover-rosa-4x5.webp" alt="" loading="lazy"></span>';}
   function symbol(name){
     var p={
       home:'<path d="m3 10 9-7 9 7v10h-6v-7H9v7H3z"/>',
