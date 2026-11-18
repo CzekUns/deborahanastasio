@@ -194,6 +194,9 @@
     var s=stories[selectedStory];
     showOverlay('<div class="native-story-view" style="--story-image:url(\''+allStoryImages[selectedStory]+'\')"><div class="native-story-progress">'+stories.map(function(_,idx){return '<span class="'+(idx===selectedStory?"current":idx<selectedStory?"watched":"")+'"></span>';}).join("")+'</div><header class="native-story-header">'+logo()+'<b>deborah.anastasio</b><small>Storia concept</small><button type="button" data-native-close aria-label="Chiudi la storia">'+symbol("x")+'</button></header><div class="native-story-text"><span>STORIE IN EVIDENZA</span><h2>'+esc(s.title)+'</h2><p>'+esc(s.detail)+'</p></div><div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Storia precedente"></button><button type="button" data-story-step="1" aria-label="Storia successiva"></button></div><div class="native-story-reply">Invia un messaggio <span>♡</span></div></div>',"story");
   }
+  function openDirectMessage(){
+    showOverlay('<div class="native-dm-view"><header><button type="button" data-native-close aria-label="Torna al profilo">'+symbol("back")+'</button>'+logo()+'<b>deborah.anastasio</b><small>Anteprima messaggi</small></header><main class="native-dm-thread"><span class="native-dm-avatar">'+logo()+'</span><h2>Deborah Anastasio</h2><p>Conversazione dimostrativa. I messaggi rimangono soltanto qui sullo schermo e non vengono inviati.</p><div id="native-dm-messages"></div></main><form class="native-dm-form" data-native-dm><input name="text" maxlength="280" required placeholder="Scrivi un messaggio di prova…" autocomplete="off" aria-label="Messaggio di prova"><button type="submit">'+symbol("send")+'</button></form></div>',"dm");
+  }
   function openTtComments(){
     var i=demo.getVideoIndex();
     showOverlay('<div class="native-comments-sheet"><div class="native-sheet-handle"></div><div class="native-comments-header"><b>Commenti · Anteprima</b><button type="button" data-native-close aria-label="Chiudi commenti">'+symbol("x")+'</button></div><p class="native-comments-note">Qui puoi provare la sezione commenti. Nessun commento è reale e non viene salvato online.</p><div class="native-comments-list" id="tt-local-comments">'+renderLocalComments("tt-"+i)+'</div><form class="native-comment-form" data-comment-form="tt-'+i+'"><input name="comment" placeholder="Scrivi un commento di prova…" maxlength="180" required><button type="submit">Invia</button></form></div>',"comments");
@@ -227,12 +230,13 @@
     if(route!=="instagram"&&route!=="tiktok")return;
     var post=e.target.closest("[data-post]");
     var story=e.target.closest("[data-story]");
-    var existingAction=e.target.closest('[data-action="tiktok-info"],[data-action="share"],[data-action="profile-info"]');
+    var existingAction=e.target.closest('[data-action="tiktok-info"],[data-action="share"],[data-action="profile-info"],[data-action="contact"]');
     if(post&&route==="instagram"){e.preventDefault();e.stopImmediatePropagation();openPost(Number(post.dataset.post));return;}
     if(story&&route==="instagram"){e.preventDefault();e.stopImmediatePropagation();openStory(Number(story.dataset.story));return;}
     if(existingAction){
       e.preventDefault();e.stopImmediatePropagation();
       if(existingAction.dataset.action==="tiktok-info"&&route==="tiktok")openTtComments();
+      else if(existingAction.dataset.action==="contact"&&route==="instagram")openDirectMessage();
       else if(existingAction.dataset.action==="share")nativeShare();
       else openInfo();
       return;
@@ -277,6 +281,18 @@
     }
   });
   document.addEventListener("submit",function(e){
+    var dm=e.target.closest("[data-native-dm]");
+    if(dm){
+      e.preventDefault();
+      var message=dm.querySelector("input");
+      var text=message.value.trim();
+      if(!text)return;
+      var thread=overlay.querySelector("#native-dm-messages");
+      if(thread){var bubble=document.createElement("p");bubble.className="native-dm-bubble";bubble.textContent=text;thread.appendChild(bubble);thread.scrollIntoView({block:"end",behavior:"smooth"});}
+      message.value="";
+      toast("Messaggio mostrato soltanto in anteprima");
+      return;
+    }
     var form=e.target.closest("[data-comment-form]");
     if(!form)return;
     e.preventDefault();
