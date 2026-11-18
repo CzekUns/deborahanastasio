@@ -1,5 +1,11 @@
 {
-  "version": 1,
-  "note": "Le nuove copertine verranno fornite dall'utente. Associa percorso video a percorso immagine nel repository; vuoto = copertina temporanea.",
-  "covers": {}
+  "version": 2,
+  "note": "Temporary preview covers. To replace later, upload each image and update only the corresponding value. Videos stay unchanged.",
+  "covers": {
+    "deborah_media/deborah-video-01.mp4": "assets/deborah-cover-rosa-4x5.webp",
+    "deborah_media/deborah-video-02.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
+    "deborah_media/deborah-video-03.mp4": "assets/deborah-cover-rosa-4x5.webp",
+    "deborah_media/deborah-video-04.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
+    "deborah_media/deborah-video-05.mp4": "assets/deborah-cover-rosa-4x5.webp"
+  }
 }
