@@ -293,3 +293,63 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
  .native-detail-video{max-height:68dvh}
  body.social-tiktok .tiktok-player .real-social-video{object-fit:contain}
 }
+
+/* Media lifecycle: audible playback controls and properly anchored post players. */
+.native-feed-visual,
+.ig-post-video-frame,
+.ig-reels-stage {position:relative}
+.ig-post-video-frame {
+  aspect-ratio:4 / 5;
+  width:100%;
+  overflow:hidden;
+  background:#0e0b11;
+}
+.ig-post-video-frame .native-detail-video {
+  width:100%;
+  height:100%;
+  max-height:none!important;
+  aspect-ratio:4 / 5;
+  object-fit:contain;
+}
+.deb-audio-toggle {
+  position:absolute;
+  z-index:25;
+  right:12px;
+  bottom:55px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:22px;
+  padding:9px 13px;
+  background:rgba(0,0,0,.74);
+  color:#fff;
+  font:700 11px/1.2 "DM Sans",Arial,sans-serif;
+  letter-spacing:.02em;
+  cursor:pointer;
+  box-shadow:0 3px 14px rgba(0,0,0,.25);
+  backdrop-filter:blur(4px);
+}
+.deb-audio-toggle[aria-pressed="true"] {
+  background:rgba(36,27,31,.75);
+}
+.ig-post-video-frame .deb-audio-toggle {bottom:52px;right:12px}
+.ig-reels-stage .deb-audio-toggle {right:71px;bottom:92px}
+.tiktok-actions .tiktok-sound-toggle {
+  width:64px;
+  min-height:37px;
+  padding:5px 2px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  background:rgba(0,0,0,.3);
+  color:#fff;
+  border-radius:16px;
+  font:700 11px/1.2 "DM Sans",Arial,sans-serif;
+  white-space:nowrap;
+  text-shadow:0 1px 4px rgba(0,0,0,.65);
+}
+@media(max-width:800px) {
+  body.social-tiktok .tiktok-actions .tiktok-sound-toggle{
+    width:61px;
+    font-size:10px;
+  }
+}
