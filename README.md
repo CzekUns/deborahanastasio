@@ -106,3 +106,18 @@ Aggiunta la guida [Identità estetica](docs/IDENTITA-ESTETICA.md) e lo styleshee
 ## Studio vettoriale DA / DAB
 
 Nuova [anteprima indipendente dei monogrammi](identita-svg.html) e [cartella SVG](assets/brand/README.md). Il baffo della A è un unico tracciato, applicato sopra le lettere Playfair Display convertite in vettori. La bozza non sostituisce ancora il design della demo principale.
+
+
+## Video GitHub e copertine indipendenti — predisposizione del 18 novembre 2026
+
+Il browser legge l'albero pubblico del branch `main` e individua i file **MP4/WebM/M4V** realmente presenti, ordinandoli per nome. L'integrazione è in `assets/video-integration.js` e si applica a entrambi i profili simulati:
+
+- Instagram: griglia anteprime **4:5**, video riproducibili nel feed e nei post aperti, Reel verticali.
+- TikTok: apertura sulla Home, video riprodotti nel feed con swipe, pausa e comando per l'audio.
+- I filmati possono essere ripetuti temporaneamente tra i due canali.
+- Ogni filmato possiede una **copertina indipendente**. Per sostituirla, carica l'immagine e associa i percorsi in `assets/video-covers.json`. Fino a quel momento restano le due immagini provvisorie già fornite.
+- I video assenti o non ancora pubblicati non vengono simulati come se esistessero: in quel caso rimangono gli storyboard precedenti.
+
+La cartella `deborah_media/` è il percorso consigliato per il caricamento di nuovi filmati. La Libreria di ChatGPT conserva alcuni filmati preparati in un'altra chat, ma al controllo del branch main (18/11/2026) **nessun file video era presente nella repository**, quindi la loro riproduzione reale dipende dal caricamento di quei file su GitHub.
+
+Una volta presenti, i video saranno scoperti in automatico al successivo aggiornamento della demo (può servire ricaricare la pagina dopo la pubblicazione di Pages).
