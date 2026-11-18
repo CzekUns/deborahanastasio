@@ -60,7 +60,7 @@
     document.title="Deborah Anastasio — "+(selected==="visione"?"Digital Identity Concept":selected==="sito"?"Sito ufficiale / Concept":selected[0].toUpperCase()+selected.slice(1)+" / Concept");
     if(location.hash.indexOf("#site-")===0){
       window.requestAnimationFrame(function(){var target=document.getElementById(location.hash.slice(1));if(target)target.scrollIntoView({behavior:"smooth"});});
-    }else window.scrollTo({top:0,behavior:"instant"});
+    }else window.scrollTo({top:0,behavior:"auto"});
     closeModal();
   }
   function escapeText(value){return String(value).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
