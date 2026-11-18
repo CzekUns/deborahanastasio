@@ -118,6 +118,14 @@ Il browser legge l'albero pubblico del branch `main` e individua i file **MP4/We
 - Ogni filmato possiede una **copertina indipendente**. Per sostituirla, carica l'immagine e associa i percorsi in `assets/video-covers.json`. Fino a quel momento restano le due immagini provvisorie già fornite.
 - I video assenti o non ancora pubblicati non vengono simulati come se esistessero: in quel caso rimangono gli storyboard precedenti.
 
-La cartella `deborah_media/` è il percorso consigliato per il caricamento di nuovi filmati. La Libreria di ChatGPT conserva alcuni filmati preparati in un'altra chat, ma al controllo del branch main (18/11/2026) **nessun file video era presente nella repository**, quindi la loro riproduzione reale dipende dal caricamento di quei file su GitHub.
+La cartella `deborah_media/` è il percorso consigliato per il caricamento di nuovi filmati. La Libreria di ChatGPT conserva alcuni filmati preparati in un'altra chat, ma al controllo successivo del branch main (18/11/2026) risultavano **4 filmati MP4 distinti già presenti**, quindi la loro riproduzione reale dipende dal caricamento di quei file su GitHub.
 
 Una volta presenti, i video saranno scoperti in automatico al successivo aggiornamento della demo (può servire ricaricare la pagina dopo la pubblicazione di Pages).
+
+### Verifica caricamento effettuato — 18 novembre 2026
+
+Sono stati verificati **4 video MP4 distinti** nel branch `main` (un quinto percorso era un duplicato identico di un altro). La lista stabile è in `assets/videos.json`, ordinata `Video 01`–`Video 04`. La pagina rilegge anche l'albero GitHub per scoprire eventuali nuovi caricamenti. Se la richiesta pubblica a GitHub non funziona, usa l'inventario verificato.
+
+Le copertine provvisorie sono mappate ai **nomi reali dei file** in `assets/video-covers.json`. Per cambiarle basta aggiornare il percorso dell'immagine: nessun video viene modificato. TikTok e Reels mostrano ciascun filmato distinto una sola volta, mentre il muro Instagram può ripeterli provvisoriamente per riempire la griglia.
+
+La cartella `deborah_media/.chunks/` contiene frammenti binari di un tentativo di trasferimento alternativo; non sono video riproducibili e non vengono mostrati dall'applicazione.
