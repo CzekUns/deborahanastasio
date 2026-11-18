@@ -88,7 +88,7 @@
     var visual=p.videoSrc?'<video class="native-feed-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline muted loop preload="metadata" aria-label="Video di Deborah Anastasio"></video>':p.img?'<img src="'+esc(p.img)+'" loading="lazy" alt="Copertina '+esc(p.title)+'">':'<div class="native-poster"><span>'+esc(p.title)+'</span><small>DEBORAH ANASTASIO</small></div>';
     return '<article class="native-feed-card"><div class="native-feed-author">'+logo()+'<b>deborah.anastasio</b><span>· Concept</span><button type="button" data-native-action="help" aria-label="Note sulla demo">'+symbol("more")+'</button></div><button class="native-feed-visual" type="button" data-native-post="'+i+'" aria-label="Apri il post '+esc(p.title)+'">'+visual+'</button><div class="native-feed-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-post="'+i+'" aria-label="Apri commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi il concept">'+symbol("send")+'</button><span class="feed-spacer"></span><button type="button" data-native-save="'+i+'" aria-label="Salva idea">'+symbol("bookmark")+'</button></div><p class="native-feed-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><button class="native-view-comments" type="button" data-native-post="'+i+'">Visualizza il post e i dettagli</button></article>';
   }
-  function setIgScreen(screen){
+  function setIgScreen(screen,userGesture){
     if(window.DeborahMedia)window.DeborahMedia.pauseContainer(igScreen);
     if(["profile","home","search","create","reels"].indexOf(screen)<0)screen="profile";
     currentIg=screen;
@@ -103,17 +103,17 @@
     }else if(screen==="create"){
       igScreen.innerHTML='<div class="native-empty"><div class="native-empty-icon">'+symbol("plus")+'</div><h2>Crea un contenuto</h2><p>Anteprima del futuro piano editoriale: post, storie e reel coordinati. Questa simulazione non pubblica nulla sui social reali.</p><button type="button" data-ig-screen="profile">Torna al profilo</button></div>';
     }else if(screen==="reels"){
-      renderIgReel();
+      renderIgReel(!!userGesture);
     }
     window.scrollTo({top:0,behavior:"auto"});
   }
-  function renderIgReel(){
+  function renderIgReel(userGesture){
     if(window.DeborahMedia)window.DeborahMedia.pauseContainer(igScreen);
     var v=videos[selectedReel];
     var picture=v.src?'<video src="'+esc(v.src)+'" poster="'+esc(v.photo)+'" playsinline autoplay muted loop preload="metadata" controls class="ig-reel-video" aria-label="Reel di Deborah Anastasio"></video>':'<img src="'+esc(v.photo)+'" alt="Immagine segnaposto dello storyboard" class="ig-reel-photo">';
     igScreen.innerHTML='<div class="ig-reels-stage">'+picture+'<div class="ig-reels-gradient"></div><span class="ig-reel-top">Reels <small>'+(v.src?"VIDEO REALE":"STORYBOARD")+'</small></span>'+(v.src?'':'<p class="ig-reel-headline">'+v.headline+'</p>')+'<div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>'+(v.src?"Video originale · copertina sostituibile":"Animazione dimostrativa · nessun video reale")+'</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
     var reel=igScreen.querySelector("video.ig-reel-video");
-    if(reel && window.DeborahMedia)window.DeborahMedia.play(reel,false);
+    if(reel && window.DeborahMedia)window.DeborahMedia.play(reel,!!userGesture);
   }
   ttPanel.id="tt-native-panel";
   ttPanel.className="tt-native-panel";
@@ -259,7 +259,7 @@
     if(!element)return;
     if(element.hasAttribute("data-native-close")){closeOverlay();return;}
     if(element.hasAttribute("data-native-leave")){closeOverlay();return;}
-    if(element.hasAttribute("data-ig-screen")){setIgScreen(element.dataset.igScreen);return;}
+    if(element.hasAttribute("data-ig-screen")){setIgScreen(element.dataset.igScreen,true);return;}
     if(element.hasAttribute("data-tt-screen")){setTtScreen(element.dataset.ttScreen);return;}
     if(element.hasAttribute("data-tt-top")){
       var view=element.dataset.ttTop;
