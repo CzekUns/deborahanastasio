@@ -193,3 +193,70 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
     height:auto;
   }
 }
+
+/* Profile imagery — centered imagegen portrait only in social avatars.
+   Original rose photo remains part of the Instagram post/gallery content. */
+.ig-profile-line .ig-avatar img {
+  object-position:center center!important;
+}
+.native-da-photo img {
+  object-position:center center!important;
+}
+.tiktok-profile-avatar {
+  position:relative;
+  display:block;
+  width:50px;
+  height:50px;
+  border:2px solid #fff!important;
+  border-radius:50%;
+  background:#581c39!important;
+  padding:0!important;
+  overflow:hidden;
+  flex:none;
+}
+.tiktok-profile-avatar img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  border-radius:50%;
+}
+/* The desktop phone mockup must fit entirely within a narrow browser window. */
+@media (min-width:801px) and (max-width:1199px) {
+  #view-instagram .demo-intro {
+    display:block;
+    max-width:690px;
+    padding:52px 24px 20px;
+    margin:0 auto;
+  }
+  #view-instagram .demo-notes {display:none;}
+  #view-instagram .instagram-layout {
+    grid-template-columns:minmax(0,420px);
+    justify-items:center;
+    justify-content:center;
+    gap:22px;
+    padding:20px 16px 70px;
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+  }
+  #view-instagram .ig-phone {
+    width:100%;
+    max-width:420px;
+    min-width:0;
+    justify-self:center;
+  }
+  #view-instagram .platform-aside {
+    max-width:420px;
+    width:100%;
+  }
+}
+/* On real phones the app fills the viewport without a device frame. */
+@media(max-width:800px){
+  body.social-tiktok .tiktok-profile-avatar {
+    width:48px;
+    height:48px;
+    border:2px solid #fff!important;
+  }
+}
