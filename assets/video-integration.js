@@ -54,7 +54,7 @@ function updateMedia(items){
     v.method="Video presente nel repository GitHub; la copertina è indipendente dal filmato e sarà sostituibile.";
   }
   demo.posts.forEach(function(p,index){
-    if(p.brandAsset==="DAB")return; // Keep the approved identity slots separate from unrelated video clips.
+    if(p.brandAsset==="DAB" || p.editorialStatic)return; // Keep the approved identity slots separate from unrelated video clips.
     var asset=items[index%items.length];
     p.videoSrc=asset.src;
     p.img=asset.cover;
@@ -65,7 +65,7 @@ function updateMedia(items){
   });
   // Keep the Instagram wall in three columns, each tile 4:5.
   document.querySelectorAll("#ig-grid [data-post]").forEach(function(tile,i){
-    if(demo.posts[i]&&demo.posts[i].brandAsset==="DAB")return;
+    if(demo.posts[i]&&(demo.posts[i].brandAsset==="DAB"||demo.posts[i].editorialStatic))return;
     var asset=items[i%items.length];
     tile.className="ig-tile image-tile has-video";
     tile.innerHTML='<img src="'+asset.cover+'" alt="Copertina temporanea: '+asset.title.replace(/"/g,"&quot;")+'" loading="lazy"><span class="tile-reel-mark">▶</span>';
