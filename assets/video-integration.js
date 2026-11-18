@@ -36,6 +36,9 @@ function updateMedia(items){
   var videoData=demo.videos;
   // Video slots are independent of cover files. We duplicate media when
   // fewer videos than grid cells are available, as requested for this demo.
+  // Use each distinct video once in TikTok and Reels. Instagram's wall may
+  // repeat the same four assets across its twelve temporary slots.
+  videoData.length=items.length;
   while(videoData.length<items.length){
     videoData.push({title:"",headline:"",caption:"",photo:"",method:""});
   }
