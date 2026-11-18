@@ -1,4 +1,4 @@
-name: Estrai provini copertine Video 01
+name: Estrai nuovi provini copertine Video 01
 on:
   push:
     branches: ["provini-cover-video-01"]
@@ -9,43 +9,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare dependencies
+      - name: Dependencies
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg python3-pil >/dev/null
-      - name: Extract five frames
+      - name: Extract NEW wider selection and create review boards
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p assets/provini-copertine/video-01
-          SRC='deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4'
-          python3 - "$SRC" <<'PYCODE'
-          import subprocess,sys
-          src=sys.argv[1]
-          duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',src]).decode().strip())
-          stamps=[round(duration*x,2) for x in (0.12,0.29,0.46,0.63,0.80)]
-          for i,(name,t) in enumerate(zip('ABCDE',stamps)):
-              path=f'assets/provini-copertine/video-01/V01-{name}_{t:.2f}s.jpg'
-              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',src,'-frames:v','1','-q:v','2',path],check=True)
-          from PIL import Image,ImageDraw,ImageFont
-          imgs=[]
-          try:font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',22)
-          except:font=ImageFont.load_default()
-          for code,t in zip('ABCDE',stamps):
-              p=f'assets/provini-copertine/video-01/V01-{code}_{t:.2f}s.jpg'
-              im=Image.open(p).convert('RGB'); im.thumbnail((300,530))
-              bg=Image.new('RGB',(340,575),(26,24,29))
-              bg.paste(im,((340-im.width)//2,38))
-              ImageDraw.Draw(bg).text((10,6),f'V01-{code} | {t:.1f}s',fill='white',font=font)
-              imgs.append(bg)
-          sheet=Image.new('RGB',(680,1725),(12,12,13))
-          for j,im in enumerate(imgs):sheet.paste(im,((j%2)*340,(j//2)*575))
-          sheet.save('assets/provini-copertine/PROVINI_VIDEO_01.jpg',quality=92)
+          mkdir -p assets/provini-copertine/video-01-nuovi
+          python3 <<'PYCODE'
+          import os,subprocess,string
+          from PIL import Image, ImageDraw, ImageFont
+          src='deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4'
+          dur=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',src]).decode().strip())
+          # 16 new times cover the FULL video, avoiding original sample positions.
+          fractions=[.035,.085,.135,.185,.235,.285,.335,.385,.435,.485,.535,.585,.635,.685,.735,.785,.835,.885,.935]
+          times=[round(dur*x,2) for x in fractions]
+          letters=list(string.ascii_uppercase[5:5+len(times)])
+          outdir='assets/provini-copertine/video-01-nuovi'
+          try: font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',22)
+          except: font=ImageFont.load_default()
+          frames=[]
+          for code,t in zip(letters,times):
+              filename=f'V01-{code}_{t:.2f}s.jpg'; p=f'{outdir}/{filename}'
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',src,'-frames:v','1','-q:v','2',p],check=True)
+              im=Image.open(p).convert('RGB');im.thumbnail((270,420))
+              thumb=Image.new('RGB',(302,475),(28,25,28))
+              thumb.paste(im,((302-im.width)//2,33+(420-im.height)//2))
+              ImageDraw.Draw(thumb).text((10,5),f'V01-{code} · {t:.1f}s',font=font,fill='white')
+              frames.append(thumb)
+          for idx in range(0,len(frames),10):
+              part=frames[idx:idx+10]
+              board=Image.new('RGB',(302*5,475*2),(15,13,15))
+              for j,thumb in enumerate(part): board.paste(thumb,((j%5)*302,(j//5)*475))
+              board.save(f'assets/provini-copertine/PROVINI_VIDEO_01_NUOVI_{idx//10+1}.jpg',quality=94)
           PYCODE
-      - name: Commit extracted previews to branch only
+      - name: Commit preview files to isolated branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/provini-copertine/
-          git commit -m 'Aggiungi cinque fotogrammi di selezione dal Video 01' || exit 0
+          git add assets/provini-copertine/video-01-nuovi assets/provini-copertine/PROVINI_VIDEO_01_NUOVI_*.jpg
+          git commit -m 'Nuova selezione ampliata di 19 fotogrammi Video 01' || exit 0
           git push
