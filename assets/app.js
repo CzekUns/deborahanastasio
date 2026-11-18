@@ -88,6 +88,7 @@
   function currentRoute(){
     var hash=decodeURIComponent(location.hash.replace(/^#/,"")).toLowerCase();
     if(hash.indexOf("site-")===0) return "sito";
+    if(hash.indexOf("pitch-")===0) return "visione";
     return validRoutes.indexOf(hash)>-1?hash:"visione";
   }
   function route(){
@@ -99,8 +100,8 @@
       el.classList.toggle("active",active);
       if(active) el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");
     });
-    document.title="Deborah Anastasio — "+(selected==="visione"?"Digital Identity Concept":selected==="sito"?"Sito ufficiale / Concept":selected[0].toUpperCase()+selected.slice(1)+" / Concept");
-    if(location.hash.indexOf("#site-")===0){
+    document.title="Deborah Anastasio — "+(selected==="visione"?"La proposta / Presentazione":selected==="sito"?"Sito ufficiale / Concept":selected[0].toUpperCase()+selected.slice(1)+" / Concept");
+    if(location.hash.indexOf("#site-")===0 || location.hash.indexOf("#pitch-")===0){
       window.requestAnimationFrame(function(){var target=document.getElementById(location.hash.slice(1));if(target)target.scrollIntoView({behavior:"smooth"});});
     }else window.scrollTo({top:0,behavior:"auto"});
     closeModal();
