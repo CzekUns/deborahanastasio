@@ -1,0 +1,51 @@
+name: Estrai provini copertine Video 01
+on:
+  push:
+    branches: ["provini-cover-video-01"]
+permissions:
+  contents: write
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg python3-pil >/dev/null
+      - name: Extract five frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/provini-copertine/video-01
+          SRC='deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4'
+          python3 - "$SRC" <<'PYCODE'
+          import subprocess,sys
+          src=sys.argv[1]
+          duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',src]).decode().strip())
+          stamps=[round(duration*x,2) for x in (0.12,0.29,0.46,0.63,0.80)]
+          for i,(name,t) in enumerate(zip('ABCDE',stamps)):
+              path=f'assets/provini-copertine/video-01/V01-{name}_{t:.2f}s.jpg'
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(t),'-i',src,'-frames:v','1','-q:v','2',path],check=True)
+          from PIL import Image,ImageDraw,ImageFont
+          imgs=[]
+          try:font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',22)
+          except:font=ImageFont.load_default()
+          for code,t in zip('ABCDE',stamps):
+              p=f'assets/provini-copertine/video-01/V01-{code}_{t:.2f}s.jpg'
+              im=Image.open(p).convert('RGB'); im.thumbnail((300,530))
+              bg=Image.new('RGB',(340,575),(26,24,29))
+              bg.paste(im,((340-im.width)//2,38))
+              ImageDraw.Draw(bg).text((10,6),f'V01-{code} | {t:.1f}s',fill='white',font=font)
+              imgs.append(bg)
+          sheet=Image.new('RGB',(680,1725),(12,12,13))
+          for j,im in enumerate(imgs):sheet.paste(im,((j%2)*340,(j//2)*575))
+          sheet.save('assets/provini-copertine/PROVINI_VIDEO_01.jpg',quality=92)
+          PYCODE
+      - name: Commit extracted previews to branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/provini-copertine/
+          git commit -m 'Aggiungi cinque fotogrammi di selezione dal Video 01' || exit 0
+          git push
