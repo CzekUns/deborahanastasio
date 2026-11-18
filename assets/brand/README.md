@@ -1,21 +1,21 @@
-# Deborah Anastasio · studio SVG 02
+# DAB · master vettoriale dal pass approvato
 
-Questa cartella conserva le bozze vettoriali del logotipo esteso, di **DA** e di **DAB (Deborah Anastasio Band)**.
+**Riferimento:** la foto del pass bordeaux approvata dall'artista/committente. La foto originale resta il riferimento estetico; gli SVG sono ricostruzioni manuali ripulite, non tracciati pixel-perfect.
 
-**Fonte tipografica:** Playfair Display Regular, lettere trasformate in tracciati (nessun font viene distribuito). Il baffo champagne è un *path* SVG separato, sovrapposto alla **A**. Le tre applicazioni condividono esattamente la seguente geometria:
+## Marchi correnti
 
-```svg
-<path id="firma-baffo" d="M -570 450 C -390 185 -155 190 42 405 C 270 655 490 684 710 604 C 910 530 1012 385 1252 420 C 1493 454 1705 676 1868 654 C 1925 650 1965 608 2020 540" fill="none" stroke="#D8B481" stroke-linecap="round" stroke-width="20"/>
-```
+- [DAB](DAB-monogramma.svg): monogramma avorio, curva champagne, denominazione «Deborah Anastasio **BAND**» (BAND in oro).
+- [DA](DA-monogramma.svg): stesse lettere D e A del master DAB, fregio compattato per le due iniziali.
+- [Deborah Anastasio](deborah-anastasio.svg): firma estesa coordinata al master, non copia esatta del lettering della fotografia.
 
-Nei singoli file la stessa curva viene richiamata attraverso `<use href="#firma-baffo"/>`, scalata insieme alla lettera A. La forma è quindi identica e non viene reinventata. `firma-baffo.svg` ne rappresenta la vista isolata.
+La linea dorata ha una forma specifica: nasce **sotto la D**, attraversa obliquamente la **A**, sale sulla **B** e si assottiglia all'estremità destra. Non deve essere sostituita con una generica onda sinusoidale o con una «S lunga» calligrafica.
 
-**Presentazione:** [identita-svg.html](../../identita-svg.html). **Tavola completa:** [TAVOLA-identita.svg](./TAVOLA-identita.svg).
+**LIVE** è una dicitura applicativa del pass, non parte del logo principale. Il marchio di base ha fondo trasparente.
 
-Palette: bordeaux `#641E37`, profondo `#3E1728`, avorio `#F7F3EC`, champagne `#D8B481`.
+## Implementazione
 
-Stato: **proposta**, non ancora un marchio definitivo approvato. I file non sostituiscono in automatico i loghi del prototipo esistente; servono a scegliere la costruzione corretta, per poi declinarla in copertine, sito e social.
+- La struttura DAB è composta da tracciati SVG autonomi (D, A, B, fregio); nel repository la didascalia del DAB e le parole della firma estesa restano testo SVG con font di sistema per fallback. Le varianti esportate nello ZIP consegnato in chat hanno anche il lettering trasformato in tracciati.
+- Il sito e i social del prototipo non devono sostituire indiscriminatamente gli asset approvati finché layout, riduzione in icona e contrasto non siano controllati.
+- Le vecchie versioni geometriche restano recuperabili nella cronologia Git.
 
-## Revisione SVG v2 — 18 novembre 2026
-
-La **A** è adesso una **V capovolta (Λ), senza traversa**, in ogni ricorrenza del nome, DA e DAB. Il **baffo è una S lunga**, con due cambi di concavità, tracciata una volta e riusata con lo stesso percorso SVG in ogni applicazione. Le altre lettere derivano da Playfair Display, trasformate in tracciati. L'edizione precedente resta disponibile nella cronologia Git.
+[Anteprima delle tre derivazioni](../../identita-svg.html)
