@@ -162,3 +162,34 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
  body.social-instagram .native-detail-photo{width:100%!important;aspect-ratio:4/5!important}
  .ig-grid{grid-template-columns:repeat(3,1fr)}
 }
+
+/* Instagram profile-wall correction: 3-column vertical 4:5 thumbnails */
+.ig-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:2px;
+  align-items:start;
+}
+.ig-grid .ig-tile{
+  width:100%;
+  aspect-ratio:4 / 5;
+  height:auto;
+  overflow:hidden;
+  display:block;
+}
+.ig-grid .ig-tile[hidden]{display:none}
+.ig-grid .ig-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.native-explore-grid button{
+  aspect-ratio:4 / 5;
+}
+@media(max-width:800px){
+  body.social-instagram .ig-grid .ig-tile{
+    aspect-ratio:4 / 5;
+    height:auto;
+  }
+}
