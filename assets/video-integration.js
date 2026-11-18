@@ -17,7 +17,7 @@ var videoImage=document.getElementById("video-image");
 var videoStage=player&&player.querySelector(".video-bg");
 var video=null;
 var soundBtn=null;
-var videoWasUnmuted=false;
+// Sound preference is shared across all Instagram and TikTok players.
 
 function safeLocalPath(s){
   return String(s||"").split("/").map(encodeURIComponent).join("/");
@@ -105,22 +105,17 @@ function ensureVideo(){
   soundBtn.id="deborah-sound-toggle";
   soundBtn.className="tiktok-sound-toggle";
   soundBtn.setAttribute("aria-label","Attiva audio");
-  soundBtn.textContent="♫";
+  soundBtn.textContent="♫ Attiva audio";
+  soundBtn.setAttribute("data-deborah-audio-toggle","true");
   var actions=player.querySelector(".tiktok-actions");
   if(actions)actions.appendChild(soundBtn);
-  soundBtn.addEventListener("click",function(e){
-    e.stopPropagation();
-    videoWasUnmuted=!videoWasUnmuted;
-    video.muted=!videoWasUnmuted;
-    soundBtn.textContent=videoWasUnmuted?"♪":"♫";
-    soundBtn.setAttribute("aria-label",videoWasUnmuted?"Disattiva audio":"Attiva audio");
-    if(video.paused)video.play().catch(function(){});
-  });
+  // All sound buttons now use the shared media manager, preserving
+  // the user's choice when swiping between videos or changing apps.
   var playbackButton=document.getElementById("video-play");
   if(playbackButton)playbackButton.addEventListener("click",function(){
     if(!ready || !demo.videos[demo.getVideoIndex()].src)return;
     if(player.classList.contains("paused"))video.pause();
-    else video.play().catch(function(){});
+    else if(window.DeborahMedia)window.DeborahMedia.play(video,false);
   });
 }
 function syncPlayer(){
@@ -136,7 +131,7 @@ function syncPlayer(){
     video.load();
   }
   video.poster=entry.cover||entry.photo||"";
-  video.muted=!videoWasUnmuted;
+  video.muted=!(window.DeborahMedia && window.DeborahMedia.isSoundRequested());
   video.hidden=false;
   videoImage.hidden=true;
   player.classList.add("has-real-video");
@@ -145,21 +140,11 @@ function syncPlayer(){
   var note=player.querySelector(".video-concept");
   if(note)note.textContent="VIDEO DAL REPOSITORY · COPERTINA PROVVISORIA";
   if(soundBtn)soundBtn.hidden=false;
-  if(!player.classList.contains("paused") && location.hash==="#tiktok"){
-    var result=video.play();
-    if(result && result.catch)result.catch(function(){ /* Playback requires gesture on some devices. */ });
+  if(!player.classList.contains("paused") && location.hash==="#tiktok" && !player.classList.contains("tt-native-open")){
+    if(window.DeborahMedia)window.DeborahMedia.play(video,false);
   }else video.pause();
 }
-document.addEventListener("visibilitychange",function(){
-  if(!video)return;
-  if(document.hidden)video.pause();
-  else if(ready && location.hash==="#tiktok" && !player.classList.contains("paused"))video.play().catch(function(){});
-});
-window.addEventListener("hashchange",function(){
-  if(!video)return;
-  if(location.hash==="#tiktok" && ready && !player.classList.contains("paused"))video.play().catch(function(){});
-  else video.pause();
-});
+// Route/visibility/overlay lifecycle is owned by the shared media manager.
 window.addEventListener("deborah:videochange",syncPlayer);
 function chooseVideoFiles(repositoryTree, verifiedInventory){
   var verified=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos:[];
