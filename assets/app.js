@@ -12,6 +12,10 @@
     event:"https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85",
     rings:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=85"
   };
+  var uploaded={
+    pink:"./assets/deborah-cover-rosa-4x5.webp",
+    gallery:"./assets/deborah-gallery-san-valentino-4x5.webp"
+  };
   var posts=[
     {title:"Un momento che resta",type:"Wedding Diary",img:media.wedding,caption:"Ci sono momenti in cui una canzone riesce a dire tutto. ✨\n\nQual è il brano che portereste per sempre con voi? #weddingmusic #musicalive #napoli",idea:"Reel di un momento significativo, con ingresso musicale entro i primi due secondi."},
     {title:"La voce è un ricordo",type:"Post manifesto",caption:"La musica si ascolta. E a volte continua a farsi sentire molto dopo l'ultima nota. ♡\n\n#deborahanastasio #voce #musica",idea:"Post grafico riconoscibile per fissare il tono emozionale del profilo."},
@@ -26,6 +30,22 @@
     {title:"Wedding Diary",type:"Cerimonie",img:media.rings,caption:"Quando tutto si ferma per un istante e resta soltanto l'emozione.\n\n#weddingdiary #cerimonia",idea:"Racconto verticale di un evento, con riprese rispettose della privacy degli invitati."},
     {title:"Ci vediamo dal vivo",type:"Contatti",caption:"Hai una data speciale in mente? Raccontamela con un messaggio privato. ♡\n\n#contatti #musicalive",idea:"Post fissato con indicazioni semplici per richiedere disponibilità."}
   ];
+  // Provvisoriamente i due contenuti autentici vengono ripetuti nelle due demo.
+  // Non usare contenuti fittizi o scatti stock come se fossero di Deborah.
+  var assetPair=[
+    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Deborah Anastasio · Foto dalla galleria. Una presenza, una voce, un'identità.",idea:"Fotografia copertina rosa, inviata per la demo. Presentazione del profilo."},
+    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Dalla galleria di Deborah: locandina San Valentino · Dinner Show · Villa Gauro. Materiale dimostrativo d'archivio.",idea:"Locandina originale inviata per la demo. La data non è presentata come evento futuro."}
+  ];
+  posts.forEach(function(p,i){
+    var item=assetPair[i%2];
+    p.img=item.img;p.title=item.title;p.caption=item.caption;p.idea=item.idea;
+  });
+  var grid=document.getElementById("ig-grid");
+  if(grid)grid.querySelectorAll("[data-post]").forEach(function(el,i){
+    var m=assetPair[i%2];
+    el.className="ig-tile image-tile";
+    el.innerHTML='<img src="'+m.img+'" alt="'+m.title+'" loading="lazy"><span class="tile-tag">'+(i%2?"ARCHIVIO / LIVE":"DEBORAH ANASTASIO")+'</span>';
+  });
   var stories=[
     {title:"La mia voce",detail:"Chi è Deborah, come racconta la musica e quali emozioni vuole trasmettere. Da riempire con una sua vera presentazione in video."},
     {title:"Cerimonie",detail:"Brevi estratti autorizzati, momenti di una giornata e informazioni chiare sulle cerimonie effettivamente proposte."},
@@ -40,6 +60,12 @@
     {title:"Una canzone, una storia",headline:"Perché proprio<br>questa<br>canzone?",caption:"Ogni brano ha una storia. Qual è la tua? #repertorio #storiadimusica",photo:media.table,method:"Deborah racconta perché sceglie un determinato brano, poi ne esegue un breve frammento autorizzato."},
     {title:"Il prima e il dopo",headline:"Da una sala<br>in silenzio<br>alla musica.",caption:"Il prima, l'attesa, la prima nota. ♡ #eventi #livemusic",photo:media.event,method:"Montaggio a contrasto: preparazione, pubblico, inizio esibizione. Finale con una call to action discreta."}
   ];
+  videos.forEach(function(v,i){
+    var item=assetPair[i%2];
+    v.title=item.title;v.photo=item.img;v.caption=item.caption;
+    v.headline=i%2?"San Valentino<br>Dinner Show<br>Villa Gauro":"Deborah<br>Anastasio";
+    v.method="Anteprima statica del materiale fotografico originale. Quando saranno forniti i video autorizzati, sostituire la foto con il filmato corrispondente.";
+  });
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
   var closeBtn=document.getElementById("dialog-close");
