@@ -1,11 +1,10 @@
 {
-  "version": 2,
-  "note": "Temporary preview covers. To replace later, upload each image and update only the corresponding value. Videos stay unchanged.",
+  "version": 3,
+  "note": "Cover art is separate from the video asset. Replace the image path only when the user supplies new artwork.",
   "covers": {
-    "deborah_media/deborah-video-01.mp4": "assets/deborah-cover-rosa-4x5.webp",
-    "deborah_media/deborah-video-02.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
-    "deborah_media/deborah-video-03.mp4": "assets/deborah-cover-rosa-4x5.webp",
-    "deborah_media/deborah-video-04.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
-    "deborah_media/deborah-video-05.mp4": "assets/deborah-cover-rosa-4x5.webp"
+    "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4": "assets/deborah-cover-rosa-4x5.webp",
+    "deborah_media/AQNXFOCJHgNHNgGljCNciKX6gMVnHxlx0eNYs27tPjhC2ahiAcEqIIOTEelmlpgR4KsLA2ZyoBGnn_Dj1gOER0it3o5XzYIYcZ1cAHU.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
+    "deborah_media/AQOYLfrawBnk5Wka0ygxaTCpXlLH4ka3_A1WrWSDd8qxiAXGkp07tnudvIp9XeZZBrCi_oib78aJZvpivgtLQSoH9ERRwFkJNJZhEyU.mp4": "assets/deborah-cover-rosa-4x5.webp",
+    "deborah_media/tiktok_debora.anastasio_7702445165201362209.mp4": "assets/deborah-gallery-san-valentino-4x5.webp"
   }
 }
