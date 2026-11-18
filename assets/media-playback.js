@@ -84,7 +84,7 @@
     return promise.then(function(){return true;}).catch(function(){
       // A mobile browser may reject an unmuted autoplay. Fall back to muted
       // playback and leave the visible button available for a user gesture.
-      if(blockedByScreen(v))return false;
+      if(blockedByScreen(v) || active!==v)return false;
       v.muted=true;
       try{
         var second=v.play();
@@ -112,6 +112,7 @@
       active=v;
       var p=v.play();
       if(p && p.catch)p.catch(function(){
+        if(blockedByScreen(v) || active!==v)return;
         v.muted=true;
         v.play().catch(function(){});
       });
