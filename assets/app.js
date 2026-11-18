@@ -182,6 +182,7 @@
     if(Math.abs(delta)>70)setVideo(videoIndex+(delta<0?1:-1));
     touchY=null;
   },{passive:true});
+  window.DeborahDemo={posts:posts,stories:stories,videos:videos,setVideo:setVideo,getVideoIndex:function(){return videoIndex;}};
   window.addEventListener("hashchange",route);
   route();
   setVideo(0);
