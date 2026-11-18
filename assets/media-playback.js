@@ -49,10 +49,13 @@
   function dispatchSound(){
     document.dispatchEvent(new CustomEvent("deborah:soundchange",{detail:{enabled:soundRequested}}));
     document.querySelectorAll("[data-deborah-audio-toggle]").forEach(function(b){
-      var label=soundRequested?"Disattiva audio":"Attiva audio";
+      var host=b.closest(".native-feed-visual,.ig-post-video-frame,.ig-reels-stage,#tiktok-player");
+      var media=host && host.querySelector("video");
+      var audible=!!(soundRequested && media && !media.muted);
+      var label=audible?"Disattiva audio":"Attiva audio";
       b.setAttribute("aria-label",label);
-      b.setAttribute("aria-pressed",soundRequested?"true":"false");
-      var nextText=soundRequested?"♪ Audio attivo":"♫ Attiva audio";
+      b.setAttribute("aria-pressed",audible?"true":"false");
+      var nextText=b.id==="deborah-sound-toggle"?(audible?"♪ Attivo":"♫ Audio"):(audible?"♪ Audio attivo":"♫ Attiva audio");
       if(b.textContent!==nextText)b.textContent=nextText;
     });
   }
@@ -149,6 +152,10 @@
   });
   window.addEventListener("pagehide",function(){stopAll();});
   window.addEventListener("blur",function(){stopAll();});
+  window.addEventListener("focus",function(){refreshContext();});
+  document.addEventListener("volumechange",function(event){
+    if(event.target && event.target.tagName==="VIDEO")dispatchSound();
+  },true);
   window.addEventListener("hashchange",function(){
     stopAll();
     // Defer resumption until the original routing listeners finish.
