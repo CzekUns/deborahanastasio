@@ -85,7 +85,7 @@
     if(igHeaderName)igHeaderName.innerHTML=currentIg==="profile"?"deborah.anastasio <span class='ig-chevron'>⌄</span>":({"home":"Instagram","search":"Esplora","create":"Crea","reels":"Reels"})[currentIg];
   }
   function instaCard(p,i){
-    var visual=p.img?'<img src="'+esc(p.img)+'" loading="lazy" alt="Foto dimostrativa per '+esc(p.title)+'">':'<div class="native-poster"><span>'+esc(p.title)+'</span><small>DEBORAH ANASTASIO</small></div>';
+    var visual=p.videoSrc?'<video class="native-feed-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline muted loop preload="metadata" aria-label="Video di Deborah Anastasio"></video>':p.img?'<img src="'+esc(p.img)+'" loading="lazy" alt="Copertina '+esc(p.title)+'">':'<div class="native-poster"><span>'+esc(p.title)+'</span><small>DEBORAH ANASTASIO</small></div>';
     return '<article class="native-feed-card"><div class="native-feed-author">'+logo()+'<b>deborah.anastasio</b><span>· Concept</span><button type="button" data-native-action="help" aria-label="Note sulla demo">'+symbol("more")+'</button></div><button class="native-feed-visual" type="button" data-native-post="'+i+'" aria-label="Apri il post '+esc(p.title)+'">'+visual+'</button><div class="native-feed-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-post="'+i+'" aria-label="Apri commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi il concept">'+symbol("send")+'</button><span class="feed-spacer"></span><button type="button" data-native-save="'+i+'" aria-label="Salva idea">'+symbol("bookmark")+'</button></div><p class="native-feed-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><button class="native-view-comments" type="button" data-native-post="'+i+'">Visualizza il post e i dettagli</button></article>';
   }
   function setIgScreen(screen){
@@ -108,7 +108,8 @@
   }
   function renderIgReel(){
     var v=videos[selectedReel];
-    igScreen.innerHTML='<div class="ig-reels-stage"><img src="'+esc(v.photo)+'" alt="Immagine segnaposto dello storyboard" class="ig-reel-photo"><div class="ig-reels-gradient"></div><span class="ig-reel-top">Reels <small>STORYBOARD</small></span><p class="ig-reel-headline">'+v.headline+'</p><div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>Animazione dimostrativa · nessun video reale</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
+    var picture=v.src?'<video src="'+esc(v.src)+'" poster="'+esc(v.photo)+'" playsinline autoplay muted loop preload="metadata" controls class="ig-reel-video" aria-label="Reel di Deborah Anastasio"></video>':'<img src="'+esc(v.photo)+'" alt="Immagine segnaposto dello storyboard" class="ig-reel-photo">';
+    igScreen.innerHTML='<div class="ig-reels-stage">'+picture+'<div class="ig-reels-gradient"></div><span class="ig-reel-top">Reels <small>'+(v.src?"VIDEO REALE":"STORYBOARD")+'</small></span>'+(v.src?'':'<p class="ig-reel-headline">'+v.headline+'</p>')+'<div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>'+(v.src?"Video originale · copertina sostituibile":"Animazione dimostrativa · nessun video reale")+'</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
   }
   ttPanel.id="tt-native-panel";
   ttPanel.className="tt-native-panel";
@@ -178,7 +179,7 @@
   document.body.appendChild(overlay);
   function openPost(i){
     var p=posts[i];if(!p)return;
-    var visual=p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Fotografia segnaposto per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
+    var visual=p.videoSrc?'<video class="native-detail-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline autoplay muted loop preload="metadata" aria-label="Video originale Deborah Anastasio"></video>':p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Copertina per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
     showOverlay('<div class="native-detail"><header class="native-detail-top"><button type="button" data-native-close aria-label="Indietro">'+symbol("back")+'</button><b>Post</b><button data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></header><div class="native-detail-scroll"><div class="native-detail-author">'+logo()+'<b>deborah.anastasio</b><span>· Concept</span></div>'+visual+'<div class="native-detail-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-comment="'+i+'" aria-label="Commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><p class="native-detail-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><div class="native-detail-note"><strong>IDEA EDITORIALE</strong><p>'+esc(p.idea)+'</p><small>Foto e testo in anteprima, non pubblicati.</small></div><div class="native-local-comments" id="ig-local-comments">'+renderLocalComments("ig-"+i)+'</div></div><form class="native-comment-form" data-comment-form="ig-'+i+'"><input name="comment" maxlength="180" placeholder="Scrivi un commento di prova…" aria-label="Commento di prova" required><button type="submit">Invia</button></form></div>',"post");
     syncLikes();
   }
@@ -335,6 +336,12 @@
     if(Math.abs(d)>70){selectedReel=(selectedReel+(d<0?1:-1)+videos.length)%videos.length;renderIgReel();}
     swipeStart=null;
   },{passive:true});
+  window.addEventListener("deborah:libraryready",function(){
+    if(currentIg==="profile"){
+      // The wall is updated by the media integration, no need to reset the tab.
+    }else if(location.hash==="#instagram")setIgScreen(currentIg);
+    if(location.hash==="#tiktok")setTtScreen(currentTt);
+  });
   window.addEventListener("hashchange",socialMode);
   if(media.addEventListener)media.addEventListener("change",socialMode);
   else if(media.addListener)media.addListener(socialMode);
