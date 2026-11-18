@@ -1,10 +1,21 @@
 # Deborah Anastasio — Digital Identity Concept
 
-Prototipo **dimostrativo**, non ufficiale e non collegato a Instagram o TikTok. Serve a mostrare una possibile riorganizzazione della presenza digitale di Deborah Anastasio, cantante per cerimonie e live.
+Progetto **dimostrativo** con due livelli distinti: la prima pagina è una **presentazione personale del proponente a Deborah Anastasio**, mentre le pagine successive sono simulazioni di Instagram, TikTok e del futuro sito ufficiale. Non è collegato agli account social reali e non modifica i profili online.
+
+
+## Percorso di presentazione — versione 18 novembre 2026
+
+La sequenza è intenzionale e va preservata:
+
+**01 La proposta (voce del proponente) → 02 Instagram (demo) → 03 TikTok (demo) → 04 Sito ufficiale (finale).**
+
+La homepage è uno spazio di spiegazione in prima persona. Racconta **perché** proporre il progetto, **quale valore** il proponente porta, **che cosa realizza concretamente** e **quale parte richiede i materiali e l'approvazione di Deborah**. È distinto dalla comunicazione pubblica dell'artista.
+
+La guida editoriale e di handoff è in `docs/PRESENTAZIONE_DEBORAH.md`. Stili solo per la presentazione in `assets/presentation.css`. Gli hash `#visione` e `#pitch-value` aprono la vista di proposta, mentre `#instagram`, `#tiktok` e `#sito` restano le dimostrazioni indipendenti.
 
 ## Cosa contiene
 
-- **La visione** (#visione): brand direction, palette bordeaux/avorio/champagne, tre obiettivi diversi per tre canali.
+- **La proposta** (#visione): presentazione commerciale in prima persona, valore aggiunto del proponente, metodo, collaborazione e percorso guidato per Deborah.
 - **Instagram concept** (#instagram): simulazione responsive del profilo, bio proposta, 5 storie in evidenza, 12 post/copertine coordinate, apertura dei post con idea + caption, filtri post/reel.
 - **TikTok concept** (#tiktok): simulazione verticale con 5 storyboard, navigazione con pulsanti, tastiera e swipe, format e note di produzione. I riquadri **non sono video veri e non riproducono audio**.
 - **Sito ufficiale concept** (#sito): sito vetrina navigabile, proposta artistica, punti di contatto e una CTA dimostrativa senza raccolta dati.
