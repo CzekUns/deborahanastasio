@@ -131,3 +131,13 @@
 .native-dm-form input{flex:1;min-width:0;padding:13px 15px;border:1px solid #ddd;border-radius:24px;background:#f7f7f7;font:13px "DM Sans",sans-serif}
 .native-dm-form button{border:0;background:#3797ef;color:white;border-radius:50%;width:40px;height:40px;display:grid;place-items:center}
 .native-dm-form button .native-icon{height:19px;width:19px}
+
+.tiktok-top button{color:#fff;border:0;background:transparent;appearance:none;padding:0 0 8px;font:500 14px "DM Sans",sans-serif;text-shadow:0 1px 9px #0008}
+.tiktok-top button.tt-top-active{font-weight:800;border-bottom:2px solid #fff}
+.tiktok-top button[data-tt-top="search"]{position:absolute;right:0;top:-3px;padding:0}
+.tiktok-top button[data-tt-top="search"] .native-icon{width:23px;height:23px}
+@media(max-width:800px){
+  body.social-tiktok .tiktok-top button{font-size:16px}
+  body.social-tiktok .tt-native-open>.tiktok-bottom{background:#fff;color:#171717;border-top:1px solid #eaeaea}
+  body.social-tiktok .tt-native-open .tiktok-bottom .native-da-avatar{border:1px solid #111}
+}
