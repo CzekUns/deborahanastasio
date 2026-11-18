@@ -147,3 +147,12 @@ L'utente ha **approvato il set finale** delle tre identità DAB, DA, DEBORAH ANA
 La testata della presentazione, il sito ufficiale, i riquadri DAB e la pagina `identita-svg.html` sono aggiornati con la versione per sfondo appropriato. Le foto-avatar restano quelle precedentemente scelte per Instagram/TikTok. Nessun filmato è stato modificato. La [PR #1](https://github.com/CzekUns/deborahanastasio/pull/1) rimane come archivio della revisione; i master sono già stati integrati in `main` con commit dedicato.
 
 Per il sistema di colori, utilizzi e alias di compatibilità leggere `assets/brand/README.md`.
+
+
+## Copertina editoriale San Valentino · Villa Gauro (18 novembre 2026)
+
+L'originale fotografico della locandina è conservato nel progetto in `assets/deborah-gallery-san-valentino-4x5.webp` (versione leggera precedente). La nuova composizione **`assets/deborah-sanvalentino-editorial-4x5.webp`** usa la fotografia originale inviata (1440×1920), ripulita dalle iscrizioni visibili e ritagliata dal basso per ottenere **1056×1320, rapporto 4:5**, con bordo champagne, pannello bordeaux e tipografia Didone in avorio/oro.
+
+La grafica riporta esclusivamente le informazioni presenti sulla locandina originale: `DEBORAH ANASTASIO`, `SAN VALENTINO`, `Dinner Show`, `VILLA GAURO`. Sono stati esclusi il numero telefonico e il watermark TikTok. La composizione è **un lavoro grafico editoriale coordinato alla palette del brand**, e non altera i master SVG approvati.
+
+Nella simulazione Instagram il contenuto è conservato come post fotografico autonomo (slot 2 della griglia, indice 1), così il caricamento dei filmati non sovrascrive una locandina storica con una copertina non pertinente. La precedente foto grezza resta in repository, insieme ai video e alle loro copertine indipendenti. **Non promuovere questo evento come data futura** senza conferma.
