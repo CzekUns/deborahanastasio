@@ -8,6 +8,7 @@ if(!demo)return;
 var REPOSITORY="CzekUns/deborahanastasio";
 var TREE_URL="https://api.github.com/repos/"+REPOSITORY+"/git/trees/main?recursive=1";
 var COVER_MAP="./assets/video-covers.json";
+var VERIFIED_MANIFEST="./assets/videos.json";
 var files=[];
 var coverMap={};
 var ready=false;
@@ -157,27 +158,65 @@ window.addEventListener("hashchange",function(){
   else video.pause();
 });
 window.addEventListener("deborah:videochange",syncPlayer);
+function chooseVideoFiles(repositoryTree, verifiedInventory){
+  var verified=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos:[];
+  var treePresent=repositoryTree&&Array.isArray(repositoryTree.tree);
+  var candidates=treePresent?repositoryTree.tree.filter(function(e){
+    return e.type==="blob" && isVideo(e.path) &&
+      !/(^|\/)(node_modules|dist|backup|archive|test)(\/|$)/i.test(e.path);
+  }).map(function(e){return {path:e.path,sha:e.sha,size_bytes:e.size};}):verified;
+  if(!candidates.length && !treePresent)candidates=verified;
+  // Preserve stable approved order from the manifest. Newly uploaded media is appended.
+  var approvedOrder={};
+  verified.forEach(function(e,i){approvedOrder[e.sha||e.path]=i;});
+  candidates.sort(function(a,b){
+    var rankA=approvedOrder[a.sha||a.path];
+    var rankB=approvedOrder[b.sha||b.path];
+    if(rankA!==undefined || rankB!==undefined){
+      if(rankA===undefined)return 1;
+      if(rankB===undefined)return -1;
+      if(rankA!==rankB)return rankA-rankB;
+    }
+    var aMain=a.path.indexOf("deborah_media/")===0?0:1;
+    var bMain=b.path.indexOf("deborah_media/")===0?0:1;
+    return aMain-bMain||a.path.localeCompare(b.path,"it",{numeric:true,sensitivity:"base"});
+  });
+  var shas={};
+  return candidates.filter(function(entry){
+    var identity=entry.sha||entry.path;
+    if(shas[identity])return false;
+    shas[identity]=true;
+    return true;
+  });
+}
 Promise.all([
   fetch(COVER_MAP,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
-  fetch(TREE_URL,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("GitHub API "+r.status);return r.json();})
+  fetch(VERIFIED_MANIFEST,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
+  fetch(TREE_URL,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
 ]).then(function(results){
   var info=results[0]||{};
   coverMap=info.covers||{};
-  var tree=results[1];
-  if(!tree || !Array.isArray(tree.tree))return;
-  var paths=tree.tree.filter(function(entry){
-    return entry.type==="blob"&&isVideo(entry.path)&&!/(^|\/)(node_modules|dist|backup|archive|test)(\/|$)/i.test(entry.path);
-  }).map(function(entry){return entry.path;});
-  paths.sort(function(a,b){return a.localeCompare(b,"it",{numeric:true,sensitivity:"base"});});
-  var entries=paths.map(function(path,i){
+  var verifiedInventory=results[1]||{};
+  var tree=results[2];
+  var selected=chooseVideoFiles(tree,verifiedInventory);
+  var entries=selected.map(function(file,i){
+    var path=file.path;
     var namedCover=coverMap[path];
     var cover=(namedCover&&isCover(namedCover))? "./"+safeLocalPath(namedCover.replace(/^\.\//,"")):
       (i%2===0?"./assets/deborah-cover-rosa-4x5.webp":"./assets/deborah-gallery-san-valentino-4x5.webp");
-    return {path:path,src:"./"+safeLocalPath(path),cover:cover,title:shortLabel(path,i)};
+    var known=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos.find(function(v){
+      return v.sha&&v.sha===file.sha || v.path===path;
+    }):null;
+    return {
+      path:path,
+      src:"./"+safeLocalPath(path),
+      cover:cover,
+      title:known&&known.title?known.title:shortLabel(path,i)
+    };
   });
   updateMedia(entries);
 }).catch(function(e){
-  console.warn("Deborah media auto-discovery not available:",e);
-  /* Do not claim files exist; the original static storyboard stays visible. */
+  console.warn("Deborah media discovery unavailable:",e);
+  // No fake video playback. Keep the static preview when no media is available.
 });
 })();
