@@ -15,7 +15,7 @@ La proposta valorizza il percorso artistico e la reputazione costruita sul campo
 1. **La lettera personale.** Simone racconta le diverse ore di osservazione delle performance e spiega che Deborah possiede già una forte identità: l'obiettivo è farla emergere online, senza ispirarsi o imitare le pagine di altri artisti.
 2. **Il significato dei segni.** La buona stella scelta come portafortuna, il ricciolo della A ispirato al segno astrologico del Leone e il nome «la DAB» per l'identità della band.
 3. **Il lavoro pratico.** Fotografie e video spesso compressi; preferenza per i file originali e invio come documenti, anche con WhatsApp. Le copertine sono state migliorate solo per necessità: niente ritocchi gratuiti.
-4. **L'intenzione e le demo.** Il progetto è una proposta personale e aperta ai commenti di Deborah, con percorso: **Presentazione → Instagram → TikTok → Sito ufficiale (tappa finale)**.
+4. **L'intenzione e le demo.** Il progetto è una proposta personale e aperta ai commenti di Deborah, con percorso: **Presentazione → Instagram → TikTok → Sito ufficiale (tappa finale)**. Le caption dei post e dei video sono scritte dal proponente Simone come interpretazioni del tone of voice di Deborah, non come citazioni o testi effettivamente scritti dall'artista: vanno riviste e approvate insieme. La prima pagina lo dichiara, TikTok lo esplicita nella nota laterale desktop e nel pannello Informazioni della simulazione mobile.
 
 ### Regole di navigazione
 
