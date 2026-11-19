@@ -17,62 +17,22 @@
     gallery:"./assets/deborah-sanvalentino-editorial-4x5.webp",
     blueArchive:"./assets/deborah-gallery-san-valentino-4x5.webp"
   };
+  // Feed Instagram: solo materiali reali e contenuti distinti.
+  // I cinque video vengono aggiunti dal catalogo verificato in video-integration.js.
+  // Le due foto statiche sono uniche e non vengono duplicate per riempire la griglia.
   var posts=[
-    {title:"Un momento che resta",type:"Wedding Diary",img:media.wedding,caption:"Ci sono momenti in cui una canzone riesce a dire tutto. ✨\n\nQual è il brano che portereste per sempre con voi? #weddingmusic #musicalive #napoli",idea:"Reel di un momento significativo, con ingresso musicale entro i primi due secondi."},
-    {title:"La voce è un ricordo",type:"Post manifesto",caption:"La musica si ascolta. E a volte continua a farsi sentire molto dopo l'ultima nota. ♡\n\n#deborahanastasio #voce #musica",idea:"Post grafico riconoscibile per fissare il tono emozionale del profilo."},
-    {title:"Live / 01",type:"Live Sessions",img:media.concert,caption:"Un frammento di una serata, tutto da ascoltare. 🎙️\n\n#livemusic #liveperformance",idea:"Estratto di una performance autentica, con audio originale autorizzato."},
-    {title:"Tre note. Un'emozione.",type:"Il repertorio",caption:"Ogni canzone custodisce una storia. Quale vorresti ascoltare in un momento importante?\n\n#repertorio #musica",idea:"Rubrica che valorizza il repertorio reale, da concordare con l'artista."},
-    {title:"Cerimonie",type:"Wedding Diary",img:media.table,caption:"Ogni dettaglio costruisce un'atmosfera. Anche la scelta della musica. ✨\n\n#cerimonie #musicaemozioni",idea:"Carousel con racconto fotografico di una cerimonia reale e crediti ai professionisti coinvolti."},
-    {title:"Dietro ogni canzone",type:"Backstage",caption:"Prima dell'esibizione ci sono prove, idee e piccoli rituali. Ti porto dietro le quinte. 🎼\n\n#backstage #cantante",idea:"Video spontaneo dei preparativi, mantenendo la qualità audio minima necessaria."},
-    {title:"La mia voce",type:"Presentazione",img:media.microphone,caption:"Una voce, tante storie da incontrare. Qui iniziamo a conoscerci. ♡\n\n#deborahanastasio",idea:"Un saluto, una canzone e un modo per conoscerci meglio."},
-    {title:"Musica da vivere",type:"Live Sessions",caption:"La differenza tra sentire una canzone e viverla insieme.\n\n#live #musicaitaliana",idea:"Clip verticale breve con una frase di apertura che incuriosisca."},
-    {title:"Eventi",type:"Atmosfere",img:media.event,caption:"Ogni evento ha il suo ritmo. L'idea è trovare quello che parla davvero delle persone. ✦\n\n#eventi #livemusic",idea:"Post portfolio con video o foto reali, se disponibili e autorizzati."},
-    {title:"Le parole che cantiamo",type:"Storie di musica",caption:"Ci sono parole che, cantate, assumono un significato nuovo.\n\n#musicastories #voce",idea:"Micro-rubrica dedicata al rapporto con la musica, senza riprodurre testi protetti non autorizzati."},
-    {title:"Wedding Diary",type:"Cerimonie",img:media.rings,caption:"Quando tutto si ferma per un istante e resta soltanto l'emozione.\n\n#weddingdiary #cerimonia",idea:"Racconto verticale di un evento, con riprese rispettose della privacy degli invitati."},
-    {title:"Ci vediamo dal vivo",type:"Contatti",caption:"Hai una data speciale in mente? Raccontamela con un messaggio privato. ♡\n\n#contatti #musicalive",idea:"Post fissato con indicazioni semplici per richiedere disponibilità."}
+    {title:"Deborah Anastasio",type:"Fotografia",img:uploaded.pink,
+      caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",
+      editorialStatic:true},
+    {title:"San Valentino · Villa Gauro",type:"Archivio",img:uploaded.blueArchive,
+      caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
+      editorialStatic:true}
   ];
-  // Provvisoriamente i due contenuti autentici vengono ripetuti nelle due demo.
-  // Non usare contenuti fittizi o scatti stock come se fossero di Deborah.
-  var assetPair=[
-    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",idea:"Una foto e un saluto grande a chi passa di qui. ❤️"},
-    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Un ricordo di San Valentino a Villa Gauro. Che bello rivivere queste serate! ❤️🎶",idea:"Un ricordo di San Valentino a Villa Gauro, tra musica e belle emozioni."}
-  ];
-  posts.forEach(function(p,i){
-    var item=assetPair[i%2];
-    p.img=item.img;p.title=item.title;p.caption=item.caption;p.idea=item.idea;
-  });
-  // Archival San Valentino poster: a real editorial still, never attach an unrelated video.
-  posts[1].editorialStatic=true;
-  posts[1].videoSrc=null;
   var grid=document.getElementById("ig-grid");
-  if(grid)grid.querySelectorAll("[data-post]").forEach(function(el,i){
-    var m=assetPair[i%2];
-    el.className="ig-tile image-tile";
-    el.innerHTML='<img src="'+m.img+'" alt="'+m.title+'" loading="lazy"><span class="tile-tag">'+(i%2?"ARCHIVIO / LIVE":"DEBORAH ANASTASIO")+'</span>';
-  });
-  // Spazi editoriali DAB: grafica tipografica, senza attribuire foto non verificate alla band.
-  [2,8].forEach(function(i){
-    var p=posts[i];
-    p.title=i===2?"DAB · Deborah Anastasio Band":"DAB · Sul palco";
-    p.type="DAB / La band";p.img="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119";p.brandAsset="DAB";
-    p.caption=i===2?"Con la DAB al completo l'energia è un'altra cosa! 🎶❤️ #DeborahAnastasioBand #MusicaDalVivo":"Le prove, le risate e poi tutti sul palco. Con la DAB ci divertiamo davvero! ❤️ #DAB #LiveMusic";
-    p.idea="La DAB: i musicisti, le prove, le serate e la voglia di stare insieme sul palco.";
-    var el=grid&&grid.querySelector('[data-post="'+i+'"]');
-    if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<img class="dab-tile-logo" src="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119" alt="DAB · Deborah Anastasio Band" loading="lazy">';}
-  });
-  // Original San Valentino / Villa Gauro flyer: distinct from the burgundy redesign.
-  var blueArchivePost=posts[3];
-  blueArchivePost.title="San Valentino · Dinner Show · Villa Gauro";
-  blueArchivePost.type="Archivio / Locandina";
-  blueArchivePost.img=uploaded.blueArchive;
-  blueArchivePost.caption="Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live";
-  blueArchivePost.idea="Locandina originale con Deborah in abito nero su sfondo blu. Contenuto d’archivio, non una nuova data.";
-  blueArchivePost.editorialStatic=true;
-  blueArchivePost.videoSrc=null;
-  var blueArchiveTile=grid&&grid.querySelector('[data-post="3"]');
-  if(blueArchiveTile){
-    blueArchiveTile.className="ig-tile image-tile archival-photo-tile";
-    blueArchiveTile.innerHTML='<img src="'+uploaded.blueArchive+'" alt="Deborah in abito nero su sfondo blu, San Valentino Dinner Show Villa Gauro" loading="lazy"><span class="tile-tag">ARCHIVIO</span>';
+  if(grid){
+    grid.innerHTML=posts.map(function(p,i){
+      return '<button data-post="'+i+'" class="ig-tile image-tile"><img src="'+p.img+'" alt="'+p.title.replace(/"/g,"&quot;")+'" loading="lazy"></button>';
+    }).join("");
   }
   var stories=[
     {title:"La mia voce",detail:"Ciao ragazzi, sono Deborah! Qui vi porto con me, tra canzoni, emozioni e serate bellissime. ❤️"},
