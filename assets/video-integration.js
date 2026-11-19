@@ -32,66 +32,63 @@ function shortLabel(path,i){
 }
 function updateMedia(items){
   files=items;
-  if(!items.length)return;
   var videoData=demo.videos;
-  // Video slots are independent of cover files. We duplicate media when
-  // fewer videos than grid cells are available, as requested for this demo.
-  // Use each distinct video once in TikTok and Reels. Instagram's wall may
-  // repeat the same four assets across its twelve temporary slots.
-  videoData.length=items.length;
-  while(videoData.length<items.length){
-    videoData.push({title:"",headline:"",caption:"",photo:"",method:""});
-  }
-  for(var i=0;i<videoData.length;i++){
-    var asset=items[i%items.length];
-    var v=videoData[i];
-    v.src=asset.src;
-    v.title=asset.title;
-    v.photo=asset.cover;
-    v.cover=asset.cover;
-    v.caption=asset.caption||"Deborah Anastasio · "+asset.title;
-    v.headline="";
-    v.method="Video presente nel repository GitHub; la copertina è indipendente dal filmato e sarà sostituibile.";
-  }
-  // TikTok's blue San Valentino flyer is a silent photo post between videos.
+  videoData.length=0;
+  items.forEach(function(asset){
+    videoData.push({
+      src:asset.src,title:asset.title,photo:asset.cover,cover:asset.cover,
+      caption:asset.caption||("Deborah Anastasio · "+asset.title),
+      headline:"",method:"",photoPost:false
+    });
+  });
+  // Un unico post fotografico TikTok, distinto dai cinque video.
   videoData.splice(Math.min(2,videoData.length),0,{
-    title:"San Valentino · Dinner Show · Villa Gauro",
+    title:"San Valentino · Villa Gauro",
     headline:"",
-    caption:"Dall’archivio: San Valentino · Dinner Show · Villa Gauro. ✦ #DeborahAnastasio #Live",
+    caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
     photo:"./assets/deborah-gallery-san-valentino-4x5.webp",
     cover:"./assets/deborah-gallery-san-valentino-4x5.webp",
-    photoPost:true,
-    src:null,
-    method:"Locandina originale d’archivio. Post fotografico, senza audio né una data futura."
+    photoPost:true,src:null,method:""
   });
-  demo.posts.forEach(function(p,index){
-    if(p.brandAsset==="DAB" || p.editorialStatic)return; // Keep the approved identity slots separate from unrelated video clips.
-    var asset=items[index%items.length];
-    p.videoSrc=asset.src;
-    p.img=asset.cover;
-    p.cover=asset.cover;
-    p.title=asset.title;
-    p.caption=asset.caption||"Deborah Anastasio · "+asset.title;
-    p.idea="Un momento da rivivere insieme. ❤️";
+
+  // Instagram: le due foto originali presenti nel modello più ciascun video una volta sola.
+  var photoPosts=demo.posts.filter(function(p){return p.editorialStatic && p.img;});
+  var uniquePhotos=[];
+  var usedImages={};
+  photoPosts.forEach(function(p){
+    if(!usedImages[p.img]){usedImages[p.img]=true;uniquePhotos.push(p);}
   });
-  // Keep the Instagram wall in three columns, each tile 4:5.
-  document.querySelectorAll("#ig-grid [data-post]").forEach(function(tile,i){
-    if(demo.posts[i]&&(demo.posts[i].brandAsset==="DAB"||demo.posts[i].editorialStatic))return;
-    var asset=items[i%items.length];
-    tile.className="ig-tile image-tile has-video";
-    tile.innerHTML='<img src="'+asset.cover+'" alt="Copertina: '+asset.title.replace(/"/g,"&quot;")+'" loading="lazy"><span class="tile-reel-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m10 8 6 4-6 4z" fill="currentColor" stroke="none"/></svg></span>';
+  demo.posts.length=0;
+  uniquePhotos.forEach(function(p){demo.posts.push(p);});
+  items.forEach(function(asset){
+    demo.posts.push({
+      title:asset.title,type:"Video",videoSrc:asset.src,img:asset.cover,cover:asset.cover,
+      caption:asset.caption||("Deborah Anastasio · "+asset.title)
+    });
   });
-  // Update the desktop side-navigation without pretending that a still image
-  // is a moving video.
+  var grid=document.getElementById("ig-grid");
+  if(grid){
+    grid.innerHTML=demo.posts.map(function(p,i){
+      var title=p.title.replace(/[&<>"]/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[x];});
+      return '<button type="button" data-post="'+i+'" class="ig-tile image-tile'+(p.videoSrc?' has-video':'')+'">'+
+        '<img src="'+p.img+'" alt="'+title+'" loading="lazy">'+
+        (p.videoSrc?'<span class="tile-reel-mark" aria-hidden="true">▶</span>':'')+'</button>';
+    }).join("");
+  }
   var list=document.getElementById("format-list");
   if(list){
     list.innerHTML=videoData.map(function(v,i){
-      return '<button type="button" data-video="'+i+'"'+(i===0?' class="active"':'')+'><span>'+String(i+1).padStart(2,"0")+'</span><div><b>'+v.title.replace(/[&<>"]/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[x];})+'</b><small>'+(v.photoPost?'Foto d’archivio · Villa Gauro':'Video dalla repository')+'</small></div><span>↗</span></button>';
+      var title=v.title.replace(/[&<>"]/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[x];});
+      return '<button type="button" data-video="'+i+'"'+(i===0?' class="active"':'')+
+      '><span>'+String(i+1).padStart(2,"0")+'</span><div><b>'+title+
+      '</b><small>'+(v.photoPost?'Foto · Villa Gauro':'Video dal vivo')+'</small></div><span>↗</span></button>';
     }).join("");
   }
   ready=true;
-  window.dispatchEvent(new CustomEvent("deborah:libraryready",{detail:{count:items.length,files:items.map(function(x){return x.path;})}}));
-  demo.setVideo(0);
+  window.dispatchEvent(new CustomEvent("deborah:libraryready",{
+    detail:{count:items.length,files:items.map(function(x){return x.path;})}
+  }));
+  if(videoData.length)demo.setVideo(0);
 }
 function ensureVideo(){
   if(!videoStage || video)return;
@@ -182,34 +179,16 @@ function syncPlayer(){
 }
 // Route/visibility/overlay lifecycle is owned by the shared media manager.
 window.addEventListener("deborah:videochange",syncPlayer);
-function chooseVideoFiles(repositoryTree, verifiedInventory){
+function chooseVideoFiles(repositoryTree,verifiedInventory){
   var verified=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos:[];
-  var treePresent=repositoryTree&&Array.isArray(repositoryTree.tree);
-  var candidates=treePresent?repositoryTree.tree.filter(function(e){
-    return e.type==="blob" && isVideo(e.path) &&
-      !/(^|\/)(node_modules|dist|backup|archive|test)(\/|$)/i.test(e.path);
-  }).map(function(e){return {path:e.path,sha:e.sha,size_bytes:e.size};}):verified;
-  if(!candidates.length && !treePresent)candidates=verified;
-  // Preserve stable approved order from the manifest. Newly uploaded media is appended.
-  var approvedOrder={};
-  verified.forEach(function(e,i){approvedOrder[e.sha||e.path]=i;});
-  candidates.sort(function(a,b){
-    var rankA=approvedOrder[a.sha||a.path];
-    var rankB=approvedOrder[b.sha||b.path];
-    if(rankA!==undefined || rankB!==undefined){
-      if(rankA===undefined)return 1;
-      if(rankB===undefined)return -1;
-      if(rankA!==rankB)return rankA-rankB;
-    }
-    var aMain=a.path.indexOf("deborah_media/")===0?0:1;
-    var bMain=b.path.indexOf("deborah_media/")===0?0:1;
-    return aMain-bMain||a.path.localeCompare(b.path,"it",{numeric:true,sensitivity:"base"});
-  });
-  var shas={};
-  return candidates.filter(function(entry){
+  var present=repositoryTree&&Array.isArray(repositoryTree.tree)?
+    new Set(repositoryTree.tree.filter(function(e){return e.type==="blob" && isVideo(e.path);})
+      .map(function(e){return e.path;})):null;
+  var seen={};
+  return verified.filter(function(entry){
     var identity=entry.sha||entry.path;
-    if(shas[identity])return false;
-    shas[identity]=true;
+    if(!entry.path || seen[identity] || (present && !present.has(entry.path)))return false;
+    seen[identity]=true;
     return true;
   });
 }
@@ -227,7 +206,7 @@ Promise.all([
     var path=file.path;
     var namedCover=coverMap[path];
     var cover=(namedCover&&isCover(namedCover))? "./"+safeLocalPath(namedCover.replace(/^\.\//,"")):
-      (i%2===0?"./assets/deborah-cover-rosa-4x5.webp":"./assets/deborah-gallery-san-valentino-4x5.webp");
+      "./assets/deborah-avatar-centrato-ai.webp";
     var known=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos.find(function(v){
       return v.sha&&v.sha===file.sha || v.path===path;
     }):null;
