@@ -109,3 +109,83 @@
 }
 
 .site-footer-brand img{display:block;width:148px;height:auto}
+
+
+/* Approved DA star mark in the circular seal selected for the official site's header. */
+.site-nav .site-logo.site-logo-brand { gap: 13px; align-items: center; }
+.site-nav .site-logo-icon.site-logo-seal {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  flex: 0 0 54px;
+  padding: 0;
+  border-radius: 50%;
+  border: 3px solid #fff8ee;
+  outline: 1px solid rgba(133, 80, 91, .35);
+  background: #51152e;
+  box-shadow: 0 2px 9px rgba(45, 20, 32, .13);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+}
+.site-nav .site-logo-seal > img {
+  position: relative;
+  width: 91%;
+  height: 34px;
+  margin-top: 5px;
+  flex: 0 0 34px;
+  object-fit: contain;
+  display: block;
+}
+.site-nav .site-logo-seal > small {
+  position: relative;
+  display: block;
+  font: 700 6px/1.15 "DM Sans", sans-serif;
+  color: #fff8ee;
+  letter-spacing: .08em;
+  margin-top: -1px;
+  white-space: nowrap;
+  text-align: center;
+}
+.site-nav .site-logo-wordmark.site-logo-approved img {
+  height: auto;
+  max-height: 55px;
+}
+@media(max-width:800px){
+  .site-nav .site-logo-icon.site-logo-seal {
+    width: 49px;
+    height: 49px;
+    min-width: 49px;
+    flex-basis: 49px;
+  }
+  .site-nav .site-logo-seal > img {
+    height: 31px;
+    flex-basis: 31px;
+    margin-top: 4px;
+  }
+  .site-nav .site-logo-seal > small { font-size: 5.6px; }
+  .site-nav .site-logo.site-logo-brand { gap: 10px; }
+}
+@media(max-width:540px){
+  .site-nav .site-logo-icon.site-logo-seal {
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+    flex-basis: 43px;
+    border-width: 2.5px;
+  }
+  .site-nav .site-logo-seal > img {
+    width: 91%;
+    height: 27px;
+    flex-basis: 27px;
+    margin-top: 3px;
+  }
+  .site-nav .site-logo-seal > small { font-size: 5px; margin-top: -1px; }
+  .site-nav .site-logo.site-logo-brand { gap: 8px; }
+  .site-nav .site-logo-wordmark.site-logo-approved img { max-width: min(32vw,130px); }
+}
