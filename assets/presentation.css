@@ -247,3 +247,36 @@
 .native-help .tt-caption-info{border-top:1px solid #e4d6d4;border-bottom:1px solid #e4d6d4;margin:24px 0;padding:23px 0 25px}
 .native-help .tt-caption-info h3{font-size:26px}
 .native-help .tt-caption-info p{margin:0}
+
+/* Photo-free opening: present the pitch as an editorial letter, without a decorative hero image. */
+.pitch-hero.pitch-opening {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:420px;
+  padding-top:clamp(55px,7vw,112px);
+  padding-bottom:clamp(65px,8vw,125px);
+}
+.pitch-opening .pitch-hero-copy {
+  width:100%;
+  max-width:920px;
+}
+.pitch-opening .pitch-hero-copy h1 {
+  font-size:clamp(46px,5.4vw,85px);
+  line-height:1.11;
+}
+.pitch-opening .pitch-hero-copy > p {
+  max-width:690px;
+}
+.pitch-opening .pitch-hero-copy .pitch-hero-emphasis {
+  max-width:690px;
+}
+@media(max-width:800px){
+  .pitch-hero.pitch-opening{min-height:0;gap:0;padding-top:70px;padding-bottom:79px}
+  .pitch-opening .pitch-hero-copy h1{font-size:clamp(44px,8.7vw,66px)}
+}
+@media(max-width:540px){
+  .pitch-hero.pitch-opening{padding:52px 26px 67px}
+  .pitch-opening .pitch-hero-copy h1{font-size:clamp(42px,11.1vw,57px)}
+}
