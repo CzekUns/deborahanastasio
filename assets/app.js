@@ -24,7 +24,7 @@
     {title:"Tre note. Un'emozione.",type:"Il repertorio",caption:"Ogni canzone custodisce una storia. Quale vorresti ascoltare in un momento importante?\n\n#repertorio #musica",idea:"Rubrica che valorizza il repertorio reale, da concordare con l'artista."},
     {title:"Cerimonie",type:"Wedding Diary",img:media.table,caption:"Ogni dettaglio costruisce un'atmosfera. Anche la scelta della musica. ✨\n\n#cerimonie #musicaemozioni",idea:"Carousel con racconto fotografico di una cerimonia reale e crediti ai professionisti coinvolti."},
     {title:"Dietro ogni canzone",type:"Backstage",caption:"Prima dell'esibizione ci sono prove, idee e piccoli rituali. Ti porto dietro le quinte. 🎼\n\n#backstage #cantante",idea:"Video spontaneo dei preparativi, mantenendo la qualità audio minima necessaria."},
-    {title:"La mia voce",type:"Presentazione",img:media.microphone,caption:"Una voce, tante storie da incontrare. Qui iniziamo a conoscerci. ♡\n\n#deborahanastasio",idea:"Uno dei tre post da fissare: Deborah si presenta in prima persona, con un suo vero ritratto."},
+    {title:"La mia voce",type:"Presentazione",img:media.microphone,caption:"Una voce, tante storie da incontrare. Qui iniziamo a conoscerci. ♡\n\n#deborahanastasio",idea:"Un saluto, una canzone e un modo per conoscerci meglio."},
     {title:"Musica da vivere",type:"Live Sessions",caption:"La differenza tra sentire una canzone e viverla insieme.\n\n#live #musicaitaliana",idea:"Clip verticale breve con una frase di apertura che incuriosisca."},
     {title:"Eventi",type:"Atmosfere",img:media.event,caption:"Ogni evento ha il suo ritmo. L'idea è trovare quello che parla davvero delle persone. ✦\n\n#eventi #livemusic",idea:"Post portfolio con video o foto reali, se disponibili e autorizzati."},
     {title:"Le parole che cantiamo",type:"Storie di musica",caption:"Ci sono parole che, cantate, assumono un significato nuovo.\n\n#musicastories #voce",idea:"Micro-rubrica dedicata al rapporto con la musica, senza riprodurre testi protetti non autorizzati."},
@@ -34,8 +34,8 @@
   // Provvisoriamente i due contenuti autentici vengono ripetuti nelle due demo.
   // Non usare contenuti fittizi o scatti stock come se fossero di Deborah.
   var assetPair=[
-    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Deborah Anastasio · Foto dalla galleria. Una presenza, una voce, un'identità.",idea:"Fotografia copertina rosa, inviata per la demo. Presentazione del profilo."},
-    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Dalla galleria di Deborah: locandina San Valentino · Dinner Show · Villa Gauro. Materiale dimostrativo d'archivio.",idea:"Locandina originale inviata per la demo. La data non è presentata come evento futuro."}
+    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",idea:"Fotografia copertina rosa, inviata per la demo. Presentazione del profilo."},
+    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Un ricordo di San Valentino a Villa Gauro. Che bello rivivere queste serate! ❤️🎶",idea:"Locandina originale inviata per la demo. La data non è presentata come evento futuro."}
   ];
   posts.forEach(function(p,i){
     var item=assetPair[i%2];
@@ -55,7 +55,7 @@
     var p=posts[i];
     p.title=i===2?"DAB · Deborah Anastasio Band":"DAB · Sul palco";
     p.type="DAB / La band";p.img="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119";p.brandAsset="DAB";
-    p.caption=i===2?"DAB. Deborah Anastasio Band. Una storia musicale da vivere insieme. #DAB #DeborahAnastasioBand":"Il suono, i musicisti, il palco. DAB è la dimensione collettiva del live. #DAB #LiveMusic";
+    p.caption=i===2?"Con la DAB al completo l'energia è un'altra cosa! 🎶❤️ #DeborahAnastasioBand #MusicaDalVivo":"Le prove, le risate e poi tutti sul palco. Con la DAB ci divertiamo davvero! ❤️ #DAB #LiveMusic";
     p.idea="Copertina editoriale DAB. Sostituire soltanto con veri materiali della band, con crediti e approvazione.";
     var el=grid&&grid.querySelector('[data-post="'+i+'"]');
     if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<img class="dab-tile-logo" src="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119" alt="DAB · Deborah Anastasio Band" loading="lazy">';}
@@ -65,7 +65,7 @@
   blueArchivePost.title="San Valentino · Dinner Show · Villa Gauro";
   blueArchivePost.type="Archivio / Locandina";
   blueArchivePost.img=uploaded.blueArchive;
-  blueArchivePost.caption="Dall’archivio delle esibizioni di Deborah: San Valentino · Dinner Show · Villa Gauro. ✦ #DeborahAnastasio #Live";
+  blueArchivePost.caption="Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live";
   blueArchivePost.idea="Locandina originale con Deborah in abito nero su sfondo blu. Contenuto d’archivio, non una nuova data.";
   blueArchivePost.editorialStatic=true;
   blueArchivePost.videoSrc=null;
@@ -75,11 +75,11 @@
     blueArchiveTile.innerHTML='<img src="'+uploaded.blueArchive+'" alt="Deborah in abito nero su sfondo blu, San Valentino Dinner Show Villa Gauro" loading="lazy"><span class="tile-tag">ARCHIVIO</span>';
   }
   var stories=[
-    {title:"La mia voce",detail:"Chi è Deborah, come racconta la musica e quali emozioni vuole trasmettere. Da riempire con una sua vera presentazione in video."},
-    {title:"Cerimonie",detail:"Brevi estratti autorizzati, momenti di una giornata e informazioni chiare sulle cerimonie effettivamente proposte."},
-    {title:"DAB · La band",detail:"Deborah Anastasio Band: performance, musicisti, prove e backstage. Foto, nomi e riprese vanno verificati e autorizzati."},
-    {title:"Backstage",detail:"Prove, preparazione, micro-momenti prima di salire sul palco e rapporto autentico con il pubblico."},
-    {title:"Contatti",detail:"Come verificare una data, quali informazioni inviare e dove trovare il sito ufficiale."}
+    {title:"La mia voce",detail:"Ciao ragazzi, sono Deborah! Qui vi porto con me, tra canzoni, emozioni e serate bellissime. ❤️"},
+    {title:"Cerimonie",detail:"Ogni festa ha la sua emozione. Che bello accompagnarvi con la musica nei vostri momenti speciali!"},
+    {title:"DAB · La band",detail:"Eccoci con la DAB! Tra musica dal vivo, prove e qualche risata, vi facciamo compagnia anche qui."},
+    {title:"Backstage",detail:"Un po' di tremarella c'è sempre! Vi mostro le prove, i preparativi e quello che combiniamo prima di salire sul palco."},
+    {title:"Contatti",detail:"Avete qualcosa di bello da festeggiare? Scrivetemi e raccontatemi tutto. Bacio grande! ❤️"}
   ];
   var videos=[
     {title:"Il momento",headline:"Quando la musica<br>rende eterno<br>un istante.",caption:"Il momento in cui la musica cambia l'atmosfera. ✨ #musicalive #cerimonie",photo:media.wedding,method:"Partire dal momento più forte della cerimonia, senza introduzione. Inserire una ripresa autorizzata di Deborah e l'audio originale."},
@@ -97,7 +97,7 @@
   // Storyboard n.3 dedicato a DAB; la foto ripetuta è soltanto un segnaposto.
   videos[2].title="DAB · La band";
   videos[2].headline="DAB<br>La band.";
-  videos[2].caption="Deborah Anastasio Band · DAB. Esibizioni e persone della band, presto con filmati originali. #DAB";
+  videos[2].caption="La DAB, i musicisti e tutta la nostra voglia di cantare insieme. 🎶❤️ #DeborahAnastasioBand";
   videos[2].method="Sostituire la fotografia segnaposto con video autentici della DAB. Aprire sulla performance, dare spazio ai musicisti e usare audio live autorizzato.";
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
@@ -146,11 +146,11 @@
   }
   function openPost(i){
     var post=posts[i];if(!post)return;
-    var html='<span class="dialog-kicker">INSTAGRAM / PROPOSTA POST '+String(i+1).padStart(2,"0")+'</span>';
+    var html='<span class="dialog-kicker">INSTAGRAM / POST '+String(i+1).padStart(2,"0")+'</span>';
     if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" autoplay muted playsinline controls preload="auto" aria-label="Video di Deborah Anastasio"></video>';
     else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
     html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2><p>'+escapeText(post.idea)+'</p>';
-    html+='<div class="dialog-sample"><b>CAPTION PROPOSTA</b><p>'+paragraphs(post.caption)+'</p></div>';
+    html+='<div class="dialog-sample"><b>LA DIDASCALIA</b><p>'+paragraphs(post.caption)+'</p></div>';
     html+='<p class="dialog-small">Contenuto creativo dimostrativo. Da realizzare e verificare con materiali autentici di Deborah.</p>';
     openModal(html);
     // Opening a post is an intentional click: start playback immediately
@@ -166,9 +166,9 @@
     openModal(titleDialog("INSTAGRAM / STORIA IN EVIDENZA",story.title,story.detail)+'<div class="dialog-sample"><b>TRATTAMENTO VISIVO</b><p>Copertina con simbolo minimal, fondo champagne/avorio, titolo essenziale, coerenza con il resto del profilo.</p></div>');
   }
   function openContact(){
-    openModal(titleDialog("SITO / PERCORSO CONTATTI","Il contatto, senza attrito.","Nella versione definitiva qui troverà posto il canale di richiesta disponibilità concordato con Deborah. In questa demo non si raccolgono né si inviano dati.")+
+    openModal(titleDialog("SITO / PERCORSO CONTATTI","Scrivimi, mi farà piacere!","Mi fa piacere conoscere le vostre idee. Questo spazio è una dimostrazione: qui non si inviano messaggi reali.")+
       '<div class="dialog-action-row"><a href="'+instagramUrl+'" target="_blank" rel="noopener noreferrer">Instagram reale ↗</a><a href="'+tiktokUrl+'" target="_blank" rel="noopener noreferrer">TikTok reale ↗</a></div>'+
-      '<p class="dialog-small">La proposta prevede un modulo con data, tipo di evento, località e recapito, da attivare solo dopo l’approvazione dell’artista.</p>');
+      '<p class="dialog-small">Per contattarmi davvero potete usare i miei profili social. Questa pagina è ancora una dimostrazione.</p>');
   }
   function shareDemo(){
     var url=location.href;
@@ -188,7 +188,7 @@
       var a=action.dataset.action;
       if(a==="contact")openContact();
       if(a==="share")shareDemo();
-      if(a==="profile-info")openModal(titleDialog("INSTAGRAM / DETTAGLI","Profilo dimostrativo","Il layout è ispirato alle logiche di Instagram, ma post, numeri e bio non riflettono dati estratti dal profilo reale. È un prototipo autonomo, non collegato a Meta."));
+      if(a==="profile-info")openModal(titleDialog("INSTAGRAM / DETTAGLI","Un'anteprima del profilo","Il layout è ispirato alle logiche di Instagram, ma post, numeri e bio non riflettono dati estratti dal profilo reale. È un prototipo autonomo, non collegato a Meta."));
       if(a==="tiktok-info")openModal(titleDialog("TIKTOK / PRODUZIONE",videos[videoIndex].title,videos[videoIndex].method));
     }
     var video=ev.target.closest("[data-video]");
