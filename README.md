@@ -15,7 +15,7 @@ La guida editoriale e di handoff è in `docs/PRESENTAZIONE_DEBORAH.md`. Stili so
 
 ## Cosa contiene
 
-- **La proposta** (#visione): presentazione commerciale in prima persona, valore aggiunto del proponente, metodo, collaborazione e percorso guidato per Deborah.
+- **La presentazione** (#visione): lettera personale di Simone a Deborah; diverse ore di lavoro, identità artistica già forte, simboli della stella e del Leone, idea «la DAB», cura dei file originali e prototipi da discutere insieme.
 - **Instagram concept** (#instagram): simulazione responsive del profilo, bio proposta, 5 storie in evidenza, 12 post/copertine coordinate, apertura dei post con idea + caption, filtri post/reel.
 - **TikTok concept** (#tiktok): simulazione verticale con 5 storyboard, navigazione con pulsanti, tastiera e swipe, format e note di produzione. I riquadri **non sono video veri e non riproducono audio**.
 - **Sito ufficiale concept** (#sito): sito vetrina navigabile, proposta artistica, punti di contatto e una CTA dimostrativa senza raccolta dati.
