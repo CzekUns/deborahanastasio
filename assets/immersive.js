@@ -254,7 +254,11 @@
         '<div class="native-story-text"><span>LA DAB · '+(selectedDabFrame+1)+' / '+dabGallery.length+'</span><h2>'+esc(photo.title)+'</h2></div>'+
         '<div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Foto precedente della DAB"></button><button type="button" data-story-step="1" aria-label="Foto successiva della DAB"></button></div>'+
         '<div class="native-story-reply">Una serata con La DAB <span>♡</span></div></div>';
-      showOverlay(body,"story");
+      if(!overlay.hidden && overlayType==="story"){
+        overlay.innerHTML=body;
+        var close=overlay.querySelector("[data-native-close]");
+        if(close)close.focus({preventScroll:true});
+      }else showOverlay(body,"story");
       var view=overlay.querySelector(".native-dab-photo-story");
       if(view)view.style.setProperty("--story-image",'url("'+photo.src+'")');
       return;
