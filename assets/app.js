@@ -167,6 +167,9 @@
   modal.addEventListener("click",function(ev){if(ev.target===modal)closeModal();});
   window.addEventListener("keydown",function(ev){
     if(ev.key==="Escape")closeModal();
+    if(!modal.hidden && modalContent.querySelector(".dab-gallery-dialog") && (ev.key==="ArrowRight"||ev.key==="ArrowLeft")){
+      ev.preventDefault();openBandPhoto(activeDabPhoto+(ev.key==="ArrowRight"?1:-1));return;
+    }
     if(!modal.hidden || ev.defaultPrevented || !canStepVideo())return;
     if(ev.key==="ArrowDown"||ev.key==="ArrowUp"){
       ev.preventDefault();
