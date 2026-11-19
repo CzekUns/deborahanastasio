@@ -118,7 +118,7 @@
       el.classList.toggle("active",active);
       if(active) el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");
     });
-    document.title="Deborah Anastasio — "+(selected==="visione"?"La proposta / Presentazione":selected==="sito"?"Sito ufficiale / Concept":selected[0].toUpperCase()+selected.slice(1)+" / Concept");
+    document.title="Deborah Anastasio — "+(selected==="visione"?"La proposta / Presentazione":selected==="sito"?"La mia musica":selected[0].toUpperCase()+selected.slice(1));
     if(location.hash.indexOf("#site-")===0 || location.hash.indexOf("#pitch-")===0){
       window.requestAnimationFrame(function(){var target=document.getElementById(location.hash.slice(1));if(target)target.scrollIntoView({behavior:"smooth"});});
     }else window.scrollTo({top:0,behavior:"auto"});
@@ -149,9 +149,9 @@
     var html='<span class="dialog-kicker">INSTAGRAM / POST '+String(i+1).padStart(2,"0")+'</span>';
     if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" autoplay muted playsinline controls preload="auto" aria-label="Video di Deborah Anastasio"></video>';
     else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
-    html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2><p>'+escapeText(post.idea)+'</p>';
+    html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2>';
     html+='<div class="dialog-sample"><b>LA DIDASCALIA</b><p>'+paragraphs(post.caption)+'</p></div>';
-    html+='<p class="dialog-small">Anteprima editoriale: i contenuti non sono pubblicati sui social.</p>';
+    
     openModal(html);
     // Opening a post is an intentional click: start playback immediately
     // with the user's previously chosen audio preference (or sound if allowed).
@@ -163,20 +163,20 @@
   }
   function openStory(i){
     var story=stories[i];if(!story)return;
-    openModal(titleDialog("INSTAGRAM / STORIA IN EVIDENZA",story.title,story.detail)+'<div class="dialog-sample"><b>LA MIA STORIA</b><p>Un piccolo spazio per condividere con voi musica, ricordi e momenti dietro le quinte.</p></div>');
+    openModal(titleDialog("STORIE IN EVIDENZA",story.title,story.detail));
   }
   function openContact(){
-    openModal(titleDialog("SITO / PERCORSO CONTATTI","Scrivimi, mi farà piacere!","Mi fa piacere conoscere le vostre idee. Questo spazio è una dimostrazione: qui non si inviano messaggi reali.")+
+    openModal(titleDialog("CONTATTI","Scrivimi, mi farà piacere!","Avete qualcosa di bello da festeggiare? Scrivetemi sui miei canali social, vi aspetto! ❤️")+
       '<div class="dialog-action-row"><a href="'+instagramUrl+'" target="_blank" rel="noopener noreferrer">Instagram reale ↗</a><a href="'+tiktokUrl+'" target="_blank" rel="noopener noreferrer">TikTok reale ↗</a></div>'+
-      '<p class="dialog-small">Per contattarmi davvero potete usare i miei profili social. Questa pagina è ancora una dimostrazione.</p>');
+      '<p class="dialog-small">I messaggi si inviano direttamente tramite Instagram o TikTok.</p>');
   }
   function shareDemo(){
     var url=location.href;
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(url).then(function(){
-        openModal(titleDialog("LINK ALLA DEMO","Link copiato","Il collegamento alla vista attuale è stato copiato. Puoi condividerlo quando la demo sarà pubblicata."));
-      }).catch(function(){openModal(titleDialog("LINK ALLA DEMO","Condividi la proposta",url));});
-    }else openModal(titleDialog("LINK ALLA DEMO","Condividi la proposta",url));
+        openModal(titleDialog("CONDIVIDI","Link copiato","Link copiato! Puoi condividerlo con chi vuoi."));
+      }).catch(function(){openModal(titleDialog("CONDIVIDI","Condividi il link",url));});
+    }else openModal(titleDialog("CONDIVIDI","Condividi il link",url));
   }
   document.addEventListener("click",function(ev){
     var post=ev.target.closest("[data-post]");
@@ -188,7 +188,7 @@
       var a=action.dataset.action;
       if(a==="contact")openContact();
       if(a==="share")shareDemo();
-      if(a==="profile-info")openModal(titleDialog("INSTAGRAM / DETTAGLI","Un'anteprima del profilo","Il layout è ispirato alle logiche di Instagram, ma post, numeri e bio non riflettono dati estratti dal profilo reale. È un prototipo autonomo, non collegato a Meta."));
+      if(a==="profile-info")openModal(titleDialog("INSTAGRAM / DETTAGLI","Il profilo di Deborah","Stai guardando un'anteprima del progetto di Deborah. Per i contenuti pubblicati visita il suo profilo Instagram."));
       if(a==="tiktok-info")openModal(titleDialog("TIKTOK / PRODUZIONE",videos[videoIndex].title,videos[videoIndex].method));
     }
     var video=ev.target.closest("[data-video]");
