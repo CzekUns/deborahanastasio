@@ -18,3 +18,26 @@
 @media(max-width:800px){.app-header{display:flex;flex-direction:column;gap:11px;padding:14px 12px 0}.identity{align-self:center}.main-nav{width:100%;justify-content:center;gap:clamp(15px,5vw,40px);overflow-x:auto;padding-bottom:4px}.main-nav a{font-size:10px;white-space:nowrap}.vision-hero{grid-template-columns:1fr;gap:40px;padding:60px 7vw}.vision-copy h1{font-size:clamp(55px,11vw,82px)}.vision-art{max-width:530px;margin:0 auto}.hero-photo{height:500px;box-shadow:12px 12px 0 #e8ded0}.art-seal{right:-24px}.color-chips{margin-top:33px}.section-intro{margin-top:80px}.concept-cards{grid-template-columns:1fr 1fr}.concept-card:last-child{grid-column:1/-1;max-width:440px;justify-self:center}.demo-intro{padding:55px 25px 20px;display:block}.demo-notes{margin-top:25px;width:auto;max-width:450px}.instagram-layout,.tiktok-layout{grid-template-columns:minmax(290px,430px);padding:26px 20px 70px;gap:28px}.platform-aside{padding-top:5px}.site-nav{padding:0 22px}.site-nav>div{display:none}.site-about,.site-contact{grid-template-columns:1fr;gap:20px;padding:65px 28px}.site-service-grid{gap:12px}.service-detail{padding:16px}.service-detail h3{font-size:24px}.site-footer{padding:30px;flex-wrap:wrap}.global-footer{flex-wrap:wrap}}
 @media(max-width:540px){.concept-banner{font-size:7px;letter-spacing:.065em;height:34px}.app-header{min-height:110px}.identity-mark{font-size:37px}.identity-copy{font-size:10px}.main-nav{justify-content:space-around;gap:6px}.main-nav a{font-size:9px}.vision-hero{padding:44px 26px 52px}.vision-copy h1{font-size:clamp(49px,12vw,65px);margin:20px 0}.vision-copy>p{font-size:13px}.hero-actions{gap:22px}.hero-photo{height:430px}.photo-slogan{font-size:62px}.art-seal{width:84px;height:84px;font-size:20px;right:-19px;bottom:25px}.section-intro{margin:70px auto 30px}.section-intro h2{font-size:46px}.concept-cards{grid-template-columns:1fr;padding:0 22px;margin-bottom:70px;gap:24px}.concept-card:last-child{grid-column:auto;max-width:unset}.concept-image{aspect-ratio:1.25}.concept-caption p{min-height:0}.manifesto{padding:60px 23px}.manifesto p{font-size:33px}.demo-intro h2{font-size:46px}.instagram-layout,.tiktok-layout{padding-left:12px;padding-right:12px}.ig-phone{max-width:420px;margin:auto}.ig-stats{gap:5px}.ig-profile-line{gap:15px}.ig-avatar{height:72px;width:72px}.ig-stories{gap:2px}.ig-highlight{width:49px;height:49px}.ig-stories small{font-size:8px}.typographic-tile span{font-size:clamp(15px,4vw,22px)}.tiktok-player{height:min(720px,168vw);min-height:590px;margin:auto}.site-view{padding:12px 9px 42px}.site-nav{height:72px;padding:0 15px}.site-logo{font-size:22px}.site-nav>button{font-size:8px;padding:9px}.site-hero{height:530px}.site-hero-text{left:25px;right:20px}.site-hero-text h1{font-size:clamp(58px,13vw,83px)}.site-photo-caption{font-size:7px}.site-service-grid{grid-template-columns:1fr;gap:20px}.site-experiences{padding:60px 24px}.site-service-grid img{aspect-ratio:1.55}.service-detail{padding:24px}.site-quote{padding:65px 18px}.site-quote blockquote{font-size:40px}.site-tiktok-link{display:inline-block;margin:18px 0 0 10px}.site-footer{gap:12px}.site-footer span{flex-basis:100%}.global-footer{padding:24px;gap:11px}.global-footer span,.global-footer a{width:100%}.dialog-card{padding:25px 20px}.dialog-backdrop{padding:12px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* Hero del sito — ritratto Tutto Sposi, senza scritte nell'immagine.
+   Il crop originale predilige volto e busto; il testo HTML resta accessibile. */
+.site-hero{background:#f0eef5;color:var(--ink)}
+.site-hero>img{filter:none;object-position:center 22%}
+.site-hero-wash{background:linear-gradient(90deg,rgba(250,247,250,.96) 0%,rgba(250,247,250,.82) 32%,rgba(250,247,250,.30) 58%,transparent 79%)}
+.site-hero-text{max-width:min(700px,60vw)}
+.site-hero-text .eyebrow.light{color:var(--wine)}
+.site-hero-text h1{color:var(--ink);font-size:clamp(54px,6.1vw,92px)}
+.site-hero-text em{color:var(--wine)}
+.site-hero-text>p{color:#4b3b46}
+.site-hero .site-cta{background:var(--wine);color:#fff;border-color:var(--wine)}
+.site-hero .site-cta:hover{background:var(--wine-deep);color:#fff}
+.site-hero .dab-hero-link{color:var(--wine)}
+@media(max-width:800px){
+  .site-hero{height:730px}
+  .site-hero>img{object-position:70% top}
+  .site-hero-wash{background:linear-gradient(0deg,rgba(250,247,250,1) 0%,rgba(250,247,250,.98) 33%,rgba(250,247,250,.77) 46%,rgba(250,247,250,0) 67%)}
+  .site-hero-text{top:auto;bottom:25px;left:25px;right:20px;transform:none;max-width:none}
+  .site-hero-text h1{font-size:clamp(44px,10vw,64px);line-height:1.02;margin:12px 0}
+  .site-hero-text>p{font-size:13px;line-height:1.5;margin-bottom:16px;max-width:345px}
+}
