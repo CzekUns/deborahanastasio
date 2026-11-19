@@ -1,4 +1,4 @@
-/* Brand system v1.0 | Approved Deborah Anastasio + DAB SVG family, PR #1. */
+/* Deborah Anastasio · Performer. Vector marks in brand/stella. */
 :root{--brand-bordeaux:#641e37;--brand-deep:#3e1728;--brand-ivory:#f7f3ec;--brand-champagne:#c9ac88;--brand-ebony:#281d22;--brand-paper:#fcfaf7;--brand-display:"Playfair Display",Georgia,serif;--brand-ui:"DM Sans",Arial,sans}
 .dab-vision{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);max-width:1188px;margin:0 auto 100px;background:var(--brand-ivory);color:var(--brand-ebony);overflow:hidden;min-height:340px}
 .dab-vision-mark{display:flex;flex-direction:column;justify-content:space-between;min-height:340px;background:var(--brand-deep);color:var(--brand-ivory);padding:36px clamp(24px,5vw,60px)}
@@ -32,8 +32,7 @@
 @media(max-width:540px){.dab-vision{margin:0 18px 70px}.dab-vision-mark{min-height:205px;padding:25px}.dab-vision-mark strong{font-size:clamp(101px,28vw,142px)}.dab-vision-copy{padding:32px 26px}.dab-vision-copy h2{font-size:41px}.site-band-graphic{min-height:270px}.site-band-graphic .dab-large{font-size:clamp(118px,30vw,160px)}.site-band-text{padding:45px 25px 55px}.site-band-text h2{font-size:58px}.dab-hero-link{display:block;margin:18px 0 0}.ig-tile.typographic-tile.dab-tile{padding:10px}.dab-tile-wordmark{font-size:clamp(30px,10vw,49px)!important}.ig-tile.dab-tile small{font-size:6px}}
 
 
-/* Logo test · reference DAB approvata · 18 novembre 2026.
-   File master in assets/brand/: tutte le applicazioni usano gli stessi SVG. */
+/* Common mark placement. */
 .identity .identity-mark-svg{
   width:61px;height:45px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
   margin:0;padding:4px 5px;background:var(--brand-deep);border-radius:3px;letter-spacing:normal;
@@ -75,9 +74,9 @@
   .site-band-graphic .site-band-logo{max-height:245px}
 }
 
-/* Approved vector identity — source: PR #1 / design/dab-master-refinement. */
+/* Wordmark placement. */
 .identity-copy.identity-copy-approved{display:flex;flex-direction:column;gap:3px;letter-spacing:normal;min-width:0}
-.identity-copy-approved img{display:block;width:clamp(152px,14vw,188px);height:auto;aspect-ratio:998.802/270;object-fit:contain;object-position:left center}
+.identity-copy-approved img{display:block;width:clamp(152px,14vw,188px);height:auto;object-fit:contain;object-position:left center}
 .identity-copy-approved small{margin-top:0;font:700 8px/1.2 var(--brand-ui);letter-spacing:.15em;white-space:nowrap;color:#8a7778}
 .site-logo-wordmark.site-logo-approved{display:flex;align-items:center;letter-spacing:normal;min-width:0}
 .site-logo-approved img{display:block;width:clamp(142px,12vw,183px);height:auto;max-height:57px;object-fit:contain;object-position:left center}
@@ -86,13 +85,13 @@
 .artist-wordmark{background:var(--brand-deep);width:min(100%,460px);padding:25px 18px 21px}
 .artist-wordmark img{display:block;width:100%;height:auto;max-height:145px;object-fit:contain}
 .dab-vision-mark .dab-vision-logo,.site-band-graphic .site-band-logo{filter:none}
-.ig-highlight.dab-highlight{background:var(--brand-deep) url("./brand/approved/DAB.svg?v=brand-approved-pr1-20261118") center / 96% auto no-repeat!important;font-size:0!important;color:transparent!important;text-indent:-9999px;overflow:hidden}
+.ig-highlight.dab-highlight{background:var(--brand-deep) url("./brand/stella/DAB-chiaro.svg?v=identita-stella-20261119") center / 96% auto no-repeat!important;font-size:0!important;color:transparent!important;text-indent:-9999px;overflow:hidden}
 .ig-tile.typographic-tile.dab-tile{background:var(--brand-deep);justify-content:center;align-items:center;padding:10px}
 .dab-tile .dab-tile-logo{width:100%;height:auto;max-height:100%;object-fit:contain!important;filter:none!important;display:block}
 .ig-tile.dab-tile:after{display:none}
-.native-feed-visual:has(img[src*="/brand/approved/DAB.svg"]){background:var(--brand-deep)}
-.native-feed-visual img[src*="/brand/approved/DAB.svg"]{object-fit:contain!important;padding:8%;box-sizing:border-box}
-.native-detail-photo[src*="/brand/approved/DAB.svg"]{background:var(--brand-deep);object-fit:contain!important;padding:6%;box-sizing:border-box}
+.native-feed-visual:has(img[src*="/brand/stella/DAB-chiaro.svg"]){background:var(--brand-deep)}
+.native-feed-visual img[src*="/brand/stella/DAB-chiaro.svg"]{object-fit:contain!important;padding:8%;box-sizing:border-box}
+.native-detail-photo[src*="/brand/stella/DAB-chiaro.svg"]{background:var(--brand-deep);object-fit:contain!important;padding:6%;box-sizing:border-box}
 @media(max-width:1080px){
 .identity-copy-approved img{width:156px}
 .site-logo-approved img{width:142px}
@@ -108,3 +107,5 @@
 .photo-overline.photo-overline-approved{top:21px;left:20px;width:min(62%,205px)}
 .artist-wordmark{padding:16px 12px;width:min(100%,390px)}
 }
+
+.site-footer-brand img{display:block;width:148px;height:auto}
