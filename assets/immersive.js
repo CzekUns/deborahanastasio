@@ -24,6 +24,8 @@
   var videos=demo.videos;
   var posts=demo.posts;
   var stories=demo.stories;
+  var dabGallery=demo.dabGallery||[];
+  var selectedDabFrame=0;
   var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-editorial-4x5.webp","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-gallery-san-valentino-4x5.webp","./assets/deborah-cover-rosa-4x5.webp"];
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function plain(v){return esc(v).replace(/\n/g,"<br>");}
@@ -236,10 +238,35 @@
   function renderLocalComments(key){
     return (demoComments[key]||[]).map(function(c){return '<p><b>Tu · anteprima:</b> '+esc(c)+'</p>';}).join("");
   }
-  function openStory(i){
+  function openStory(i,frame){
     selectedStory=(i+stories.length)%stories.length;
     var s=stories[selectedStory];
+    if(selectedStory===2 && dabGallery.length){
+      selectedDabFrame=(typeof frame==="number" && frame>=0 && frame<dabGallery.length)?frame:0;
+      var photo=dabGallery[selectedDabFrame];
+      var progress=dabGallery.map(function(_,idx){
+        return '<span class="'+(idx===selectedDabFrame?'current':idx<selectedDabFrame?'watched':'')+'"></span>';
+      }).join("");
+      var body='<div class="native-story-view native-dab-photo-story">'+
+        '<img class="native-dab-story-picture" src="'+esc(photo.src)+'" alt="La DAB: '+esc(photo.title)+'">'+
+        '<div class="native-story-progress" aria-label="Foto '+(selectedDabFrame+1)+' di '+dabGallery.length+'">'+progress+'</div>'+
+        '<header class="native-story-header">'+logo()+'<b>deborah.anastasio · La DAB</b><button type="button" data-native-close aria-label="Chiudi la storia">'+symbol("x")+'</button></header>'+
+        '<div class="native-story-text"><span>LA DAB · '+(selectedDabFrame+1)+' / '+dabGallery.length+'</span><h2>'+esc(photo.title)+'</h2></div>'+
+        '<div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Foto precedente della DAB"></button><button type="button" data-story-step="1" aria-label="Foto successiva della DAB"></button></div>'+
+        '<div class="native-story-reply">Una serata con La DAB <span>♡</span></div></div>';
+      showOverlay(body,"story");
+      var view=overlay.querySelector(".native-dab-photo-story");
+      if(view)view.style.setProperty("--story-image",'url("'+photo.src+'")');
+      return;
+    }
     showOverlay('<div class="native-story-view" style="--story-image:url(\''+allStoryImages[selectedStory]+'\')"><div class="native-story-progress">'+stories.map(function(_,idx){return '<span class="'+(idx===selectedStory?"current":idx<selectedStory?"watched":"")+'"></span>';}).join("")+'</div><header class="native-story-header">'+logo()+'<b>deborah.anastasio</b><button type="button" data-native-close aria-label="Chiudi la storia">'+symbol("x")+'</button></header><div class="native-story-text"><span>DAL MIO MONDO</span><h2>'+esc(s.title)+'</h2><p>'+esc(s.detail)+'</p></div><div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Storia precedente"></button><button type="button" data-story-step="1" aria-label="Storia successiva"></button></div><div class="native-story-reply">Invia un messaggio <span>♡</span></div></div>',"story");
+  }
+  function stepStory(delta){
+    if(selectedStory===2 && dabGallery.length){
+      var next=selectedDabFrame+delta;
+      if(next>=0 && next<dabGallery.length){openStory(2,next);return;}
+    }
+    openStory(selectedStory+delta);
   }
   function openDirectMessage(){
     showOverlay('<div class="native-dm-view"><header><button type="button" data-native-close aria-label="Torna al profilo">'+symbol("back")+'</button>'+logo()+'<b>deborah.anastasio</b></header><main class="native-dm-thread"><span class="native-dm-avatar">'+logo()+'</span><h2>Deborah Anastasio</h2><p>Per scrivermi davvero, ci vediamo su Instagram! ❤️ I messaggi qui sono soltanto una prova.</p><div id="native-dm-messages"></div></main><form class="native-dm-form" data-native-dm><input name="text" maxlength="280" required placeholder="Scrivi un messaggio di prova…" autocomplete="off" aria-label="Messaggio di prova"><button type="submit">'+symbol("send")+'</button></form></div>',"dm");
@@ -299,7 +326,7 @@
     if(element.hasAttribute("data-tt-step")){demo.setVideo(demo.getVideoIndex()+Number(element.dataset.ttStep));return;}
     if(element.hasAttribute("data-native-post")){openPost(Number(element.dataset.nativePost));return;}
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
-    if(element.hasAttribute("data-story-step")){openStory(selectedStory+Number(element.dataset.storyStep));return;}
+    if(element.hasAttribute("data-story-step")){stepStory(Number(element.dataset.storyStep));return;}
     if(element.hasAttribute("data-native-video")){setVideoNative(Number(element.dataset.nativeVideo));return;}
     if(element.hasAttribute("data-native-reel-step")){selectedReel=(selectedReel+Number(element.dataset.nativeReelStep)+reelItems().length)%reelItems().length;renderIgReel(true);return;}
     if(element.hasAttribute("data-native-like")){var k=element.dataset.nativeLike;igLikes[k]=!igLikes[k];syncLikes();return;}
@@ -356,8 +383,8 @@
   });
   document.addEventListener("keydown",function(e){
     if(e.key==="Escape"&&!overlay.hidden){e.preventDefault();closeOverlay();}
-    if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowRight")openStory(selectedStory+1);
-    if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowLeft")openStory(selectedStory-1);
+    if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowRight")stepStory(1);
+    if(!overlay.hidden&&overlayType==="story"&&e.key==="ArrowLeft")stepStory(-1);
   });
   /* The profile/search tab scroll must not switch the video behind it. */
   ttPanel.addEventListener("touchstart",function(e){e.stopPropagation();},{passive:true});
