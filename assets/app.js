@@ -14,8 +14,8 @@
   };
   var uploaded={
     pink:"./assets/deborah-cover-rosa-4x5.webp",
-    gallery:"./assets/deborah-sanvalentino-editorial-4x5.webp",
-    blueArchive:"./assets/deborah-gallery-san-valentino-4x5.webp"
+    gallery:"./assets/deborah-sanvalentino-originale-hq.jpg",
+    blueArchive:"./assets/deborah-sanvalentino-originale-hq.jpg"
   };
   // Feed Instagram: solo materiali reali e contenuti distinti.
   // I cinque video vengono aggiunti dal catalogo verificato in video-integration.js.

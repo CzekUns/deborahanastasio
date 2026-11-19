@@ -46,8 +46,8 @@ function updateMedia(items){
     title:"San Valentino · Villa Gauro",
     headline:"",
     caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
-    photo:"./assets/deborah-gallery-san-valentino-4x5.webp",
-    cover:"./assets/deborah-gallery-san-valentino-4x5.webp",
+    photo:"./assets/deborah-sanvalentino-originale-hq.jpg",
+    cover:"./assets/deborah-sanvalentino-originale-hq.jpg",
     photoPost:true,src:null,method:""
   });
 

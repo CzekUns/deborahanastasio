@@ -523,8 +523,8 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
 .tiktok-player.has-photo-post #deborah-sound-toggle,
 .tiktok-player.has-photo-post .real-social-video{display:none!important}
 .ig-grid .ig-tile.archival-photo-tile img{filter:none;object-fit:cover}
-.native-feed-visual img[src*="deborah-gallery-san-valentino-4x5.webp"]{object-fit:contain;background:#0b184e}
-.native-detail-photo[src*="deborah-gallery-san-valentino-4x5.webp"]{
+.native-feed-visual img[src*="deborah-sanvalentino-originale-hq.jpg"]{object-fit:contain;background:#0b184e}
+.native-detail-photo[src*="deborah-sanvalentino-originale-hq.jpg"]{
  width:100%;height:auto;aspect-ratio:4/5;max-height:72dvh;object-fit:contain;background:#0b184e
 }
 

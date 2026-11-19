@@ -101,14 +101,14 @@ Il layout desktop mantiene le cornici smartphone e le note strategiche.
 
 ## Asset autentici (18 novembre 2026)
 
-Foto ricevute dall'utente e aggiunte a GitHub come WebP 4:5 ottimizzati, in risoluzione leggera per questa prima demo mobile:
+Materiali ricevuti dall'utente: la foto rosa resta nel formato WebP del concept, mentre la locandina di San Valentino è stata sostituita con il JPEG originale 1440 × 1920 senza conversioni o ritocchi:
 
 - `assets/deborah-cover-rosa-4x5.webp` — fotografia con sfondo rosa, usata come copertina e avatar Instagram;
-- `assets/deborah-gallery-san-valentino-4x5.webp` — locandina dalla galleria (San Valentino, Dinner Show, Villa Gauro), trattata come materiale d'archivio e non come evento futuro.
+- `assets/deborah-sanvalentino-originale-hq.jpg` — locandina dalla galleria (San Valentino, Dinner Show, Villa Gauro), trattata come materiale d'archivio e non come evento futuro.
 
 Finché non ci sono altri materiali scelti, **gli stessi due asset vengono riutilizzati sia su Instagram sia su TikTok**. La Home TikTok è il primo schermo della sezione `#tiktok`; il profilo Instagram apre direttamente la sezione `#instagram`. I post del feed Instagram e le viste singole rispettano il rapporto **4:5**. La griglia profilo resta fatta di anteprime più piccole come nell'app.
 
-Queste sono copie ottimizzate per il prototipo: conservare i JPG originali e sostituire con risoluzioni più alte prima della presentazione definitiva. Non sono stati caricati video in questa modifica.
+Per San Valentino è ora utilizzato il JPEG originale ad alta risoluzione senza riconversione. L'immagine rosa resta ottimizzata per la demo. Non sono stati caricati video in questa modifica.
 
 ## Direzione artistica v0.2 — Deborah e DAB
 
@@ -151,8 +151,8 @@ Per il sistema di colori, utilizzi e alias di compatibilità leggere `assets/bra
 
 ## Copertina editoriale San Valentino · Villa Gauro (18 novembre 2026)
 
-L'originale fotografico della locandina è conservato nel progetto in `assets/deborah-gallery-san-valentino-4x5.webp` (versione leggera precedente). La nuova composizione **`assets/deborah-sanvalentino-editorial-4x5.webp`** usa la fotografia originale inviata (1440×1920), ripulita dalle iscrizioni visibili e ritagliata dal basso per ottenere **1056×1320, rapporto 4:5**, con bordo champagne, pannello bordeaux e tipografia Didone in avorio/oro.
+La locandina originale è ora in `assets/deborah-sanvalentino-originale-hq.jpg` (1440 × 1920 pixel, JPEG originale ricevuto dall'utente). La precedente elaborazione editoriale è stata ritirata il 19 novembre 2026 e sostituita integralmente dal JPEG originale ad alta risoluzione, senza ritocchi né alterazioni del materiale di partenza.
 
-La grafica riporta esclusivamente le informazioni presenti sulla locandina originale: `DEBORAH ANASTASIO`, `SAN VALENTINO`, `Dinner Show`, `VILLA GAURO`. Sono stati esclusi il numero telefonico e il watermark TikTok. La composizione è **un lavoro grafico editoriale coordinato alla palette del brand**, e non altera i master SVG approvati.
+La nuova immagine conserva la locandina esattamente come è stata ricevuta, comprese le scritte originali, il numero di telefono e il watermark. Non viene applicata alcuna grafica aggiuntiva.
 
-Nella simulazione Instagram il contenuto è conservato come post fotografico autonomo (slot 2 della griglia, indice 1), così il caricamento dei filmati non sovrascrive una locandina storica con una copertina non pertinente. La precedente foto grezza resta in repository, insieme ai video e alle loro copertine indipendenti. **Non promuovere questo evento come data futura** senza conferma.
+Nella simulazione Instagram il contenuto è conservato come post fotografico autonomo (slot 2 della griglia, indice 1), così il caricamento dei filmati non sovrascrive una locandina storica con una copertina non pertinente. Le due precedenti copie WebP a bassa risoluzione e editoriale sono state rimosse dal branch corrente; restano recuperabili nella cronologia Git. **Non promuovere questo evento come data futura** senza conferma.
