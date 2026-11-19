@@ -192,11 +192,14 @@
   document.body.appendChild(overlay);
   function openPost(i){
     var p=posts[i];if(!p)return;
-    var visual=p.videoSrc?'<div class="ig-post-video-frame"><video class="native-detail-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline muted loop preload="metadata" aria-label="Video originale Deborah Anastasio"></video></div>':p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Copertina per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
+    var visual=p.videoSrc?'<div class="ig-post-video-frame"><video class="native-detail-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline autoplay muted loop preload="auto" aria-label="Video originale Deborah Anastasio"></video></div>':p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Copertina per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
     showOverlay('<div class="native-detail"><header class="native-detail-top"><button type="button" data-native-close aria-label="Indietro">'+symbol("back")+'</button><b>Post</b><button data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></header><div class="native-detail-scroll"><div class="native-detail-author">'+logo()+'<b>deborah.anastasio</b><span>· Concept</span></div>'+visual+'<div class="native-detail-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-comment="'+i+'" aria-label="Commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><p class="native-detail-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><div class="native-detail-note"><strong>IDEA EDITORIALE</strong><p>'+esc(p.idea)+'</p><small>Foto e testo in anteprima, non pubblicati.</small></div><div class="native-local-comments" id="ig-local-comments">'+renderLocalComments("ig-"+i)+'</div></div><form class="native-comment-form" data-comment-form="ig-'+i+'"><input name="comment" maxlength="180" placeholder="Scrivi un commento di prova…" aria-label="Commento di prova" required><button type="submit">Invia</button></form></div>',"post");
     syncLikes();
     var openedVideo=overlay.querySelector("video.native-detail-video");
-    if(openedVideo && window.DeborahMedia)window.DeborahMedia.play(openedVideo,true);
+    if(openedVideo){
+      if(window.DeborahMedia)window.DeborahMedia.play(openedVideo,true);
+      else openedVideo.play().catch(function(){ openedVideo.muted=true; openedVideo.play().catch(function(){}); });
+    }
   }
   function renderLocalComments(key){
     return (demoComments[key]||[]).map(function(c){return '<p><b>Tu · anteprima:</b> '+esc(c)+'</p>';}).join("");
@@ -272,7 +275,7 @@
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
     if(element.hasAttribute("data-story-step")){openStory(selectedStory+Number(element.dataset.storyStep));return;}
     if(element.hasAttribute("data-native-video")){setVideoNative(Number(element.dataset.nativeVideo));return;}
-    if(element.hasAttribute("data-native-reel-step")){selectedReel=(selectedReel+Number(element.dataset.nativeReelStep)+videos.length)%videos.length;renderIgReel();return;}
+    if(element.hasAttribute("data-native-reel-step")){selectedReel=(selectedReel+Number(element.dataset.nativeReelStep)+videos.length)%videos.length;renderIgReel(true);return;}
     if(element.hasAttribute("data-native-like")){var k=element.dataset.nativeLike;igLikes[k]=!igLikes[k];syncLikes();return;}
     if(element.hasAttribute("data-native-save")){element.classList.toggle("saved");toast(element.classList.contains("saved")?"Idea salvata in questa demo":"Idea rimossa dai salvati");return;}
     if(element.hasAttribute("data-native-reel-like")){element.classList.toggle("is-liked");return;}
