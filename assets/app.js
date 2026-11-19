@@ -37,10 +37,10 @@
   var dabGallery=[{"src":"./assets/la-dab/galleria/dab-01-serata-bianco.webp","title":"Serata in bianco"},{"src":"./assets/la-dab/galleria/dab-02-gruppo-nero.webp","title":"Insieme, fuori dal palco"},{"src":"./assets/la-dab/galleria/dab-03-sul-mare.webp","title":"Una serata sul mare"},{"src":"./assets/la-dab/galleria/dab-04-dietro-il-palco.webp","title":"Il nostro backstage"}];
   var stories=[
     {title:"La mia voce",detail:"Ciao ragazzi, sono Deborah! Qui vi porto con me, tra canzoni, emozioni e serate bellissime. ❤️"},
-    {title:"Cerimonie",detail:"Ogni festa ha la sua emozione. Che bello accompagnarvi con la musica nei vostri momenti speciali!"},
+    {title:"Eventi",detail:"Ciao ragazzi! Dalle feste agli eventi aziendali, ogni occasione è diversa. Io ci metto la voce e tutta la voglia di farvi divertire! 🎶❤️"},
     {title:"La DAB",detail:"Eccoci con la DAB! Tra musica dal vivo, prove e qualche risata, vi facciamo compagnia anche qui."},
     {title:"Backstage",detail:"Un po' di tremarella c'è sempre! Vi mostro le prove, i preparativi e quello che combiniamo prima di salire sul palco."},
-    {title:"Contatti",detail:"Avete qualcosa di bello da festeggiare? Scrivetemi e raccontatemi tutto. Bacio grande! ❤️"}
+    {title:"Per il tuo evento",detail:"State organizzando un evento? Scrivetemi, raccontatemi la vostra idea e vediamo come viverla insieme. Bacio grande! ❤️"}
   ];
   // I video arrivano esclusivamente dal catalogo verificato, senza storyboard ripetuti.
   stories[2].images=dabGallery;
@@ -131,7 +131,7 @@
     }else openModal(content);
   }
   function openContact(){
-    openModal(titleDialog("CONTATTI","Scrivimi, mi farà piacere!","Avete qualcosa di bello da festeggiare? Scrivetemi sui miei canali social, vi aspetto! ❤️")+
+    openModal(titleDialog("CONTATTI","Scrivimi, mi farà piacere!","State organizzando un evento? Raccontatemi la vostra idea sui miei canali social. Vi aspetto! ❤️")+
       '<div class="dialog-action-row"><a href="'+instagramUrl+'" target="_blank" rel="noopener noreferrer">Instagram reale ↗</a><a href="'+tiktokUrl+'" target="_blank" rel="noopener noreferrer">TikTok reale ↗</a></div>'+
       '<p class="dialog-small">I messaggi si inviano direttamente tramite Instagram o TikTok.</p>');
   }
