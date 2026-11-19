@@ -34,6 +34,7 @@
       return '<button data-post="'+i+'" class="ig-tile image-tile"><img src="'+p.img+'" alt="'+p.title.replace(/"/g,"&quot;")+'" loading="lazy"></button>';
     }).join("");
   }
+  var dabGallery=[{"src":"./assets/la-dab/galleria/dab-01-serata-bianco.webp","title":"Serata in bianco"},{"src":"./assets/la-dab/galleria/dab-02-gruppo-nero.webp","title":"Insieme, fuori dal palco"},{"src":"./assets/la-dab/galleria/dab-03-sul-mare.webp","title":"Una serata sul mare"},{"src":"./assets/la-dab/galleria/dab-04-dietro-il-palco.webp","title":"Il nostro backstage"}];
   var stories=[
     {title:"La mia voce",detail:"Ciao ragazzi, sono Deborah! Qui vi porto con me, tra canzoni, emozioni e serate bellissime. ❤️"},
     {title:"Cerimonie",detail:"Ogni festa ha la sua emozione. Che bello accompagnarvi con la musica nei vostri momenti speciali!"},
@@ -42,6 +43,7 @@
     {title:"Contatti",detail:"Avete qualcosa di bello da festeggiare? Scrivetemi e raccontatemi tutto. Bacio grande! ❤️"}
   ];
   // I video arrivano esclusivamente dal catalogo verificato, senza storyboard ripetuti.
+  stories[2].images=dabGallery;
   var videos=[];
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
@@ -109,7 +111,24 @@
   }
   function openStory(i){
     var story=stories[i];if(!story)return;
+    if(i===2&&dabGallery.length){openBandPhoto(0);return;}
     openModal(titleDialog("STORIE IN EVIDENZA",story.title,story.detail));
+  }
+  var activeDabPhoto=-1;
+  function openBandPhoto(n){
+    if(!dabGallery.length)return;
+    activeDabPhoto=(n+dabGallery.length)%dabGallery.length;
+    var photo=dabGallery[activeDabPhoto];
+    var content='<div class="dab-gallery-dialog"><span class="dialog-kicker">LA DAB / FOTO '+(activeDabPhoto+1)+' DI '+dabGallery.length+'</span>'+
+      '<h2 id="dialog-title">'+escapeText(photo.title)+'</h2>'+
+      '<img src="'+photo.src+'" alt="La DAB — '+escapeText(photo.title)+'">'+
+      '<div class="dab-gallery-dialog-actions"><button type="button" data-dab-step="-1" aria-label="Foto precedente">← Precedente</button>'+
+      '<span>'+(activeDabPhoto+1)+' / '+dabGallery.length+'</span>'+
+      '<button type="button" data-dab-step="1" aria-label="Foto successiva">Successiva →</button></div></div>';
+    if(!modal.hidden&&modalContent.querySelector(".dab-gallery-dialog")){
+      modalContent.innerHTML=content;
+      closeBtn.focus();
+    }else openModal(content);
   }
   function openContact(){
     openModal(titleDialog("CONTATTI","Scrivimi, mi farà piacere!","Avete qualcosa di bello da festeggiare? Scrivetemi sui miei canali social, vi aspetto! ❤️")+
@@ -125,6 +144,10 @@
     }else openModal(titleDialog("CONDIVIDI","Condividi il link",url));
   }
   document.addEventListener("click",function(ev){
+    var dabPhoto=ev.target.closest("[data-dab-photo]");
+    if(dabPhoto){openBandPhoto(Number(dabPhoto.dataset.dabPhoto));return;}
+    var dabStep=ev.target.closest("[data-dab-step]");
+    if(dabStep){openBandPhoto(activeDabPhoto+Number(dabStep.dataset.dabStep));return;}
     var post=ev.target.closest("[data-post]");
     if(post){openPost(Number(post.dataset.post));return;}
     var story=ev.target.closest("[data-story]");
@@ -221,7 +244,7 @@
     lastWheel=now;
     setVideo(videoIndex+(e.deltaY>0?1:-1));
   },{passive:false});
-  window.DeborahDemo={posts:posts,stories:stories,videos:videos,setVideo:setVideo,getVideoIndex:function(){return videoIndex;}};
+  window.DeborahDemo={posts:posts,stories:stories,videos:videos,dabGallery:dabGallery,setVideo:setVideo,getVideoIndex:function(){return videoIndex;}};
   window.addEventListener("hashchange",route);
   route();
   setVideo(0);
