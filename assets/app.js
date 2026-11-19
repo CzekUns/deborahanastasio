@@ -112,6 +112,8 @@
   function route(){
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     var selected=currentRoute();
+    var banner=document.querySelector(".concept-banner");
+    if(banner)banner.hidden=selected!=="visione";
     document.querySelectorAll("[data-view]").forEach(function(el){el.hidden=el.dataset.view!==selected;});
     document.querySelectorAll("[data-route]").forEach(function(el){
       var active=el.dataset.route===selected;
