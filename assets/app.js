@@ -41,24 +41,8 @@
     {title:"Backstage",detail:"Un po' di tremarella c'è sempre! Vi mostro le prove, i preparativi e quello che combiniamo prima di salire sul palco."},
     {title:"Contatti",detail:"Avete qualcosa di bello da festeggiare? Scrivetemi e raccontatemi tutto. Bacio grande! ❤️"}
   ];
-  var videos=[
-    {title:"Il momento",headline:"Quando la musica<br>rende eterno<br>un istante.",caption:"Il momento in cui la musica cambia l'atmosfera. ✨ #musicalive #cerimonie",photo:media.wedding,method:"Partire dal momento più forte della cerimonia, senza introduzione. Inserire una ripresa autorizzata di Deborah e l'audio originale."},
-    {title:"La prova voce",headline:"Solo una voce.<br>E tutto<br>si ferma.",caption:"A volte bastano pochi secondi di musica dal vivo. 🎙️ #voce #cantante",photo:media.microphone,method:"Aprire subito sulla performance. Ripresa ravvicinata, audio pulito, sottotitoli essenziali e volto dell'artista."},
-    {title:"Dietro le quinte",headline:"Cinque minuti<br>prima di<br>cantare...",caption:"Quello che succede prima dell'ultima nota. ✦ #backstage #musiclife",photo:media.concert,method:"Un piccolo racconto personale in tre scene: preparativi, attesa, primo istante sul palco."},
-    {title:"Una canzone, una storia",headline:"Perché proprio<br>questa<br>canzone?",caption:"Ogni brano ha una storia. Qual è la tua? #repertorio #storiadimusica",photo:media.table,method:"Deborah racconta perché sceglie un determinato brano, poi ne esegue un breve frammento autorizzato."},
-    {title:"Il prima e il dopo",headline:"Da una sala<br>in silenzio<br>alla musica.",caption:"Il prima, l'attesa, la prima nota. ♡ #eventi #livemusic",photo:media.event,method:"Montaggio a contrasto: preparazione, pubblico, inizio esibizione. Finale con una call to action discreta."}
-  ];
-  videos.forEach(function(v,i){
-    var item=assetPair[i%2];
-    v.title=item.title;v.photo=item.img;v.caption=item.caption;
-    v.headline=i%2?"San Valentino<br>Dinner Show<br>Villa Gauro":"Deborah<br>Anastasio";
-    v.method="Anteprima statica del materiale fotografico originale. Quando saranno forniti i video autorizzati, sostituire la foto con il filmato corrispondente.";
-  });
-  // Storyboard n.3 dedicato a DAB; la foto ripetuta è soltanto un segnaposto.
-  videos[2].title="La DAB";
-  videos[2].headline="DAB<br>La band.";
-  videos[2].caption="La DAB, i musicisti e tutta la nostra voglia di cantare insieme. 🎶❤️ #DeborahAnastasioBand";
-  videos[2].method="Sostituire la fotografia segnaposto con video autentici della DAB. Aprire sulla performance, dare spazio ai musicisti e usare audio live autorizzato.";
+  // I video arrivano esclusivamente dal catalogo verificato, senza storyboard ripetuti.
+  var videos=[];
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
   var closeBtn=document.getElementById("dialog-close");
@@ -180,6 +164,7 @@
       !document.body.classList.contains("native-overlay-visible");
   }
   function setVideo(n){
+    if(!videos.length)return;
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     videoIndex=(n+videos.length)%videos.length;
     var v=videos[videoIndex];
