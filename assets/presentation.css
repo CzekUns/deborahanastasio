@@ -237,3 +237,13 @@
   .pitch-intention-copy{padding-left:20px}
   .pitch-intention-copy>p{font-size:14px}
 }
+
+
+/* La nota TikTok spiega il lavoro sulle caption fuori dalla voce simulata dell'artista. */
+.tiktok-aside .tiktok-caption-editorial{margin-top:30px;padding:25px 23px 27px;background:#f6efe9;border-left:2px solid #8d5569;color:#3c2b32}
+.tiktok-caption-editorial>span,.tt-caption-info>span{font:700 10px/1.5 "DM Sans",sans-serif;letter-spacing:.15em;color:#895468}
+.tiktok-caption-editorial h4,.tt-caption-info h3{margin:15px 0 11px;font:500 27px/1.22 "Playfair Display",Georgia,serif;letter-spacing:-.02em;color:#38242e}
+.tiktok-caption-editorial p,.tt-caption-info p{margin:0;font:13px/1.83 "DM Sans",sans-serif;color:#63575b}
+.native-help .tt-caption-info{border-top:1px solid #e4d6d4;border-bottom:1px solid #e4d6d4;margin:24px 0;padding:23px 0 25px}
+.native-help .tt-caption-info h3{font-size:26px}
+.native-help .tt-caption-info p{margin:0}
