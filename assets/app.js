@@ -132,12 +132,19 @@
   function openPost(i){
     var post=posts[i];if(!post)return;
     var html='<span class="dialog-kicker">INSTAGRAM / PROPOSTA POST '+String(i+1).padStart(2,"0")+'</span>';
-    if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" playsinline controls preload="metadata"></video>';
+    if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" autoplay muted playsinline controls preload="auto" aria-label="Video di Deborah Anastasio"></video>';
     else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
     html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2><p>'+escapeText(post.idea)+'</p>';
     html+='<div class="dialog-sample"><b>CAPTION PROPOSTA</b><p>'+paragraphs(post.caption)+'</p></div>';
     html+='<p class="dialog-small">Contenuto creativo dimostrativo. Da realizzare e verificare con materiali autentici di Deborah.</p>';
     openModal(html);
+    // Opening a post is an intentional click: start playback immediately
+    // with the user's previously chosen audio preference (or sound if allowed).
+    var openedVideo=modalContent.querySelector("video.dialog-video");
+    if(openedVideo){
+      if(window.DeborahMedia)window.DeborahMedia.play(openedVideo,true);
+      else openedVideo.play().catch(function(){ openedVideo.muted=true; openedVideo.play().catch(function(){}); });
+    }
   }
   function openStory(i){
     var story=stories[i];if(!story)return;
