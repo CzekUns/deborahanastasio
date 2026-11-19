@@ -1,10 +1,11 @@
 {
-  "version": 3,
-  "note": "Cover art is separate from the video asset. Replace the image path only when the user supplies new artwork.",
+  "version": 4,
+  "note": "Copertine prototipo approvate e presenti nel repository; ogni poster è indipendente dal filmato. Abbinamenti basati su denominazione e contenuto. Le foto di San Valentino restano un post d'archivio a parte.",
   "covers": {
-    "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4": "assets/deborah-cover-rosa-4x5.webp",
-    "deborah_media/AQNXFOCJHgNHNgGljCNciKX6gMVnHxlx0eNYs27tPjhC2ahiAcEqIIOTEelmlpgR4KsLA2ZyoBGnn_Dj1gOER0it3o5XzYIYcZ1cAHU.mp4": "assets/deborah-gallery-san-valentino-4x5.webp",
-    "deborah_media/AQOYLfrawBnk5Wka0ygxaTCpXlLH4ka3_A1WrWSDd8qxiAXGkp07tnudvIp9XeZZBrCi_oib78aJZvpivgtLQSoH9ERRwFkJNJZhEyU.mp4": "assets/deborah-cover-rosa-4x5.webp",
-    "deborah_media/tiktok_debora.anastasio_7702445165201362209.mp4": "assets/deborah-gallery-san-valentino-4x5.webp"
+    "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4": "assets/copertine/prototipi/V01-F_con-quale-brano_prototipo.webp",
+    "deborah_media/AQNXFOCJHgNHNgGljCNciKX6gMVnHxlx0eNYs27tPjhC2ahiAcEqIIOTEelmlpgR4KsLA2ZyoBGnn_Dj1gOER0it3o5XzYIYcZ1cAHU.mp4": "assets/copertine/prototipi/V02-E_per-sempre-si_prototipo.webp",
+    "deborah_media/AQOYLfrawBnk5Wka0ygxaTCpXlLH4ka3_A1WrWSDd8qxiAXGkp07tnudvIp9XeZZBrCi_oib78aJZvpivgtLQSoH9ERRwFkJNJZhEyU.mp4": "assets/copertine/prototipi/V03-E_quando-il-mio-cuore_prototipo.webp",
+    "deborah_media/tiktok_debora.anastasio_7702445165201362209.mp4": "assets/copertine/prototipi/V04-E_tutto-sposi_prototipo.webp",
+    "deborah_media/deborah_kiton_arco_slide_fluido_elegante_video_completo.mp4": "assets/copertine/prototipi/V05-E_kiton_prototipo.webp"
   }
 }
