@@ -72,7 +72,7 @@ function updateMedia(items){
     p.cover=asset.cover;
     p.title=asset.title;
     p.caption=asset.caption||"Deborah Anastasio · "+asset.title;
-    p.idea="Video originale caricato nella repository. Copertina temporanea, modificabile senza toccare il video.";
+    p.idea="Un momento da rivivere insieme. ❤️";
   });
   // Keep the Instagram wall in three columns, each tile 4:5.
   document.querySelectorAll("#ig-grid [data-post]").forEach(function(tile,i){
@@ -153,7 +153,7 @@ function syncPlayer(){
     var photoSoundline=player.querySelector(".soundline");
     if(photoSoundline)photoSoundline.textContent="▧ Foto d’archivio · San Valentino · Villa Gauro";
     var photoNote=player.querySelector(".video-concept");
-    if(photoNote)photoNote.textContent="POST FOTOGRAFICO · ARCHIVIO";
+    if(photoNote)photoNote.textContent="DAL MIO ARCHIVIO";
     if(soundBtn)soundBtn.hidden=true;
     return;
   }
@@ -174,7 +174,7 @@ function syncPlayer(){
   var soundline=player.querySelector(".soundline");
   if(soundline)soundline.textContent="♫  Audio originale · Deborah Anastasio";
   var note=player.querySelector(".video-concept");
-  if(note)note.textContent="Demo TikTok";
+  if(note)note.textContent="Deborah Anastasio";
   if(soundBtn)soundBtn.hidden=false;
   if(!player.classList.contains("paused") && location.hash==="#tiktok" && !player.classList.contains("tt-native-open")){
     if(window.DeborahMedia)window.DeborahMedia.play(video,false);
