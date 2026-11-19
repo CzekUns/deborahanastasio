@@ -527,3 +527,27 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
 .native-detail-photo[src*="deborah-gallery-san-valentino-4x5.webp"]{
  width:100%;height:auto;aspect-ratio:4/5;max-height:72dvh;object-fit:contain;background:#0b184e
 }
+
+@media (min-width: 801px) {
+  .ig-phone.desktop-player-open,
+  .tiktok-player.desktop-player-open {
+    position: relative;
+    height: min(820px, calc(100dvh - 48px));
+    min-height: 520px;
+    overflow: hidden;
+  }
+  .desktop-player-open > .native-social-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+  .desktop-player-open .ig-post-video-frame {
+    max-height: 100%;
+  }
+  .desktop-player-open .native-detail-video {
+    max-height: min(540px, 58dvh);
+    object-fit: contain;
+  }
+}
