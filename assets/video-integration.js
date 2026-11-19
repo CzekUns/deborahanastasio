@@ -49,7 +49,7 @@ function updateMedia(items){
     v.title=asset.title;
     v.photo=asset.cover;
     v.cover=asset.cover;
-    v.caption="Deborah Anastasio · "+asset.title;
+    v.caption=asset.caption||"Deborah Anastasio · "+asset.title;
     v.headline="";
     v.method="Video presente nel repository GitHub; la copertina è indipendente dal filmato e sarà sostituibile.";
   }
@@ -60,7 +60,7 @@ function updateMedia(items){
     p.img=asset.cover;
     p.cover=asset.cover;
     p.title=asset.title;
-    p.caption="Deborah Anastasio · "+asset.title;
+    p.caption=asset.caption||"Deborah Anastasio · "+asset.title;
     p.idea="Video originale caricato nella repository. Copertina temporanea, modificabile senza toccare il video.";
   });
   // Keep the Instagram wall in three columns, each tile 4:5.
@@ -205,7 +205,8 @@ Promise.all([
       path:path,
       src:"./"+safeLocalPath(path),
       cover:cover,
-      title:known&&known.title?known.title:shortLabel(path,i)
+      title:known&&known.title?known.title:shortLabel(path,i),
+      caption:known&&known.caption?known.caption:""
     };
   });
   updateMedia(entries);
