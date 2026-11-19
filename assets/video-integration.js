@@ -68,7 +68,7 @@ function updateMedia(items){
     if(demo.posts[i]&&(demo.posts[i].brandAsset==="DAB"||demo.posts[i].editorialStatic))return;
     var asset=items[i%items.length];
     tile.className="ig-tile image-tile has-video";
-    tile.innerHTML='<img src="'+asset.cover+'" alt="Copertina temporanea: '+asset.title.replace(/"/g,"&quot;")+'" loading="lazy"><span class="tile-reel-mark">▶</span>';
+    tile.innerHTML='<img src="'+asset.cover+'" alt="Copertina: '+asset.title.replace(/"/g,"&quot;")+'" loading="lazy"><span class="tile-reel-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="m10 8 6 4-6 4z" fill="currentColor" stroke="none"/></svg></span>';
   });
   // Update the desktop side-navigation without pretending that a still image
   // is a moving video.
@@ -96,6 +96,9 @@ function ensureVideo(){
   video.controls=false;
   video.setAttribute("aria-label","Video originale Deborah Anastasio");
   videoStage.insertBefore(video,videoStage.querySelector(".video-vignette"));
+  video.addEventListener("loadedmetadata",function(){
+    video.classList.toggle("portrait-video",video.videoHeight>video.videoWidth);
+  });
   video.addEventListener("error",function(){
     player.classList.remove("has-real-video");
     video.hidden=true;
@@ -129,6 +132,7 @@ function syncPlayer(){
   var url=entry.src;
   if(video.getAttribute("src")!==url){
     video.pause();
+    video.classList.remove("portrait-video");
     video.setAttribute("src",url);
     video.load();
   }
@@ -140,7 +144,7 @@ function syncPlayer(){
   var soundline=player.querySelector(".soundline");
   if(soundline)soundline.textContent="♫  Audio originale · Deborah Anastasio";
   var note=player.querySelector(".video-concept");
-  if(note)note.textContent="VIDEO DAL REPOSITORY · COPERTINA PROVVISORIA";
+  if(note)note.textContent="Demo TikTok";
   if(soundBtn)soundBtn.hidden=false;
   if(!player.classList.contains("paused") && location.hash==="#tiktok" && !player.classList.contains("tt-native-open")){
     if(window.DeborahMedia)window.DeborahMedia.play(video,false);

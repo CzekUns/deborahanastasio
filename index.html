@@ -10,13 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
-  <link rel="stylesheet" href="./assets/immersive.css?v=audio-lifecycle-20261118-v3">
+  <link rel="stylesheet" href="./assets/immersive.css?v=social-preview-20261119">
   <link rel="stylesheet" href="./assets/brand.css?v=brand-approved-pr1-20261118">
   <link rel="stylesheet" href="./assets/presentation.css?v=proposal-20261118-v1">
-  <script defer src="./assets/media-playback.js?v=audio-lifecycle-20261118-v3"></script>
-  <script defer src="./assets/app.js?v=autoplay-click-20261119-v1"></script>
-  <script defer src="./assets/immersive.js?v=autoplay-click-20261119-v1"></script>
-  <script defer src="./assets/video-integration.js?v=sanvalentino-cover-20261118"></script>
+  <script defer src="./assets/media-playback.js?v=social-preview-20261119"></script>
+  <script defer src="./assets/app.js?v=social-preview-20261119"></script>
+  <script defer src="./assets/immersive.js?v=social-preview-20261119"></script>
+  <script defer src="./assets/video-integration.js?v=social-preview-20261119"></script>
 </head>
 <body>
 <div class="concept-banner" role="note"><span class="dot"></span> Presentazione personale per Deborah Anastasio · Prototipi social e sito · Nulla pubblicato sui profili reali</div>
@@ -150,10 +150,10 @@
   <div class="demo-intro"><div><span class="eyebrow">01 / INSTAGRAM CONCEPT</span><h2>Il profilo di <em>Deborah.</em></h2><p>Bio leggibile, storie in evidenza organizzate e copertine coordinate. Apri una storia o un post per vedere l'idea editoriale.</p></div><div class="demo-notes"><span class="note-label">PERCHÉ FUNZIONA</span><p>Il profilo deve far capire in pochi secondi chi è Deborah, cosa comunica e come contattarla.</p><a href="https://www.instagram.com/deborah.anastasio/" target="_blank" rel="noopener noreferrer">Apri il profilo reale ↗</a></div></div>
   <div class="instagram-layout">
     <div class="ig-phone phone-shadow">
-      <div class="phone-status"><span>9:41</span><span>●●●  ▰</span></div>
+      <div class="phone-status"><span>Deborah Anastasio</span><span>Demo Instagram</span></div>
       <div class="ig-top"><span class="ui-icon" aria-hidden="true">‹</span><strong>deborah.anastasio <span class="ig-chevron">⌄</span></strong><span class="ui-icon" aria-hidden="true">☰</span></div>
-      <div class="ig-profile-line"><div class="ig-avatar"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="Deborah Anastasio, ritratto centrato per il profilo"></div><div class="ig-stats"><span><b>—</b><small>post</small></span><span><b>—</b><small>follower</small></span><span><b>—</b><small>seguiti</small></span></div></div>
-      <div class="ig-bio"><strong>Deborah Anastasio</strong><span class="ig-muted">Artista · Voce live</span><p>La musica dei momenti che restano ✦<br>Live · DAB · Cerimonie · Eventi<br>Napoli ♡</p><a href="#sito">Scopri il sito e i contatti ↗</a></div>
+      <div class="ig-profile-line"><div class="ig-avatar"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="Deborah Anastasio, ritratto centrato per il profilo"></div><div class="ig-profile-identity"><strong>Deborah Anastasio</strong><span>Performer · Napoli</span></div></div>
+      <div class="ig-bio"><p>Voce dal vivo, performance e backstage.<br>Deborah Anastasio Band</p><a href="#sito">Scopri il sito e i contatti ↗</a></div>
       <div class="ig-buttons"><button type="button" data-action="contact">Contatta</button><button type="button" data-action="share">Condividi</button><button type="button" class="ig-small" data-action="profile-info" aria-label="Informazioni sul concept">⌄</button></div>
       <div class="ig-stories">
         <button data-story="0"><span class="ig-highlight">✧</span><small>La mia voce</small></button>
@@ -162,7 +162,11 @@
         <button data-story="3"><span class="ig-highlight">✦</span><small>Backstage</small></button>
         <button data-story="4"><span class="ig-highlight">✉</span><small>Contatti</small></button>
       </div>
-      <div class="ig-content-tabs"><button class="active" data-ig-tab="posts" title="Post">▦</button><button data-ig-tab="reels" title="Reel">▣</button><button data-ig-tab="tagged" title="In evidenza">♧</button></div>
+      <nav class="ig-content-tabs" aria-label="Contenuti del profilo">
+        <button type="button" class="active" data-ig-tab="posts" aria-pressed="true">Griglia</button>
+        <button type="button" data-ig-tab="reels" aria-pressed="false">Reel</button>
+        <button type="button" data-ig-tab="photos" aria-pressed="false">Foto</button>
+      </nav>
       <div class="ig-grid" id="ig-grid">
         <button data-post="0" class="ig-tile image-tile"><img src="./assets/deborah-cover-rosa-4x5.webp" alt="Deborah Anastasio, copertina rosa"><span class="tile-tag">UN MOMENTO<br>CHE RESTA.</span></button>
         <button data-post="1" class="ig-tile image-tile"><img src="./assets/deborah-sanvalentino-editorial-4x5.webp" alt="Copertina editoriale San Valentino Dinner Show, Villa Gauro"><span class="tile-tag">ARCHIVIO / LIVE</span></button>
@@ -191,26 +195,30 @@
 </section>
 
 <section class="view" id="view-tiktok" data-view="tiktok" hidden>
-  <div class="demo-intro"><div><span class="eyebrow">02 / TIKTOK CONCEPT</span><h2>Il primo secondo <em>conta.</em></h2><p>Un feed dimostrativo con cinque storyboard. Usa le frecce per scorrere i format proposti, come in un profilo video.</p></div><div class="demo-notes"><span class="note-label">L'OBIETTIVO</span><p>Portare lo spettatore dentro il momento, dare un volto alla voce e creare curiosità.</p><a href="https://www.tiktok.com/@debora.anastasio" target="_blank" rel="noopener noreferrer">Apri il profilo reale ↗</a></div></div>
+  <div class="demo-intro"><div><span class="eyebrow">02 / TIKTOK CONCEPT</span><h2>Il primo secondo <em>conta.</em></h2><p>Scorri i video di Deborah o apri il profilo per scegliere una copertina.</p></div><div class="demo-notes"><span class="note-label">L'OBIETTIVO</span><p>Portare lo spettatore dentro il momento, dare un volto alla voce e creare curiosità.</p><a href="https://www.tiktok.com/@debora.anastasio" target="_blank" rel="noopener noreferrer">Apri il profilo reale ↗</a></div></div>
   <div class="tiktok-layout">
     <div class="tiktok-player phone-shadow" id="tiktok-player">
       <div class="video-bg"><img id="video-image" src="./assets/deborah-gallery-san-valentino-4x5.webp" alt="Storyboard fotografico dimostrativo"><div class="video-vignette"></div></div>
       <div class="tiktok-top"><span>Seguiti</span><b>Per te</b><span class="tiktok-search">⌕</span></div>
-      <span class="video-concept">STORYBOARD · NON È UN VIDEO REALE</span>
+      <span class="video-concept">Demo TikTok</span>
       <div class="video-headline" id="video-headline">Quando la musica<br>rende eterno<br>un istante.</div>
       <button type="button" id="video-play" class="center-play" aria-label="Attiva o ferma l'animazione">Ⅱ</button>
-      <div class="tiktok-actions"><button class="tiktok-profile-avatar" type="button" data-tt-screen="profile" aria-label="Apri il profilo TikTok"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="Foto profilo Deborah Anastasio"></button><button type="button" id="video-like" aria-label="Segna il format come preferito"><span>♡</span><small>Idea</small></button><button type="button" data-action="tiktok-info" aria-label="Come realizzare il video"><span>♧</span><small>Note</small></button><button type="button" data-action="share" aria-label="Condividi questa demo"><span>↗</span><small>Link</small></button></div>
+      <div class="tiktok-actions"><button class="tiktok-profile-avatar" type="button" data-tt-screen="profile" aria-label="Apri il profilo TikTok"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="Foto profilo Deborah Anastasio"></button><button type="button" id="video-like" aria-label="Mi piace" aria-pressed="false"><span>♡</span><small>Mi piace</small></button><button type="button" data-action="tiktok-info" aria-label="Apri commenti"><span>♧</span><small>Commenti</small></button><button type="button" data-action="share" aria-label="Condividi questa demo"><span>↗</span><small>Link</small></button></div>
       <div class="tiktok-caption"><b>@debora.anastasio</b><p id="video-caption">Un momento speciale merita una colonna sonora capace di restare. #musicalive #cerimonia</p><span class="soundline">♫ &nbsp; Audio da inserire · Storyboard concept</span></div>
+      <div class="tt-feed-steps" role="group" aria-label="Scorri i video">
+        <button type="button" data-tt-step="-1" aria-label="Video precedente">↑</button>
+        <button type="button" data-tt-step="1" aria-label="Video successivo">↓</button>
+      </div>
       <div class="tiktok-bottom"><span>⌂<small>Home</small></span><span>⌕<small>Scopri</small></span><span class="new-video">＋</span><span>▣<small>Posta</small></span><span>●<small>Profilo</small></span></div>
     </div>
-    <aside class="platform-aside tiktok-aside"><span class="aside-kicker">FORMAT VIDEO DA PRODURRE</span><h3>Dal portfolio alla narrazione.</h3><div class="format-list" id="format-list">
+    <aside class="platform-aside tiktok-aside"><span class="aside-kicker">RACCOLTA VIDEO</span><h3>Scegli una performance.</h3><div class="format-list" id="format-list">
       <button class="active" data-video="0"><span>01</span><div><b>Il momento</b><small>Emozione / 12–20 s</small></div><span>↗</span></button>
       <button data-video="1"><span>02</span><div><b>La prova voce</b><small>Performance / 15–30 s</small></div><span>↗</span></button>
       <button data-video="2"><span>03</span><div><b>Dietro le quinte</b><small>Personalità / 15–25 s</small></div><span>↗</span></button>
       <button data-video="3"><span>04</span><div><b>Una canzone, una storia</b><small>Storytelling / 20–40 s</small></div><span>↗</span></button>
       <button data-video="4"><span>05</span><div><b>Il prima e il dopo</b><small>Trasformazione / 10–20 s</small></div><span>↗</span></button>
     </div><div class="video-nav"><button id="video-prev" aria-label="Video precedente">←</button><span id="video-count">01 / 05</span><button id="video-next" aria-label="Video successivo">→</button></div>
-    <div class="aside-alert"><strong>Video dimostrativi</strong><p>I riquadri sono storyboard animati: nessuna performance o audio di Deborah è riprodotto. Per la versione finale serviranno suoi video autorizzati.</p></div></aside>
+    <div class="aside-alert"><strong>Navigazione</strong><p>Scorri in verticale o usa le frecce per passare al video successivo.</p></div></aside>
   </div>
 </section>
 

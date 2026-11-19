@@ -12,6 +12,7 @@
   var ttPanel=document.createElement("section");
   var overlay=document.createElement("section");
   var currentIg="profile";
+  var igFilter="posts";
   var currentTt="home";
   var overlayType="";
   var selectedStory=0;
@@ -19,7 +20,6 @@
   var igLikes={};
   var demoComments={};
   var tooltips={};
-  var prevTop=0;
   var closeFocus=null;
   var videos=demo.videos;
   var posts=demo.posts;
@@ -70,11 +70,10 @@
   ig.insertBefore(igScreen,igNav);
   igNav.setAttribute("aria-label","Navigazione Instagram dimostrativa");
   igNav.innerHTML=[
-    '<button type="button" data-ig-screen="home" aria-label="Home">'+symbol("home")+'</button>',
-    '<button type="button" data-ig-screen="search" aria-label="Esplora">'+symbol("search")+'</button>',
-    '<button type="button" data-ig-screen="create" aria-label="Crea">'+symbol("plus")+'</button>',
-    '<button type="button" data-ig-screen="reels" aria-label="Reels">'+symbol("reels")+'</button>',
-    '<button type="button" data-ig-screen="profile" aria-label="Profilo" class="active">'+logo()+'</button>'
+    '<button type="button" data-ig-screen="home">'+symbol("home")+'<small>Home</small></button>',
+    '<button type="button" data-ig-screen="search">'+symbol("search")+'<small>Esplora</small></button>',
+    '<button type="button" data-ig-screen="reels">'+symbol("reels")+'<small>Reel</small></button>',
+    '<button type="button" data-ig-screen="profile" class="active">'+logo()+'<small>Profilo</small></button>'
   ].join("");
   function syncIgNav(){
     igNav.querySelectorAll("[data-ig-screen]").forEach(function(b){
@@ -82,26 +81,55 @@
       b.classList.toggle("active",active);
       b.setAttribute("aria-current",active?"page":"false");
     });
-    if(igHeaderName)igHeaderName.innerHTML=currentIg==="profile"?"deborah.anastasio <span class='ig-chevron'>⌄</span>":({"home":"Instagram","search":"Esplora","create":"Crea","reels":"Reels"})[currentIg];
+    if(igHeaderName)igHeaderName.textContent=({profile:"@deborah.anastasio",home:"Home",search:"Esplora",reels:"Reel"})[currentIg];
+  }
+  function setIgFilter(filter){
+    igFilter=filter;
+    var seen=new Set();
+    ig.querySelectorAll("[data-ig-tab]").forEach(function(button){
+      var active=button.dataset.igTab===filter;
+      button.classList.toggle("active",active);
+      button.setAttribute("aria-pressed",String(active));
+    });
+    ig.querySelectorAll("#ig-grid [data-post]").forEach(function(tile){
+      var post=posts[Number(tile.dataset.post)];
+      var src=post&&post.videoSrc;
+      var show=filter==="posts" || (filter==="reels" && src && !seen.has(src)) ||
+        (filter==="photos" && !src && post && post.img);
+      tile.hidden=!show;
+      if(src)seen.add(src);
+    });
+  }
+  function openProfileTile(i){
+    var post=posts[i];
+    if(igFilter==="reels" && post && post.videoSrc){
+      var index=videos.findIndex(function(video){return video.src===post.videoSrc;});
+      if(index!==-1){
+        selectedReel=index;
+        setIgScreen("reels",true);
+        return;
+      }
+    }
+    openPost(i);
   }
   function instaCard(p,i){
-    var visual=p.videoSrc?'<video class="native-feed-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline muted loop preload="metadata" aria-label="Video di Deborah Anastasio"></video>':p.img?'<img src="'+esc(p.img)+'" loading="lazy" alt="Copertina '+esc(p.title)+'">':'<div class="native-poster"><span>'+esc(p.title)+'</span><small>DEBORAH ANASTASIO</small></div>';
+    var visual=p.img?'<img src="'+esc(p.img)+'" loading="lazy" alt="">'+
+      (p.videoSrc?'<span class="tile-reel-mark">'+symbol("reels")+'</span>':''):
+      '<div class="native-poster"><span>'+esc(p.title)+'</span></div>';
     return '<article class="native-feed-card"><div class="native-feed-author">'+logo()+'<b>deborah.anastasio</b><span>· Concept</span><button type="button" data-native-action="help" aria-label="Note sulla demo">'+symbol("more")+'</button></div><button class="native-feed-visual" type="button" data-native-post="'+i+'" aria-label="Apri il post '+esc(p.title)+'">'+visual+'</button><div class="native-feed-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-post="'+i+'" aria-label="Apri commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi il concept">'+symbol("send")+'</button><span class="feed-spacer"></span><button type="button" data-native-save="'+i+'" aria-label="Salva idea">'+symbol("bookmark")+'</button></div><p class="native-feed-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><button class="native-view-comments" type="button" data-native-post="'+i+'">Visualizza il post e i dettagli</button></article>';
   }
   function setIgScreen(screen,userGesture){
     if(window.DeborahMedia)window.DeborahMedia.pauseContainer(igScreen);
-    if(["profile","home","search","create","reels"].indexOf(screen)<0)screen="profile";
+    if(["profile","home","search","reels"].indexOf(screen)<0)screen="profile";
     currentIg=screen;
     ig.dataset.screen=screen;
     igScreen.hidden=screen==="profile";
     syncIgNav();
-    if(screen==="profile"){igScreen.innerHTML="";return;}
+    if(screen==="profile"){igScreen.innerHTML="";setIgFilter(igFilter);return;}
     if(screen==="home"){
-      igScreen.innerHTML='<div class="ig-home-top"><span class="ig-native-brand">Instagram</span><span>Progetto creativo</span></div><div class="ig-home-stories"><button type="button" data-native-story="0">'+logo()+'<small>La tua storia</small></button>'+stories.slice(1,4).map(function(s,i){return '<button type="button" data-native-story="'+(i+1)+'"><span class="home-story-ring">✦</span><small>'+esc(s.title)+'</small></button>';}).join("")+'</div>'+posts.slice(0,7).map(instaCard).join("");
+      igScreen.innerHTML='<div class="ig-home-stories"><button type="button" data-native-story="0">'+logo()+'<small>La tua storia</small></button>'+stories.slice(1,4).map(function(s,i){return '<button type="button" data-native-story="'+(i+1)+'"><span class="home-story-ring">✦</span><small>'+esc(s.title)+'</small></button>';}).join("")+'</div>'+posts.slice(0,7).map(instaCard).join("");
     }else if(screen==="search"){
       igScreen.innerHTML='<div class="native-search-wrap"><label for="ig-native-search">'+symbol("search")+'<span class="sr-only">Cerca argomenti nel concept</span></label><input id="ig-native-search" type="search" placeholder="Cerca nel concept" autocomplete="off"></div><div class="native-search-chips"><span>Musica</span><span>DAB</span><span>Live</span><span>Backstage</span></div><div id="native-explore-grid" class="native-explore-grid">'+posts.map(function(p,i){return '<button type="button" data-native-post="'+i+'">'+(p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy">':'<span>'+esc(p.title)+'</span>')+'</button>';}).join("")+'</div>';
-    }else if(screen==="create"){
-      igScreen.innerHTML='<div class="native-empty"><div class="native-empty-icon">'+symbol("plus")+'</div><h2>Crea un contenuto</h2><p>Anteprima del futuro piano editoriale: post, storie e reel coordinati. Questa simulazione non pubblica nulla sui social reali.</p><button type="button" data-ig-screen="profile">Torna al profilo</button></div>';
     }else if(screen==="reels"){
       renderIgReel(!!userGesture);
     }
@@ -109,9 +137,10 @@
   }
   function renderIgReel(userGesture){
     if(window.DeborahMedia)window.DeborahMedia.pauseContainer(igScreen);
+    selectedReel=selectedReel%videos.length;
     var v=videos[selectedReel];
     var picture=v.src?'<video src="'+esc(v.src)+'" poster="'+esc(v.photo)+'" playsinline autoplay muted loop preload="metadata" controls class="ig-reel-video" aria-label="Reel di Deborah Anastasio"></video>':'<img src="'+esc(v.photo)+'" alt="Immagine segnaposto dello storyboard" class="ig-reel-photo">';
-    igScreen.innerHTML='<div class="ig-reels-stage">'+picture+'<div class="ig-reels-gradient"></div><span class="ig-reel-top">Reels <small>'+(v.src?"VIDEO REALE":"STORYBOARD")+'</small></span>'+(v.src?'':'<p class="ig-reel-headline">'+v.headline+'</p>')+'<div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>'+(v.src?"Video originale · copertina sostituibile":"Animazione dimostrativa · nessun video reale")+'</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
+    igScreen.innerHTML='<div class="ig-reels-stage">'+picture+'<div class="ig-reels-gradient"></div><span class="ig-reel-top">Reel <small>'+(v.src?"VIDEO REALE":"STORYBOARD")+'</small></span>'+(v.src?'':'<p class="ig-reel-headline">'+v.headline+'</p>')+'<div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>'+(v.src?"Video originale · copertina sostituibile":"Animazione dimostrativa · nessun video reale")+'</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
     var reel=igScreen.querySelector("video.ig-reel-video");
     if(reel && window.DeborahMedia)window.DeborahMedia.play(reel,!!userGesture);
   }
@@ -126,18 +155,18 @@
   ttBack.setAttribute("aria-label","Torna alla presentazione");
   ttBack.innerHTML=symbol("back");
   tt.appendChild(ttBack);
+  tt.querySelector('[data-action="tiktok-info"] span').innerHTML=symbol("comment");
+  tt.querySelector('[data-action="share"] span').innerHTML=symbol("send");
   var ttTop=tt.querySelector(".tiktok-top");
-  if(ttTop)ttTop.innerHTML='<button type="button" data-tt-top="following">Seguiti</button><button type="button" data-tt-top="foryou" class="tt-top-active">Per te</button><button type="button" data-tt-top="search" aria-label="Cerca">'+symbol("search")+'</button>';
+  if(ttTop)ttTop.innerHTML='<span class="tt-feed-label">Performance</span><button type="button" data-tt-screen="search" aria-label="Cerca">'+symbol("search")+'</button>';
   ttNav.setAttribute("aria-label","Navigazione TikTok dimostrativa");
   ttNav.innerHTML=[
-    '<button type="button" data-tt-screen="home" aria-label="Per te">'+symbol("home")+'<small>Home</small></button>',
-    '<button type="button" data-tt-screen="search" aria-label="Scopri">'+symbol("search")+'<small>Scopri</small></button>',
-    '<button type="button" data-tt-screen="create" class="tt-create-button" aria-label="Crea">'+symbol("plus")+'</button>',
-    '<button type="button" data-tt-screen="inbox" aria-label="Posta in arrivo">'+symbol("inbox")+'<small>Posta</small></button>',
-    '<button type="button" data-tt-screen="profile" aria-label="Profilo">'+logo()+'<small>Profilo</small></button>'
+    '<button type="button" data-tt-screen="home">'+symbol("home")+'<small>Video</small></button>',
+    '<button type="button" data-tt-screen="search">'+symbol("search")+'<small>Cerca</small></button>',
+    '<button type="button" data-tt-screen="profile">'+logo()+'<small>Profilo</small></button>'
   ].join("");
   function setTtScreen(screen){
-    if(["home","search","create","inbox","profile"].indexOf(screen)<0)screen="home";
+    if(["home","search","profile"].indexOf(screen)<0)screen="home";
     if(screen!=="home" && window.DeborahMedia)window.DeborahMedia.pauseContainer(tt);
     currentTt=screen;
     tt.classList.toggle("tt-native-open",screen!=="home");
@@ -152,17 +181,14 @@
       return;
     }
     if(screen==="profile"){
-      ttPanel.innerHTML='<div class="tt-profile-header"><b>debora.anastasio</b><button type="button" data-native-action="help" aria-label="Informazioni">☰</button></div><div class="tt-native-profile">'+logo()+'<h2>@debora.anastasio</h2><div class="tt-profile-stats"><span><b>—</b><small>Seguiti</small></span><span><b>—</b><small>Follower</small></span><span><b>—</b><small>Mi piace</small></span></div><button type="button" data-native-action="profile-info">Informazioni sul profilo</button><p>Musica, voce e momenti che restano ✨<br>Napoli · Live · DAB · Cerimonie</p><a href="#sito">Sito e contatti ↗</a></div><div class="tt-profile-grid-title">'+symbol("grid")+' <span>Video proposti</span></div><div class="tt-profile-grid">'+videos.map(function(v,i){return '<button type="button" data-native-video="'+i+'"><img src="'+esc(v.photo)+'" alt="Storyboard '+esc(v.title)+'"><span>▶</span><b>'+esc(v.title)+'</b></button>';}).join("")+'</div><p class="tt-profile-disclaimer">Layout dimostrativo: immagini e testi proposti, statistiche omesse.</p>';
+      ttPanel.innerHTML='<div class="tt-profile-header"><b>debora.anastasio</b><button type="button" data-native-action="help" aria-label="Informazioni">☰</button></div><div class="tt-native-profile">'+logo()+'<h2>@debora.anastasio</h2><p>Performer · Napoli<br>Voce dal vivo e Deborah Anastasio Band</p><a href="#sito">Sito e contatti ↗</a></div><div class="tt-profile-grid-title">'+symbol("grid")+' <span>Raccolta video</span></div><div class="tt-profile-grid">'+videos.map(function(v,i){return '<button type="button" data-native-video="'+i+'"><img src="'+esc(v.photo)+'" alt=""><span>▶</span><b>'+esc(v.title)+'</b></button>';}).join("")+'</div>';
     }else if(screen==="search"){
-      ttPanel.innerHTML='<div class="tt-search-title"><h2>Scopri</h2><p>Esplora le idee video della nuova identità</p></div><div class="native-search-wrap tt-search"><label for="tt-native-search">'+symbol("search")+'</label><input id="tt-native-search" type="search" placeholder="Cerca format video" autocomplete="off"></div><div class="tt-discover-list">'+videos.map(function(v,i){return '<button type="button" data-native-video="'+i+'"><img src="'+esc(v.photo)+'" alt="Storyboard"><span><b>'+esc(v.title)+'</b><small>'+esc(v.caption)+'</small></span><span>▶</span></button>';}).join("")+'</div>';
-    }else{
-      var creating=screen==="create";
-      ttPanel.innerHTML='<div class="tt-native-empty"><div class="tt-empty-symbol">'+symbol(creating?"plus":"inbox")+'</div><h2>'+(creating?"Nuovo video":"Posta in arrivo")+'</h2><p>'+(creating?"Qui nasceranno video reali con Deborah: esibizioni, backstage e piccoli racconti. La demo non carica né pubblica contenuti.":"Questo è un ambiente dimostrativo. Non sono stati importati messaggi, commenti o dati reali di TikTok.")+'</p><button type="button" data-tt-screen="home">Torna a Per te</button></div>';
+      ttPanel.innerHTML='<div class="tt-search-title"><h2>Scopri</h2><p>Cerca una performance di Deborah</p></div><div class="native-search-wrap tt-search"><label for="tt-native-search">'+symbol("search")+'</label><input id="tt-native-search" type="search" placeholder="Titolo del video" autocomplete="off"></div><div class="tt-discover-list">'+videos.map(function(v,i){return '<button type="button" data-native-video="'+i+'"><img src="'+esc(v.photo)+'" alt="Storyboard"><span><b>'+esc(v.title)+'</b><small>'+esc(v.caption)+'</small></span><span>▶</span></button>';}).join("")+'</div>';
     }
     ttPanel.scrollTop=0;
     document.dispatchEvent(new Event("deborah:contextchange"));
   }
-  function setVideoNative(index){demo.setVideo(index);setTtScreen("home");}
+  function setVideoNative(index){setTtScreen("home");demo.setVideo(index);}
   function showOverlay(html,type){
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     closeFocus=document.activeElement;
@@ -240,13 +266,12 @@
     });
   }
   document.addEventListener("click",function(e){
-    if(!media.matches)return;
     var route=location.hash.slice(1);
     if(route!=="instagram"&&route!=="tiktok")return;
     var post=e.target.closest("[data-post]");
     var story=e.target.closest("[data-story]");
     var existingAction=e.target.closest('[data-action="tiktok-info"],[data-action="share"],[data-action="profile-info"],[data-action="contact"]');
-    if(post&&route==="instagram"){e.preventDefault();e.stopImmediatePropagation();openPost(Number(post.dataset.post));return;}
+    if(post&&route==="instagram"){e.preventDefault();e.stopImmediatePropagation();openProfileTile(Number(post.dataset.post));return;}
     if(story&&route==="instagram"){e.preventDefault();e.stopImmediatePropagation();openStory(Number(story.dataset.story));return;}
     if(existingAction){
       e.preventDefault();e.stopImmediatePropagation();
@@ -264,13 +289,8 @@
     if(element.hasAttribute("data-native-leave")){closeOverlay();return;}
     if(element.hasAttribute("data-ig-screen")){setIgScreen(element.dataset.igScreen,true);return;}
     if(element.hasAttribute("data-tt-screen")){setTtScreen(element.dataset.ttScreen);return;}
-    if(element.hasAttribute("data-tt-top")){
-      var view=element.dataset.ttTop;
-      if(view==="search")setTtScreen("search");
-      if(view==="foryou")setTtScreen("home");
-      if(view==="following")toast("Nessun account seguito in questa demo");
-      return;
-    }
+    if(element.hasAttribute("data-ig-tab")){setIgFilter(element.dataset.igTab);return;}
+    if(element.hasAttribute("data-tt-step")){demo.setVideo(demo.getVideoIndex()+Number(element.dataset.ttStep));return;}
     if(element.hasAttribute("data-native-post")){openPost(Number(element.dataset.nativePost));return;}
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
     if(element.hasAttribute("data-story-step")){openStory(selectedStory+Number(element.dataset.storyStep));return;}
@@ -337,7 +357,7 @@
   ttPanel.addEventListener("touchstart",function(e){e.stopPropagation();},{passive:true});
   ttPanel.addEventListener("touchend",function(e){e.stopPropagation();},{passive:true});
   tt.addEventListener("click",function(e){
-    if(currentTt!=="home"||!media.matches)return;
+    if(currentTt!=="home")return;
     if(e.target.closest(".video-bg")||e.target.closest(".video-headline")){
       var realVideo=document.getElementById("deborah-video-playback");
       // First intentional tap can unlock audible playback on mobile.
@@ -351,18 +371,24 @@
   });
   var swipeStart=null;
   igScreen.addEventListener("touchstart",function(e){
-    if(currentIg!=="reels"||e.touches.length!==1)return;
-    swipeStart=e.touches[0].clientY;
+    swipeStart=currentIg==="reels"&&e.touches.length===1&&!e.target.closest("button,a")
+      ? {x:e.touches[0].clientX,y:e.touches[0].clientY} : null;
   },{passive:true});
   igScreen.addEventListener("touchend",function(e){
-    if(currentIg!=="reels"||swipeStart===null)return;
-    var d=e.changedTouches[0].clientY-swipeStart;
-    if(Math.abs(d)>70){selectedReel=(selectedReel+(d<0?1:-1)+videos.length)%videos.length;renderIgReel();}
+    var start=swipeStart;
     swipeStart=null;
+    if(currentIg!=="reels"||!start||!e.changedTouches.length)return;
+    var point=e.changedTouches[0];
+    var delta=point.clientY-start.y;
+    if(Math.abs(delta)>55&&Math.abs(delta)>Math.abs(point.clientX-start.x)*1.3){
+      selectedReel=(selectedReel+(delta<0?1:-1)+videos.length)%videos.length;
+      renderIgReel();
+    }
   },{passive:true});
+  igScreen.addEventListener("touchcancel",function(){swipeStart=null;},{passive:true});
   window.addEventListener("deborah:libraryready",function(){
     if(currentIg==="profile"){
-      // The wall is updated by the media integration, no need to reset the tab.
+      setIgFilter(igFilter);
     }else if(location.hash==="#instagram")setIgScreen(currentIg);
     if(location.hash==="#tiktok")setTtScreen(currentTt);
   });

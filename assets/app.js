@@ -176,15 +176,6 @@
       if(a==="profile-info")openModal(titleDialog("INSTAGRAM / DETTAGLI","Profilo dimostrativo","Il layout è ispirato alle logiche di Instagram, ma post, numeri e bio non riflettono dati estratti dal profilo reale. È un prototipo autonomo, non collegato a Meta."));
       if(a==="tiktok-info")openModal(titleDialog("TIKTOK / PRODUZIONE",videos[videoIndex].title,videos[videoIndex].method));
     }
-    var tab=ev.target.closest("[data-ig-tab]");
-    if(tab){
-      document.querySelectorAll("[data-ig-tab]").forEach(function(b){b.classList.toggle("active",b===tab);});
-      var val=tab.dataset.igTab;
-      document.querySelectorAll("[data-post]").forEach(function(tile){
-        var i=Number(tile.dataset.post);
-        tile.hidden=val==="reels"&&[0,2,5,6,7,8,10].indexOf(i)<0 ||val==="tagged"&&[1,3,9,11].indexOf(i)<0;
-      });
-    }
     var video=ev.target.closest("[data-video]");
     if(video)setVideo(Number(video.dataset.video));
   });
@@ -192,9 +183,11 @@
   modal.addEventListener("click",function(ev){if(ev.target===modal)closeModal();});
   window.addEventListener("keydown",function(ev){
     if(ev.key==="Escape")closeModal();
-    if(!modal.hidden)return;
-    if(currentRoute()==="tiktok"&&ev.key==="ArrowDown")setVideo(videoIndex+1);
-    if(currentRoute()==="tiktok"&&ev.key==="ArrowUp")setVideo(videoIndex-1);
+    if(!modal.hidden || ev.defaultPrevented || !canStepVideo())return;
+    if(ev.key==="ArrowDown"||ev.key==="ArrowUp"){
+      ev.preventDefault();
+      setVideo(videoIndex+(ev.key==="ArrowDown"?1:-1));
+    }
   });
   var videoIndex=0;
   var videoPlayer=document.getElementById("tiktok-player");
@@ -204,6 +197,11 @@
   var videoPlay=document.getElementById("video-play");
   var videoLike=document.getElementById("video-like");
   var likes={};
+  function canStepVideo(){
+    return currentRoute()==="tiktok" &&
+      !videoPlayer.classList.contains("tt-native-open") &&
+      !document.body.classList.contains("native-overlay-visible");
+  }
   function setVideo(n){
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     videoIndex=(n+videos.length)%videos.length;
@@ -217,6 +215,7 @@
     document.getElementById("video-count").textContent=String(videoIndex+1).padStart(2,"0")+" / "+String(videos.length).padStart(2,"0");
     document.querySelectorAll("[data-video]").forEach(function(el){el.classList.toggle("active",Number(el.dataset.video)===videoIndex);});
     videoLike.classList.toggle("liked",!!likes[videoIndex]);
+    videoLike.setAttribute("aria-pressed",String(!!likes[videoIndex]));
     videoLike.querySelector("span").textContent=likes[videoIndex]?"♥":"♡";
     videoPlayer.classList.add("playing");
     videoPlayer.classList.remove("paused");
@@ -225,21 +224,38 @@
   }
   document.getElementById("video-prev").addEventListener("click",function(){setVideo(videoIndex-1);});
   document.getElementById("video-next").addEventListener("click",function(){setVideo(videoIndex+1);});
-  videoLike.addEventListener("click",function(){likes[videoIndex]=!likes[videoIndex];videoLike.classList.toggle("liked",likes[videoIndex]);videoLike.querySelector("span").textContent=likes[videoIndex]?"♥":"♡";});
+  videoLike.addEventListener("click",function(){likes[videoIndex]=!likes[videoIndex];videoLike.classList.toggle("liked",likes[videoIndex]);videoLike.setAttribute("aria-pressed",String(likes[videoIndex]));videoLike.querySelector("span").textContent=likes[videoIndex]?"♥":"♡";});
   videoPlay.addEventListener("click",function(){
     var playing=videoPlayer.classList.toggle("playing");
     videoPlayer.classList.toggle("paused",!playing);
     videoPlay.textContent=playing?"Ⅱ":"▶";
     videoPlay.setAttribute("aria-label",playing?"Ferma l’animazione":"Avvia l’animazione");
   });
-  var touchY=null;
-  videoPlayer.addEventListener("touchstart",function(e){if(e.touches.length===1)touchY=e.touches[0].clientY;},{passive:true});
-  videoPlayer.addEventListener("touchend",function(e){
-    if(touchY===null||!e.changedTouches.length)return;
-    var delta=e.changedTouches[0].clientY-touchY;
-    if(Math.abs(delta)>70)setVideo(videoIndex+(delta<0?1:-1));
-    touchY=null;
+  var touchStart=null;
+  videoPlayer.addEventListener("touchstart",function(e){
+    touchStart=canStepVideo()&&e.touches.length===1&&!e.target.closest("button,a")
+      ? {x:e.touches[0].clientX,y:e.touches[0].clientY} : null;
   },{passive:true});
+  videoPlayer.addEventListener("touchend",function(e){
+    var start=touchStart;
+    touchStart=null;
+    if(!start||!canStepVideo()||!e.changedTouches.length)return;
+    var point=e.changedTouches[0];
+    var delta=point.clientY-start.y;
+    if(Math.abs(delta)>55 && Math.abs(delta)>Math.abs(point.clientX-start.x)*1.3){
+      setVideo(videoIndex+(delta<0?1:-1));
+    }
+  },{passive:true});
+  videoPlayer.addEventListener("touchcancel",function(){touchStart=null;},{passive:true});
+  var lastWheel=0;
+  videoPlayer.addEventListener("wheel",function(e){
+    if(!canStepVideo()||e.ctrlKey||Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;
+    e.preventDefault();
+    var now=performance.now();
+    if(now-lastWheel<480||!e.deltaY)return;
+    lastWheel=now;
+    setVideo(videoIndex+(e.deltaY>0?1:-1));
+  },{passive:false});
   window.DeborahDemo={posts:posts,stories:stories,videos:videos,setVideo:setVideo,getVideoIndex:function(){return videoIndex;}};
   window.addEventListener("hashchange",route);
   route();
