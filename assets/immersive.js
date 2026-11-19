@@ -200,18 +200,30 @@
   function showOverlay(html,type){
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     closeFocus=document.activeElement;
+    if(!media.matches){
+      var host=location.hash==="#tiktok"?tt:ig;
+      if(overlay.parentElement!==host)host.appendChild(overlay);
+      host.classList.add("desktop-player-open");
+      overlay.setAttribute("aria-modal","false");
+    }else{
+      if(overlay.parentElement!==document.body)document.body.appendChild(overlay);
+      overlay.setAttribute("aria-modal","true");
+    }
     overlayType=type;
     overlay.innerHTML=html;
     overlay.hidden=false;
-    document.body.classList.add("native-overlay-visible");
+    document.body.classList.toggle("native-overlay-visible",media.matches);
     var close=overlay.querySelector("[data-native-close]");
     if(close)close.focus({preventScroll:true});
+    if(!media.matches)overlay.scrollIntoView({block:"nearest",behavior:"auto"});
   }
   function closeOverlay(){
     if(overlay.hidden)return;
     if(window.DeborahMedia)window.DeborahMedia.pauseContainer(overlay);
     overlay.hidden=true;
     overlay.innerHTML="";
+    ig.classList.remove("desktop-player-open");
+    tt.classList.remove("desktop-player-open");
     overlayType="";
     document.body.classList.remove("native-overlay-visible");
     document.dispatchEvent(new Event("deborah:contextchange"));
