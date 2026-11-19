@@ -34,8 +34,8 @@
   // Provvisoriamente i due contenuti autentici vengono ripetuti nelle due demo.
   // Non usare contenuti fittizi o scatti stock come se fossero di Deborah.
   var assetPair=[
-    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",idea:"Fotografia copertina rosa, inviata per la demo. Presentazione del profilo."},
-    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Un ricordo di San Valentino a Villa Gauro. Che bello rivivere queste serate! ❤️🎶",idea:"Locandina originale inviata per la demo. La data non è presentata come evento futuro."}
+    {img:uploaded.pink,title:"Deborah Anastasio",caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",idea:"Una foto e un saluto grande a chi passa di qui. ❤️"},
+    {img:uploaded.gallery,title:"San Valentino · Villa Gauro",caption:"Un ricordo di San Valentino a Villa Gauro. Che bello rivivere queste serate! ❤️🎶",idea:"Un ricordo di San Valentino a Villa Gauro, tra musica e belle emozioni."}
   ];
   posts.forEach(function(p,i){
     var item=assetPair[i%2];
@@ -56,7 +56,7 @@
     p.title=i===2?"DAB · Deborah Anastasio Band":"DAB · Sul palco";
     p.type="DAB / La band";p.img="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119";p.brandAsset="DAB";
     p.caption=i===2?"Con la DAB al completo l'energia è un'altra cosa! 🎶❤️ #DeborahAnastasioBand #MusicaDalVivo":"Le prove, le risate e poi tutti sul palco. Con la DAB ci divertiamo davvero! ❤️ #DAB #LiveMusic";
-    p.idea="Copertina editoriale DAB. Sostituire soltanto con veri materiali della band, con crediti e approvazione.";
+    p.idea="La DAB: i musicisti, le prove, le serate e la voglia di stare insieme sul palco.";
     var el=grid&&grid.querySelector('[data-post="'+i+'"]');
     if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<img class="dab-tile-logo" src="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119" alt="DAB · Deborah Anastasio Band" loading="lazy">';}
   });
@@ -77,7 +77,7 @@
   var stories=[
     {title:"La mia voce",detail:"Ciao ragazzi, sono Deborah! Qui vi porto con me, tra canzoni, emozioni e serate bellissime. ❤️"},
     {title:"Cerimonie",detail:"Ogni festa ha la sua emozione. Che bello accompagnarvi con la musica nei vostri momenti speciali!"},
-    {title:"DAB · La band",detail:"Eccoci con la DAB! Tra musica dal vivo, prove e qualche risata, vi facciamo compagnia anche qui."},
+    {title:"La DAB",detail:"Eccoci con la DAB! Tra musica dal vivo, prove e qualche risata, vi facciamo compagnia anche qui."},
     {title:"Backstage",detail:"Un po' di tremarella c'è sempre! Vi mostro le prove, i preparativi e quello che combiniamo prima di salire sul palco."},
     {title:"Contatti",detail:"Avete qualcosa di bello da festeggiare? Scrivetemi e raccontatemi tutto. Bacio grande! ❤️"}
   ];
@@ -95,7 +95,7 @@
     v.method="Anteprima statica del materiale fotografico originale. Quando saranno forniti i video autorizzati, sostituire la foto con il filmato corrispondente.";
   });
   // Storyboard n.3 dedicato a DAB; la foto ripetuta è soltanto un segnaposto.
-  videos[2].title="DAB · La band";
+  videos[2].title="La DAB";
   videos[2].headline="DAB<br>La band.";
   videos[2].caption="La DAB, i musicisti e tutta la nostra voglia di cantare insieme. 🎶❤️ #DeborahAnastasioBand";
   videos[2].method="Sostituire la fotografia segnaposto con video autentici della DAB. Aprire sulla performance, dare spazio ai musicisti e usare audio live autorizzato.";
@@ -151,7 +151,7 @@
     else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
     html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2><p>'+escapeText(post.idea)+'</p>';
     html+='<div class="dialog-sample"><b>LA DIDASCALIA</b><p>'+paragraphs(post.caption)+'</p></div>';
-    html+='<p class="dialog-small">Contenuto creativo dimostrativo. Da realizzare e verificare con materiali autentici di Deborah.</p>';
+    html+='<p class="dialog-small">Anteprima editoriale: i contenuti non sono pubblicati sui social.</p>';
     openModal(html);
     // Opening a post is an intentional click: start playback immediately
     // with the user's previously chosen audio preference (or sound if allowed).
@@ -163,7 +163,7 @@
   }
   function openStory(i){
     var story=stories[i];if(!story)return;
-    openModal(titleDialog("INSTAGRAM / STORIA IN EVIDENZA",story.title,story.detail)+'<div class="dialog-sample"><b>TRATTAMENTO VISIVO</b><p>Copertina con simbolo minimal, fondo champagne/avorio, titolo essenziale, coerenza con il resto del profilo.</p></div>');
+    openModal(titleDialog("INSTAGRAM / STORIA IN EVIDENZA",story.title,story.detail)+'<div class="dialog-sample"><b>LA MIA STORIA</b><p>Un piccolo spazio per condividere con voi musica, ricordi e momenti dietro le quinte.</p></div>');
   }
   function openContact(){
     openModal(titleDialog("SITO / PERCORSO CONTATTI","Scrivimi, mi farà piacere!","Mi fa piacere conoscere le vostre idee. Questo spazio è una dimostrazione: qui non si inviano messaggi reali.")+
