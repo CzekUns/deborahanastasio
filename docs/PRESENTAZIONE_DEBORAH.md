@@ -6,16 +6,16 @@ La prima pagina di https://czekuns.github.io/deborahanastasio/ è **la presentaz
 
 ### Messaggio da mantenere
 
-> Il tuo nome ha già un valore. Voglio farlo vedere anche online.
+> Che cosa ti manca? Di sicuro non un'identità. Voglio che la comunicazione restituisca la stessa forza che hai dal vivo.
 
 La proposta valorizza il percorso artistico e la reputazione costruita sul campo. La presenza digitale deve comunicare autorevolezza, riconoscibilità e continuità, senza imitare la comunicazione delle nuove leve o reinventare la personalità dell'artista. Evitare dati biografici, numeri di pubblico e risultati commerciali non verificati.
 
 ### I quattro argomenti della presentazione
 
-1. **La premessa.** Il percorso artistico esiste già; il progetto dà una forma riconoscibile alla presenza digitale.
-2. **Il valore aggiunto.** Identità e famiglia di segni DA/DAB, selezione di fotografie/video autentici, lavorazioni grafiche e testuali, organizzazione dei canali, struttura web aggiornabile.
-3. **Come si lavora.** L'artista fornisce materiali, repertorio, storia e approvazione; il proponente cura direzione digitale, impaginazione, montaggi/copertine e sviluppo. Eventuale gestione continuativa da concordare, non automaticamente inclusa.
-4. **Una dimostrazione concreta.** La visita è una sequenza: **Presentazione → Instagram → TikTok → Sito ufficiale (tappa finale)**.
+1. **La lettera personale.** Simone racconta le diverse ore di osservazione delle performance e spiega che Deborah possiede già una forte identità: l'obiettivo è farla emergere online, senza ispirarsi o imitare le pagine di altri artisti.
+2. **Il significato dei segni.** La buona stella scelta come portafortuna, il ricciolo della A ispirato al segno astrologico del Leone e il nome «la DAB» per l'identità della band.
+3. **Il lavoro pratico.** Fotografie e video spesso compressi; preferenza per i file originali e invio come documenti, anche con WhatsApp. Le copertine sono state migliorate solo per necessità: niente ritocchi gratuiti.
+4. **L'intenzione e le demo.** Il progetto è una proposta personale e aperta ai commenti di Deborah, con percorso: **Presentazione → Instagram → TikTok → Sito ufficiale (tappa finale)**.
 
 ### Regole di navigazione
 
