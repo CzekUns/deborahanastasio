@@ -353,3 +353,158 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
     font-size:10px;
   }
 }
+
+/* Deborah’s social preview uses its own paper and stage treatments. */
+.ig-phone {
+  --social-paper: #fffaf4;
+  --social-ink: #35202a;
+  --social-accent: #712844;
+  --social-line: #eadbd5;
+  background: var(--social-paper);
+  color: var(--social-ink);
+}
+.ig-phone .phone-status,
+.ig-phone .ig-top,
+.ig-phone .ig-bottom,
+.ig-phone .ig-native-screen {
+  background: var(--social-paper);
+  color: var(--social-ink);
+  border-color: var(--social-line);
+}
+.ig-phone .phone-status {
+  color: var(--social-accent);
+  border-bottom: 1px solid var(--social-line);
+}
+.ig-phone .ig-top, body.social-instagram .ig-phone[data-screen] .ig-top {
+  display: flex !important;
+}
+.ig-demo-back, .ig-demo-menu { min-width: 44px; min-height: 44px; }
+.ig-profile-identity { display: grid; gap: 4px; }
+.ig-profile-identity strong { font: 600 clamp(21px, 5.6vw, 29px)/1.02 var(--serif); }
+.ig-profile-identity span { color: var(--social-accent); font-size: 12px; }
+.ig-phone .ig-bio { font-size: 13px; }
+.ig-phone .ig-bio a { color: var(--social-accent); margin-top: 4px; }
+.ig-phone .ig-buttons button { min-height: 44px; background: #f0e7e1; }
+.ig-phone .ig-buttons button:first-child { background: var(--social-accent); color: white; }
+.ig-phone .ig-buttons .ig-small { min-width: 44px; }
+.ig-phone .ig-content-tabs { border-color: var(--social-line); }
+.ig-phone .ig-content-tabs button {
+  background: var(--social-paper);
+  color: #65515a;
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 44px;
+}
+.ig-phone .ig-content-tabs button.active {
+  border-bottom-color: var(--social-accent);
+  color: var(--social-accent);
+}
+.ig-phone .ig-grid { background: var(--social-paper); }
+.ig-phone .ig-grid .ig-tile img { filter: none; }
+.ig-bottom button { width: 25%; min-height: 50px; flex-direction: column; gap: 3px; }
+.ig-phone .ig-bottom { min-height: 54px; }
+.ig-bottom button small { font-size: 10px; }
+.ig-bottom button.active { color: var(--social-accent); font-weight: 750; }
+.ig-bottom button.active .native-da-avatar { box-shadow: 0 0 0 2px var(--social-accent); }
+.ig-reel-switch button, .ig-reel-actions button { min-width: 44px; min-height: 44px; }
+.ig-reels-stage { touch-action: pan-x pinch-zoom; }
+.ig-reel-actions { gap: 4px; }
+.native-feed-actions button, .native-detail-actions button { min-width: 44px; min-height: 44px; }
+.native-social-overlay .native-detail-note strong { color: #712844; }
+
+.tiktok-player .tiktok-top {
+  top: max(24px, calc(env(safe-area-inset-top) + 12px));
+  justify-content: space-between;
+  left: 62px;
+  right: 13px;
+  gap: 8px;
+}
+.tiktok-player .tiktok-top button,
+.tt-feed-steps button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #ffffff46;
+  border-radius: 50%;
+  background: #25141cba;
+  color: white;
+}
+.tt-feed-label {
+  font: 600 20px/1 var(--serif);
+  text-shadow: 0 2px 8px #000;
+}
+.tiktok-player .video-concept {
+  top: max(81px, calc(env(safe-area-inset-top) + 66px));
+  left: 15px;
+  color: #f2dcc2;
+  background: #25141cba;
+  border-color: #e5c9a56e;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: none;
+}
+.tiktok-player .tiktok-bottom {
+  background: #23141c;
+  color: #fff4e9;
+  border-top: 1px solid #eacba54a;
+}
+.tiktok-player .tiktok-bottom button {
+  min-height: 48px;
+  font-size: 12px;
+}
+.tiktok-player .tiktok-bottom button small { font-size: 10px; }
+.tiktok-player .tiktok-bottom button.active { color: #edc69d; }
+.tiktok-player .tt-demo-return {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  left: 12px;
+  top: max(24px, calc(env(safe-area-inset-top) + 12px));
+  width: 44px;
+  height: 44px;
+  z-index: 7;
+  background: #25141cba;
+  color: white;
+  border-radius: 50%;
+}
+.tiktok-player .tt-native-panel {
+  background: #fffaf4;
+  color: #35202a;
+  padding-top: max(24px, calc(env(safe-area-inset-top) + 12px));
+}
+.tt-native-panel .tt-profile-grid-title { border-bottom-color: #a77587; }
+.tt-native-panel .tt-profile-grid b { text-shadow: 0 1px 6px #000; }
+.tt-native-panel .tt-search-title { padding-left: 64px; }
+.tt-native-open > .tt-feed-steps { display: none; }
+.tt-feed-steps {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  left: 12px;
+  top: 37%;
+  gap: 8px;
+}
+.tiktok-player .tiktok-actions button { min-width: 44px; min-height: 44px; }
+.tiktok-player .video-bg { touch-action: pan-x pinch-zoom; }
+.tile-reel-mark { background: #27141ba8; border-radius: 5px; padding: 3px; line-height: 0; }
+.tiktok-player .tiktok-actions .native-icon { width: 29px; height: 29px; }
+@media (max-width: 800px) {
+  body.social-instagram .ig-phone .phone-status,
+  body.social-instagram .ig-phone .ig-top,
+  body.social-instagram .ig-phone .ig-bottom { background: var(--social-paper); }
+  body.social-instagram .ig-phone .ig-content-tabs button { font-size: 13px; }
+  body.social-instagram .ig-phone .ig-buttons button { height: 44px; }
+  body.social-tiktok .tiktok-player .tiktok-top { z-index: 4; }
+  body.social-tiktok .tiktok-player .tt-demo-return { width: 44px; height: 44px; }
+  body.social-tiktok .tiktok-player .tt-feed-steps { display: grid; }
+  body.social-tiktok .tt-native-open > .tt-feed-steps { display: none; }
+  body.social-tiktok .tiktok-player .real-social-video.portrait-video { object-fit: cover; }
+  body.social-tiktok .tiktok-player .tiktok-actions { gap: 7px; }
+  body.social-tiktok .tiktok-player.playing .center-play:not(:focus-visible) { opacity: 0; }
+}
+@media (max-height: 570px) {
+  body.social-tiktok .tiktok-player .tiktok-actions { bottom: 75px; gap: 3px; }
+  .tt-feed-steps { top: 30%; }
+}
