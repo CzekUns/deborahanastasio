@@ -14,7 +14,8 @@
   };
   var uploaded={
     pink:"./assets/deborah-cover-rosa-4x5.webp",
-    gallery:"./assets/deborah-sanvalentino-editorial-4x5.webp"
+    gallery:"./assets/deborah-sanvalentino-editorial-4x5.webp",
+    blueArchive:"./assets/deborah-gallery-san-valentino-4x5.webp"
   };
   var posts=[
     {title:"Un momento che resta",type:"Wedding Diary",img:media.wedding,caption:"Ci sono momenti in cui una canzone riesce a dire tutto. ✨\n\nQual è il brano che portereste per sempre con voi? #weddingmusic #musicalive #napoli",idea:"Reel di un momento significativo, con ingresso musicale entro i primi due secondi."},
@@ -59,6 +60,20 @@
     var el=grid&&grid.querySelector('[data-post="'+i+'"]');
     if(el){el.className="ig-tile typographic-tile dab-tile";el.innerHTML='<img class="dab-tile-logo" src="./assets/brand/stella/DAB-chiaro.svg?v=identita-stella-20261119" alt="DAB · Deborah Anastasio Band" loading="lazy">';}
   });
+  // Original San Valentino / Villa Gauro flyer: distinct from the burgundy redesign.
+  var blueArchivePost=posts[3];
+  blueArchivePost.title="San Valentino · Dinner Show · Villa Gauro";
+  blueArchivePost.type="Archivio / Locandina";
+  blueArchivePost.img=uploaded.blueArchive;
+  blueArchivePost.caption="Dall’archivio delle esibizioni di Deborah: San Valentino · Dinner Show · Villa Gauro. ✦ #DeborahAnastasio #Live";
+  blueArchivePost.idea="Locandina originale con Deborah in abito nero su sfondo blu. Contenuto d’archivio, non una nuova data.";
+  blueArchivePost.editorialStatic=true;
+  blueArchivePost.videoSrc=null;
+  var blueArchiveTile=grid&&grid.querySelector('[data-post="3"]');
+  if(blueArchiveTile){
+    blueArchiveTile.className="ig-tile image-tile archival-photo-tile";
+    blueArchiveTile.innerHTML='<img src="'+uploaded.blueArchive+'" alt="Deborah in abito nero su sfondo blu, San Valentino Dinner Show Villa Gauro" loading="lazy"><span class="tile-tag">ARCHIVIO</span>';
+  }
   var stories=[
     {title:"La mia voce",detail:"Chi è Deborah, come racconta la musica e quali emozioni vuole trasmettere. Da riempire con una sua vera presentazione in video."},
     {title:"Cerimonie",detail:"Brevi estratti autorizzati, momenti di una giornata e informazioni chiare sulle cerimonie effettivamente proposte."},
@@ -207,7 +222,10 @@
     videoIndex=(n+videos.length)%videos.length;
     var v=videos[videoIndex];
     videoImage.src=v.photo;
-    videoHeadline.innerHTML=v.headline;
+    videoImage.alt=v.photoPost?"Locandina San Valentino Dinner Show Villa Gauro, foto d’archivio":"Copertina del contenuto di Deborah Anastasio";
+    videoPlayer.classList.toggle("has-photo-post",!!v.photoPost);
+    videoPlay.hidden=!!v.photoPost;
+    videoHeadline.innerHTML=v.headline||"";
     videoHeadline.style.animation="none";
     void videoHeadline.offsetHeight;
     videoHeadline.style.animation="";

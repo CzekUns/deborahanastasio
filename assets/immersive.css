@@ -508,3 +508,22 @@ body.social-tiktok .video-bg img{object-fit:contain!important;background:#10101b
   body.social-tiktok .tiktok-player .tiktok-actions { bottom: 75px; gap: 3px; }
   .tt-feed-steps { top: 30%; }
 }
+
+/* Blue San Valentino / Villa Gauro archive photo post */
+.tiktok-player.has-photo-post .video-bg{background:radial-gradient(ellipse at 48% 43%,#1c4396 0%,#0b1a50 65%,#060b26 100%)}
+.tiktok-player.has-photo-post .video-bg img{
+ display:block!important;width:100%;height:100%;object-fit:contain!important;object-position:center;
+ filter:none!important;transform:none!important;transition:none!important
+}
+.tiktok-player.has-photo-post .video-vignette{
+ background:linear-gradient(to bottom,rgba(6,12,36,.24),transparent 19%,transparent 70%,rgba(5,9,22,.84) 100%)
+}
+.tiktok-player.has-photo-post .video-headline,
+.tiktok-player.has-photo-post #video-play,
+.tiktok-player.has-photo-post #deborah-sound-toggle,
+.tiktok-player.has-photo-post .real-social-video{display:none!important}
+.ig-grid .ig-tile.archival-photo-tile img{filter:none;object-fit:cover}
+.native-feed-visual img[src*="deborah-gallery-san-valentino-4x5.webp"]{object-fit:contain;background:#0b184e}
+.native-detail-photo[src*="deborah-gallery-san-valentino-4x5.webp"]{
+ width:100%;height:auto;aspect-ratio:4/5;max-height:72dvh;object-fit:contain;background:#0b184e
+}

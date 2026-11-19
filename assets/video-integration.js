@@ -53,6 +53,17 @@ function updateMedia(items){
     v.headline="";
     v.method="Video presente nel repository GitHub; la copertina è indipendente dal filmato e sarà sostituibile.";
   }
+  // TikTok's blue San Valentino flyer is a silent photo post between videos.
+  videoData.splice(Math.min(2,videoData.length),0,{
+    title:"San Valentino · Dinner Show · Villa Gauro",
+    headline:"",
+    caption:"Dall’archivio: San Valentino · Dinner Show · Villa Gauro. ✦ #DeborahAnastasio #Live",
+    photo:"./assets/deborah-gallery-san-valentino-4x5.webp",
+    cover:"./assets/deborah-gallery-san-valentino-4x5.webp",
+    photoPost:true,
+    src:null,
+    method:"Locandina originale d’archivio. Post fotografico, senza audio né una data futura."
+  });
   demo.posts.forEach(function(p,index){
     if(p.brandAsset==="DAB" || p.editorialStatic)return; // Keep the approved identity slots separate from unrelated video clips.
     var asset=items[index%items.length];
@@ -75,7 +86,7 @@ function updateMedia(items){
   var list=document.getElementById("format-list");
   if(list){
     list.innerHTML=videoData.map(function(v,i){
-      return '<button type="button" data-video="'+i+'"'+(i===0?' class="active"':'')+'><span>'+String(i+1).padStart(2,"0")+'</span><div><b>'+v.title.replace(/[&<>"]/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[x];})+'</b><small>Video dalla repository</small></div><span>↗</span></button>';
+      return '<button type="button" data-video="'+i+'"'+(i===0?' class="active"':'')+'><span>'+String(i+1).padStart(2,"0")+'</span><div><b>'+v.title.replace(/[&<>"]/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[x];})+'</b><small>'+(v.photoPost?'Foto d’archivio · Villa Gauro':'Video dalla repository')+'</small></div><span>↗</span></button>';
     }).join("");
   }
   ready=true;
@@ -128,6 +139,25 @@ function syncPlayer(){
   ensureVideo();
   var index=demo.getVideoIndex();
   var entry=demo.videos[index];
+  if(entry && entry.photoPost){
+    video.pause();
+    if(video.hasAttribute("src")){
+      video.removeAttribute("src");
+      video.load();
+    }
+    video.hidden=true;
+    videoImage.src=entry.photo;
+    videoImage.hidden=false;
+    player.classList.remove("has-real-video");
+    player.classList.add("has-photo-post");
+    var photoSoundline=player.querySelector(".soundline");
+    if(photoSoundline)photoSoundline.textContent="▧ Foto d’archivio · San Valentino · Villa Gauro";
+    var photoNote=player.querySelector(".video-concept");
+    if(photoNote)photoNote.textContent="POST FOTOGRAFICO · ARCHIVIO";
+    if(soundBtn)soundBtn.hidden=true;
+    return;
+  }
+  player.classList.remove("has-photo-post");
   if(!entry || !entry.src)return;
   var url=entry.src;
   if(video.getAttribute("src")!==url){

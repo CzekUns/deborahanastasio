@@ -31,7 +31,7 @@
     document.querySelectorAll("video").forEach(function(v){if(v!==except)safePause(v);});
   }
   function blockedByScreen(v){
-    if(!v || !v.isConnected || document.hidden)return true;
+    if(!v || !v.isConnected || document.hidden || v.hidden || v.closest(".has-photo-post"))return true;
     var view=v.closest("[data-view]");
     if(view && view.hidden)return true;
     var route=routeName();
