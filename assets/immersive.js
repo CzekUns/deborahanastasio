@@ -27,7 +27,7 @@
   var dabGallery=demo.dabGallery||[];
   var selectedDabFrame=0;
   var selectedClipFrame=0;
-  var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-originale-hq.jpg","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-originale-hq.jpg","./assets/deborah-cover-rosa-4x5.webp"];
+  var allStoryImages=["./assets/copertine/social/la-mia-voce-2.webp","./assets/copertine/social/eventi-1.webp","./assets/la-dab/galleria/dab-01-serata-bianco.webp","./assets/la-dab/galleria/dab-04-dietro-il-palco.webp","./assets/copertine/social/eventi-3.webp"];
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function plain(v){return esc(v).replace(/\n/g,"<br>");}
   function logo(){return '<span class="native-da-avatar native-da-photo"><img src="./assets/deborah-avatar-centrato-ai.webp" alt="" loading="lazy"></span>';}
