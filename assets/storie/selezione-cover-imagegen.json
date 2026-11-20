@@ -1,0 +1,45 @@
+{
+  "status": "selected-for-imagegen-not-yet-edited",
+  "selectedBy": "user",
+  "context": "Cinque fotogrammi selezionati dalla pagina provini-storie.html generati nel browser con estrazione in otto punti per video",
+  "sourceMode": "HTML5 video canvas browser fallback",
+  "contentRule": "Preservare fisionomia, espressioni e atmosfera dei filmati originali. Nessuna ricostruzione creativa del volto. Una copertina distinta per video.",
+  "outputNotes": "Prototipi per storie in evidenza, stile Deborah Anastasio performer; nuove cover approvabili singolarmente, non ancora integrate",
+  "frames": [
+    {
+      "id": "E1-06",
+      "video": "Eventi 1",
+      "source": "deborah_media/eventi 1.mp4",
+      "frame": 6,
+      "relativeTimestamp": 0.663125
+    },
+    {
+      "id": "E2-07",
+      "video": "Eventi 2",
+      "source": "deborah_media/eventi 2.mp4",
+      "frame": 7,
+      "relativeTimestamp": 0.771875
+    },
+    {
+      "id": "E3-03",
+      "video": "Eventi 3",
+      "source": "deborah_media/eventi 3.mp4",
+      "frame": 3,
+      "relativeTimestamp": 0.336875
+    },
+    {
+      "id": "V1-01",
+      "video": "La mia voce 1",
+      "source": "deborah_media/la mia voce 1.mp4",
+      "frame": 1,
+      "relativeTimestamp": 0.119375
+    },
+    {
+      "id": "V2-04",
+      "video": "La mia voce 2",
+      "source": "deborah_media/la mia voce 2.mp4",
+      "frame": 4,
+      "relativeTimestamp": 0.445625
+    }
+  ]
+}
