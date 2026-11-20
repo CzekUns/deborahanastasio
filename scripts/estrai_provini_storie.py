@@ -37,21 +37,13 @@ for prefix,title,path in INPUTS:
     print("Extracting",title,path,"duration",round(d,2),flush=True)
     shots=[]
     for n in range(8):
-        mid=d*(.05+.90*(n+.5)/8)
-        # Select the sharper / better exposed of three nearby genuine frames.
-        testpoints=[max(.05,min(d-.10,mid+d*adj)) for adj in (-.022,0,.022)]
-        scored=[]
-        for j,t in enumerate(testpoints):
-            temp=OUT/f"_candidate_{prefix}_{n}_{j}.jpg"
-            grab(path,t,temp,260)
-            with Image.open(temp) as im: q=rank(im)
-            scored.append((q,t,temp))
-        scored.sort(reverse=True,key=lambda x:x[0])
-        _,t,_=scored[0]
+        # Mirror the browser selector's exact frame timestamps.
+        # This matters after the user's E1-06 / E2-07 / E3-03 / V1-01 / V2-04 selections:
+        # using a nearby but different "sharper" frame would change their chosen poses.
+        t=max(.05,min(d-.15,d*(.065+.87*(n+.5)/8)))
         name=f"{prefix}-{n+1:02d}.jpg"
         photo=OUT/name
         grab(path,t,photo,860)
-        for _,_,tmp in scored:tmp.unlink(missing_ok=True)
         shots.append({"id":f"{prefix}-{n+1:02d}","timeSeconds":round(t,2),
                       "timeLabel":f"{int(t//60):02d}:{int(t%60):02d}",
                       "image":f"./assets/storie/provini/{name}"})
