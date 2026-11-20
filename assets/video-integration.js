@@ -177,35 +177,40 @@ function chooseVideoFiles(repositoryTree,verifiedInventory){
     return true;
   });
 }
-Promise.all([
-  fetch(COVER_MAP,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
-  fetch(VERIFIED_MANIFEST,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
-  fetch(TREE_URL,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
-]).then(function(results){
-  var info=results[0]||{};
-  coverMap=info.covers||{};
-  var verifiedInventory=results[1]||{};
-  var tree=results[2];
-  var selected=chooseVideoFiles(tree,verifiedInventory);
-  var entries=selected.map(function(file,i){
+// Prefer the checked-in editorial catalog embedded in the page.
+// This avoids API rate limits, stale JSON fetches and generic placeholder captions.
+function embeddedJSON(id){
+  var node=document.getElementById(id);
+  if(!node)return null;
+  try{return JSON.parse(node.textContent);}catch(e){console.error("Invalid embedded media catalog",e);return null;}
+}
+function loadEditorialMedia(inventory,covers){
+  var entries=chooseVideoFiles(null,inventory).map(function(file,i){
     var path=file.path;
-    var namedCover=coverMap[path];
-    var cover=(namedCover&&isCover(namedCover))? "./"+safeLocalPath(namedCover.replace(/^\.\//,"")):
-      "./assets/deborah-avatar-centrato-ai.webp";
-    var known=Array.isArray(verifiedInventory.videos)?verifiedInventory.videos.find(function(v){
-      return v.sha&&v.sha===file.sha || v.path===path;
-    }):null;
+    var namedCover=(covers.covers||{})[path];
+    var known=inventory.videos.find(function(v){return v.path===path;})||file;
     return {
       path:path,
       src:"./"+safeLocalPath(path),
-      cover:cover,
-      title:known&&known.title?known.title:shortLabel(path,i),
-      caption:known&&known.caption?known.caption:""
+      cover:namedCover&&isCover(namedCover)?"./"+safeLocalPath(namedCover.replace(/^\.\//,"")):"./assets/deborah-avatar-centrato-ai.webp",
+      title:known.title||shortLabel(path,i),
+      caption:known.caption||""
     };
   });
   updateMedia(entries);
-}).catch(function(e){
-  console.warn("Deborah media discovery unavailable:",e);
-  // No fake video playback. Keep the static preview when no media is available.
-});
+}
+var builtInInventory=embeddedJSON("deborah-video-catalog");
+var builtInCovers=embeddedJSON("deborah-video-covers");
+if(builtInInventory && Array.isArray(builtInInventory.videos)){
+  loadEditorialMedia(builtInInventory,builtInCovers||{});
+}else{
+  Promise.all([
+    fetch(COVER_MAP,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};}),
+    fetch(VERIFIED_MANIFEST,{cache:"no-store"}).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})
+  ]).then(function(results){
+    loadEditorialMedia(results[1],results[0]);
+  }).catch(function(e){
+    console.error("Deborah editorial catalog unavailable",e);
+  });
+}
 })();
