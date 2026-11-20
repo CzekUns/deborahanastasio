@@ -44,6 +44,21 @@
   ];
   // I video arrivano esclusivamente dal catalogo verificato, senza storyboard ripetuti.
   stories[2].images=dabGallery;
+  // Files named by the uploader expressly identify their highlight and order.
+  // Keep story clips distinct from the feed/Reels catalog and the La DAB photo gallery.
+  stories[0].clips=[
+    {src:"./deborah_media/la mia voce 1.mp4",label:"La mia voce · 1"},
+    {src:"./deborah_media/la mia voce 2.mp4",label:"La mia voce · 2"}
+  ];
+  stories[1].clips=[
+    {src:"./deborah_media/eventi 1.mp4",label:"Eventi · 1"},
+    {src:"./deborah_media/eventi 2.mp4",label:"Eventi · 2"},
+    {src:"./deborah_media/eventi 3.mp4",label:"Eventi · 3"}
+  ];
+  stories[3].clips=[
+    {src:"./deborah_media/backstage 1.mp4",label:"Backstage · 1"}
+  ];
+
   var videos=[];
   var modal=document.getElementById("dialog-backdrop");
   var modalContent=document.getElementById("dialog-content");
@@ -111,8 +126,44 @@
   }
   function openStory(i){
     var story=stories[i];if(!story)return;
+    if(story.clips&&story.clips.length){openHighlightClip(i,0);return;}
     if(i===2&&dabGallery.length){openBandPhoto(0);return;}
     openModal(titleDialog("STORIE IN EVIDENZA",story.title,story.detail));
+  }
+  var activeHighlight=-1,activeHighlightClip=0;
+  function openHighlightClip(storyIndex,clipIndex,auto){
+    var story=stories[storyIndex];
+    if(!story||!story.clips||!story.clips.length)return;
+    activeHighlight=storyIndex;
+    activeHighlightClip=Math.max(0,Math.min(clipIndex,story.clips.length-1));
+    var clip=story.clips[activeHighlightClip];
+    var progress=story.clips.map(function(_,i){return '<i class="'+(i<=activeHighlightClip?'watched':'')+'"></i>';}).join("");
+    var markup='<div class="dab-highlight-dialog"><span class="dialog-kicker">STORIE / '+escapeText(story.title)+' · '+(activeHighlightClip+1)+' / '+story.clips.length+'</span>'+
+      '<div class="dab-highlight-progress">'+progress+'</div>'+
+      '<video class="dab-highlight-dialog-video" src="'+encodeURI(clip.src)+'" playsinline muted autoplay preload="auto" aria-label="'+escapeText(clip.label)+'"></video>'+
+      '<div class="dab-highlight-dialog-actions"><button type="button" data-highlight-step="-1" aria-label="Video precedente">←</button>'+
+      '<button type="button" data-highlight-sound aria-label="Attiva o disattiva audio">♫ Audio</button>'+
+      '<button type="button" data-highlight-pause aria-label="Metti in pausa">Ⅱ</button>'+
+      '<button type="button" data-highlight-step="1" aria-label="Video successivo">→</button></div></div>';
+    if(window.DeborahMedia)window.DeborahMedia.stopAll();
+    if(!modal.hidden&&modalContent.querySelector(".dab-highlight-dialog")){
+      modalContent.innerHTML=markup;
+    }else openModal(markup);
+    var vid=modalContent.querySelector(".dab-highlight-dialog-video");
+    if(!vid)return;
+    vid.addEventListener("ended",function(){
+      if(activeHighlightClip+1<story.clips.length)openHighlightClip(storyIndex,activeHighlightClip+1,true);
+      else closeModal();
+    },{once:true});
+    var p=window.DeborahMedia?window.DeborahMedia.play(vid,!auto):vid.play().catch(function(){});
+    if(p&&p.then)p.then(function(){var b=modalContent.querySelector("[data-highlight-sound]");if(b&&vid.isConnected)b.textContent=vid.muted?"♫ Audio":"♪ Attivo";});
+  }
+  function stepHighlight(delta){
+    var story=stories[activeHighlight];
+    if(!story||!story.clips)return;
+    var next=activeHighlightClip+delta;
+    if(next>=0&&next<story.clips.length)openHighlightClip(activeHighlight,next);
+    else closeModal();
   }
   var activeDabPhoto=-1;
   function openBandPhoto(n){
@@ -144,6 +195,20 @@
     }else openModal(titleDialog("CONDIVIDI","Condividi il link",url));
   }
   document.addEventListener("click",function(ev){
+    var highlightStep=ev.target.closest("[data-highlight-step]");
+    if(highlightStep){stepHighlight(Number(highlightStep.dataset.highlightStep));return;}
+    var highlightPause=ev.target.closest("[data-highlight-pause]");
+    if(highlightPause){
+      var hv=modalContent.querySelector(".dab-highlight-dialog-video");
+      if(hv){if(hv.paused){if(window.DeborahMedia)window.DeborahMedia.play(hv,true);else hv.play().catch(function(){});highlightPause.textContent="Ⅱ";}else{hv.pause();highlightPause.textContent="▶";}}
+      return;
+    }
+    var highlightSound=ev.target.closest("[data-highlight-sound]");
+    if(highlightSound){
+      var sv=modalContent.querySelector(".dab-highlight-dialog-video");
+      if(sv){if(window.DeborahMedia)window.DeborahMedia.toggleSound(sv);else{sv.muted=!sv.muted;sv.play().catch(function(){});}highlightSound.textContent=sv.muted?"♫ Audio":"♪ Attivo";}
+      return;
+    }
     var dabPhoto=ev.target.closest("[data-dab-photo]");
     if(dabPhoto){openBandPhoto(Number(dabPhoto.dataset.dabPhoto));return;}
     var dabStep=ev.target.closest("[data-dab-step]");
