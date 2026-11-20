@@ -41,24 +41,8 @@ function updateMedia(items){
       headline:"",method:"",photoPost:false
     });
   });
-  // La locandina resta il nono contenuto, dopo gli otto video.
-  videoData.push({
-    title:"San Valentino · Villa Gauro",
-    headline:"",
-    caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
-    photo:"./assets/deborah-sanvalentino-originale-hq.jpg",
-    cover:"./assets/deborah-sanvalentino-originale-hq.jpg",
-    photoPost:true,src:null,method:""
-  });
-
-  // Instagram: otto Reel, poi la sola locandina d'archivio.
-  // Nessuna fotografia rosa tra i post e nessun contenuto ripetuto.
-  var photoPosts=demo.posts.filter(function(p){return p.editorialStatic && p.img && !/deborah-cover-rosa-4x5\.webp/.test(p.img);});
-  var uniquePhotos=[];
-  var usedImages={};
-  photoPosts.forEach(function(p){
-    if(!usedImages[p.img]){usedImages[p.img]=true;uniquePhotos.push(p);}
-  });
+  // Nove Reel originali e distinti: Tutto Sposi sostituisce la locandina
+  // di San Valentino come nono post, su Instagram e TikTok.
   demo.posts.length=0;
   items.forEach(function(asset){
     demo.posts.push({
@@ -66,7 +50,6 @@ function updateMedia(items){
       caption:asset.caption||("Deborah Anastasio · "+asset.title)
     });
   });
-  uniquePhotos.forEach(function(p){demo.posts.push(p);});
   var grid=document.getElementById("ig-grid");
   if(grid){
     grid.innerHTML=demo.posts.map(function(p,i){
@@ -149,7 +132,7 @@ function syncPlayer(){
     player.classList.remove("has-real-video");
     player.classList.add("has-photo-post");
     var photoSoundline=player.querySelector(".soundline");
-    if(photoSoundline)photoSoundline.textContent="▧ Foto d’archivio · San Valentino · Villa Gauro";
+    if(photoSoundline)photoSoundline.textContent="▧ Foto d’archivio";
     var photoNote=player.querySelector(".video-concept");
     if(photoNote)photoNote.textContent="DAL MIO ARCHIVIO";
     if(soundBtn)soundBtn.hidden=true;
