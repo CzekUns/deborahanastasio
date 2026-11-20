@@ -26,6 +26,7 @@
   var stories=demo.stories;
   var dabGallery=demo.dabGallery||[];
   var selectedDabFrame=0;
+  var selectedClipFrame=0;
   var allStoryImages=["./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-originale-hq.jpg","./assets/deborah-cover-rosa-4x5.webp","./assets/deborah-sanvalentino-originale-hq.jpg","./assets/deborah-cover-rosa-4x5.webp"];
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   function plain(v){return esc(v).replace(/\n/g,"<br>");}
@@ -250,9 +251,53 @@
   function renderLocalComments(key){
     return (demoComments[key]||[]).map(function(c){return '<p><b>Tu · anteprima:</b> '+esc(c)+'</p>';}).join("");
   }
-  function openStory(i,frame){
+  function openStory(i,frame,fromAutomatic){
     selectedStory=(i+stories.length)%stories.length;
     var s=stories[selectedStory];
+    if(s.clips && s.clips.length){
+      selectedClipFrame=(typeof frame==="number" && frame>=0 && frame<s.clips.length)?frame:0;
+      var clip=s.clips[selectedClipFrame];
+      var marks=s.clips.map(function(_,idx){
+        return '<span class="'+(idx===selectedClipFrame?'current':idx<selectedClipFrame?'watched':'')+'"></span>';
+      }).join("");
+      var body='<div class="native-story-view native-highlight-video-story">'+
+        '<video class="native-highlight-video" src="'+esc(encodeURI(clip.src))+'" autoplay muted playsinline preload="auto" aria-label="'+esc(clip.label)+'"></video>'+
+        '<div class="native-story-progress" aria-label="Video '+(selectedClipFrame+1)+' di '+s.clips.length+'">'+marks+'</div>'+
+        '<header class="native-story-header">'+logo()+'<b>deborah.anastasio · '+esc(s.title)+'</b>'+
+        '<button type="button" class="native-highlight-audio" data-highlight-sound aria-label="Attiva o disattiva audio">♫ Audio</button>'+
+        '<button type="button" data-native-close aria-label="Chiudi la storia">'+symbol("x")+'</button></header>'+
+        '<div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Video precedente"></button><button type="button" data-story-step="1" aria-label="Video successivo"></button></div>'+
+        '<div class="native-highlight-bottom"><span>'+esc(s.title)+' · '+(selectedClipFrame+1)+' / '+s.clips.length+'</span>'+
+        '<button type="button" data-highlight-pause aria-label="Metti in pausa">Ⅱ</button></div></div>';
+      // Pause the outgoing video before replacing it: detached players must
+      // never continue playing sound after a step or route transition.
+      if(window.DeborahMedia)window.DeborahMedia.stopAll();
+      if(!overlay.hidden && overlayType==="story"){
+        overlay.innerHTML=body;
+        var close=overlay.querySelector("[data-native-close]");
+        if(close)close.focus({preventScroll:true});
+      }else showOverlay(body,"story");
+      var player=overlay.querySelector("video.native-highlight-video");
+      if(player){
+        var syncAudio=function(){
+          var button=overlay.querySelector(".native-highlight-audio");
+          if(button && player.isConnected)button.textContent=player.muted?"♫ Audio":"♪ Attivo";
+        };
+        player.addEventListener("volumechange",syncAudio);
+        player.addEventListener("ended",function(){
+          if(!player.isConnected || selectedStory!==i)return;
+          if(selectedClipFrame+1<s.clips.length)openStory(i,selectedClipFrame+1,true);
+          else closeOverlay();
+        },{once:true});
+        player.addEventListener("error",function(){
+          var caption=overlay.querySelector(".native-highlight-bottom span");
+          if(caption && player.isConnected)caption.textContent="Video non disponibile";
+        });
+        var promise=window.DeborahMedia?window.DeborahMedia.play(player,!fromAutomatic):player.play().catch(function(){player.muted=true;return player.play().catch(function(){});});
+        if(promise && promise.then)promise.then(syncAudio);
+      }
+      return;
+    }
     if(selectedStory===2 && dabGallery.length){
       selectedDabFrame=(typeof frame==="number" && frame>=0 && frame<dabGallery.length)?frame:0;
       var photo=dabGallery[selectedDabFrame];
@@ -277,7 +322,13 @@
     }
     showOverlay('<div class="native-story-view" style="--story-image:url(\''+allStoryImages[selectedStory]+'\')"><div class="native-story-progress">'+stories.map(function(_,idx){return '<span class="'+(idx===selectedStory?"current":idx<selectedStory?"watched":"")+'"></span>';}).join("")+'</div><header class="native-story-header">'+logo()+'<b>deborah.anastasio</b><button type="button" data-native-close aria-label="Chiudi la storia">'+symbol("x")+'</button></header><div class="native-story-text"><span>DAL MIO MONDO</span><h2>'+esc(s.title)+'</h2><p>'+esc(s.detail)+'</p></div><div class="native-story-taps"><button type="button" data-story-step="-1" aria-label="Storia precedente"></button><button type="button" data-story-step="1" aria-label="Storia successiva"></button></div><div class="native-story-reply">Invia un messaggio <span>♡</span></div></div>',"story");
   }
-  function stepStory(delta){
+  function stepStory(delta,fromAutomatic){
+    var current=stories[selectedStory];
+    if(current && current.clips && current.clips.length){
+      var next=selectedClipFrame+delta;
+      if(next>=0 && next<current.clips.length){openStory(selectedStory,next,!!fromAutomatic);return;}
+      if(fromAutomatic){closeOverlay();return;}
+    }
     if(selectedStory===2 && dabGallery.length){
       var next=selectedDabFrame+delta;
       if(next>=0 && next<dabGallery.length){openStory(2,next);return;}
@@ -345,6 +396,32 @@
     if(element.hasAttribute("data-tt-step")){demo.setVideo(demo.getVideoIndex()+Number(element.dataset.ttStep));return;}
     if(element.hasAttribute("data-native-post")){openPost(Number(element.dataset.nativePost));return;}
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
+    if(element.hasAttribute("data-highlight-sound")){
+      var clipVideo=overlay.querySelector("video.native-highlight-video");
+      if(clipVideo){
+        if(window.DeborahMedia){
+          if(window.DeborahMedia.isSoundRequested() && clipVideo.muted){
+            clipVideo.muted=false;
+            clipVideo.play().catch(function(){clipVideo.muted=true;});
+          }else window.DeborahMedia.toggleSound(clipVideo);
+        }else{clipVideo.muted=!clipVideo.muted;clipVideo.play().catch(function(){});}
+        element.textContent=clipVideo.muted?"♫ Audio":"♪ Attivo";
+      }
+      return;
+    }
+    if(element.hasAttribute("data-highlight-pause")){
+      var pausedVideo=overlay.querySelector("video.native-highlight-video");
+      if(pausedVideo){
+        if(pausedVideo.paused){
+          if(window.DeborahMedia)window.DeborahMedia.play(pausedVideo,true);
+          else pausedVideo.play().catch(function(){});
+          element.textContent="Ⅱ";element.setAttribute("aria-label","Metti in pausa");
+        }else{
+          pausedVideo.pause();element.textContent="▶";element.setAttribute("aria-label","Riprendi il video");
+        }
+      }
+      return;
+    }
     if(element.hasAttribute("data-story-step")){stepStory(Number(element.dataset.storyStep));return;}
     if(element.hasAttribute("data-native-video")){setVideoNative(Number(element.dataset.nativeVideo));return;}
     if(element.hasAttribute("data-native-reel-step")){selectedReel=(selectedReel+Number(element.dataset.nativeReelStep)+reelItems().length)%reelItems().length;renderIgReel(true);return;}
