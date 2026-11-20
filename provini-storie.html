@@ -65,7 +65,73 @@ main{width:min(1180px,calc(100% - 38px));margin:35px auto 125px}
     const response=await fetch('./assets/storie/provini/index.json?v=1',{cache:'no-store'});
     if(!response.ok)throw new Error('I provini non sono ancora stati generati ('+response.status+').');
     data=await response.json();
-  }catch(e){container.innerHTML='<p>Non riesco a caricare i fotogrammi. '+e.message+' Riprova dopo la generazione dei provini.</p>';return}
+  }catch(e){
+    // GitHub Actions may not be available in every repository. As a fallback,
+    // extract the genuine video frames in the visitor's browser with HTML5
+    // video seeking and canvas. No images are fabricated or sent to a server.
+    const sources=[
+      {id:'E1',title:'Eventi 1',source:'deborah_media/eventi 1.mp4'},
+      {id:'E2',title:'Eventi 2',source:'deborah_media/eventi 2.mp4'},
+      {id:'E3',title:'Eventi 3',source:'deborah_media/eventi 3.mp4'},
+      {id:'V1',title:'La mia voce 1',source:'deborah_media/la mia voce 1.mp4'},
+      {id:'V2',title:'La mia voce 2',source:'deborah_media/la mia voce 2.mp4'}
+    ];
+    const makeFrames=async()=>{
+      const videos=[];
+      for(const source of sources){
+        const vid=document.createElement('video');
+        vid.playsInline=true;vid.muted=true;vid.preload='auto';
+        vid.src=encodeURI('./'+source.source);
+        container.textContent='Caricamento '+source.title+'…';
+        const ready=new Promise((resolve,reject)=>{
+          const timer=setTimeout(()=>reject(new Error('Caricamento non riuscito: '+source.title)),20000);
+          vid.addEventListener('loadedmetadata',()=>{clearTimeout(timer);resolve()},{once:true});
+          vid.addEventListener('error',()=>{clearTimeout(timer);reject(new Error('Video non accessibile: '+source.title))},{once:true});
+        });
+        vid.load();await ready;
+        const duration=Number.isFinite(vid.duration)?vid.duration:0;
+        if(duration<=0)throw new Error('Durata non disponibile: '+source.title);
+        const canvas=document.createElement('canvas');
+        const width=Math.min(760,vid.videoWidth||760);
+        canvas.width=width;
+        canvas.height=Math.max(2,Math.round(width*(vid.videoHeight||1350)/(vid.videoWidth||760)));
+        const ctx=canvas.getContext('2d');
+        const shots=[];
+        for(let i=0;i<8;i++){
+          const t=Math.max(.05,Math.min(duration-.15,duration*(.065+.87*(i+.5)/8)));
+          container.textContent='Estrazione '+source.title+' — fotogramma '+(i+1)+' di 8…';
+          await new Promise((resolve,reject)=>{
+            const timer=setTimeout(()=>reject(new Error('Ricerca fotogramma non riuscita: '+source.title)),14000);
+            const done=()=>{clearTimeout(timer);resolve()};
+            vid.addEventListener('seeked',done,{once:true});
+            vid.currentTime=t;
+          });
+          if(typeof vid.requestVideoFrameCallback==='function'){
+            await Promise.race([new Promise(resolve=>vid.requestVideoFrameCallback(resolve)),
+                                new Promise(resolve=>setTimeout(resolve,280))]);
+          }else await new Promise(resolve=>setTimeout(resolve,110));
+          ctx.drawImage(vid,0,0,canvas.width,canvas.height);
+          shots.push({id:source.id+'-'+String(i+1).padStart(2,'0'),
+                      timeSeconds:Math.round(t*100)/100,
+                      timeLabel:String(Math.floor(t/60)).padStart(2,'0')+':'+String(Math.floor(t%60)).padStart(2,'0'),
+                      image:canvas.toDataURL('image/jpeg',.84)});
+        }
+        vid.pause();vid.removeAttribute('src');vid.load();
+        videos.push({id:source.id,title:source.title,durationSeconds:duration,source:source.source,frames:shots});
+      }
+      return {videos};
+    };
+    try{data=await makeFrames();}
+    catch(captureError){
+      container.replaceChildren();
+      const message=document.createElement('p');
+      message.textContent=captureError.message+' — puoi riprovare direttamente dal pulsante.';
+      const retry=document.createElement('button');retry.textContent='Riprova estrazione fotogrammi';retry.type='button';
+      retry.style.cssText='background:#451729;color:white;border:0;padding:14px;cursor:pointer';
+      retry.addEventListener('click',()=>location.reload());
+      container.append(message,retry);return;
+    }
+  }
   const selected=new Set(); const frames=new Map();
   const refresh=()=>{
     document.getElementById('count').textContent=selected.size+' selezionat'+(selected.size===1?'o':'i');
