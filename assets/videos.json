@@ -1,7 +1,35 @@
 {
-  "version": 3,
-  "source": "Repository GitHub main — cinque video verificati e copertine V01–V05 associate",
+  "version": 4,
+  "source": "Catalogo curato del profilo dimostrativo: quattro nuove performance, quattro video precedenti e una fotografia d'archivio",
   "videos": [
+    {
+      "path": "deborah_media/eventi 1.mp4",
+      "sha": "37b2d67a74146008cce1facadb691d3148cbeb0c",
+      "title": "Eventi 1 · La festa è con voi",
+      "size_bytes": 15115360,
+      "caption": "Quando la musica diventa una festa e cantiamo tutti insieme, io mi emoziono sempre! 🎤❤️\n\nChe energia, che serata! Grazie per aver cantato e ballato insieme a me.\n\nBacio grande! ❤️\n\n#DeborahAnastasio #Performer #EventiLive #MusicaDalVivo"
+    },
+    {
+      "path": "deborah_media/eventi 2.mp4",
+      "sha": "5b0558595e9f90ab9f95c9205675ea2f7570a0bf",
+      "title": "Eventi 2 · Insieme sul palco",
+      "size_bytes": 9844146,
+      "caption": "Il bello del live è proprio questo: la musica, la DAB e voi che rendete ogni serata diversa! 🎷🎤❤️\n\nE quando ci ritroviamo tutti nella stessa emozione… mamma mia!\n\nBacio grande! ❤️\n\n#DeborahAnastasio #LivePerformance #LaDAB #Eventi"
+    },
+    {
+      "path": "deborah_media/eventi 3.mp4",
+      "sha": "17e395050018982dff7070612b34c2c1d2e9d99c",
+      "title": "Eventi 3 · Canta e balla con me",
+      "size_bytes": 6672926,
+      "caption": "Che bello quando una canzone mette tutti d’accordo e ci ritroviamo a cantare e ballare insieme! 🎶☀️\n\nA me basta vedere la vostra allegria per caricarmi ancora di più.\n\nUn bacio grande! ❤️\n\n#DeborahAnastasio #Performer #Eventi #MusicaLive"
+    },
+    {
+      "path": "deborah_media/la mia voce 2.mp4",
+      "sha": "b60fab7f9a7ea6a7a58db149f6d6dc3e218eecd3",
+      "title": "La mia voce · Live",
+      "size_bytes": 21626127,
+      "caption": "Ci sono momenti in cui la musica parla da sola. ❤️🎤\n\nMi piace condividere con voi anche queste interpretazioni, più intime, dove ogni parola e ogni nota hanno il loro posto.\n\nGrazie per ascoltarmi. Bacio grande! ❤️\n\n#DeborahAnastasio #LaMiaVoce #Performer #LiveMusic"
+    },
     {
       "path": "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4",
       "sha": "ad552accd98ea942241cf380416ec3dfd9b57a25",
@@ -28,7 +56,8 @@
       "sha": "661b57ed6f4a6012020f817ef05ced9bcd209f6c",
       "title": "Tutto Sposi",
       "size_bytes": 7698406,
-      "caption": "Ma quanto ci siamo divertiti a Tutto Sposi! 😍🎶\n\nTra musica, balli, duetti e incontri bellissimi, è stata un'esperienza piena di energia!\n\nE poi, quando parte la musica, io proprio non riesco a stare ferma! 😂❤️\n\nUn'atmosfera splendida, nella bellissima cornice di Emilio Amirante Atelier.\n\nVi lascio qualche momento di questa esperienza… e ditemi, vi siete divertiti anche voi?\n\nBacio grande! ❤️\n\n#DeborahAnastasio #TuttoSposi #EmilioAmiranteAtelier #LivePerformance #MusicaDalVivo"
+      "caption": "Ma quanto ci siamo divertiti a Tutto Sposi! 😍🎶\n\nTra musica, balli, duetti e incontri bellissimi, è stata un'esperienza piena di energia!\n\nE poi, quando parte la musica, io proprio non riesco a stare ferma! 😂❤️\n\nUn'atmosfera splendida, nella bellissima cornice di Emilio Amirante Atelier.\n\nVi lascio qualche momento di questa esperienza… e ditemi, vi siete divertiti anche voi?\n\nBacio grande! ❤️\n\n#DeborahAnastasio #TuttoSposi #EmilioAmiranteAtelier #LivePerformance #MusicaDalVivo",
+      "featured": false
     },
     {
       "path": "deborah_media/deborah_kiton_arco_slide_fluido_elegante_video_completo.mp4",
@@ -37,5 +66,6 @@
       "size_bytes": 11467034,
       "caption": "Che emozione essere qui, a Casa Kiton! ❤️✨\n\nQuest'anno ho avuto il piacere e l'onore di essere scelta per accompagnare con la mia musica la festa di fine anno di una realtà così importante nel mondo della sartoria.\n\nUna serata speciale, insieme a tutte le persone che fanno parte di questa grande realtà.\n\nSono davvero felice e riconoscente per questa bellissima esperienza!\n\nE niente… buone feste a tutti e ci vediamo presto! ❤️🎶\n\n#DeborahAnastasio #Kiton #CasaKiton #MusicaDalVivo #EventiAziendali"
     }
-  ]
+  ],
+  "note": "Tutto Sposi resta nel catalogo tecnico e su GitHub ma non entra nella griglia social da nove post; foto rosa rimossa solo dal feed. San Valentino rimane un post d'archivio."
 }

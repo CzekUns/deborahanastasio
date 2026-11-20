@@ -1,11 +1,15 @@
 {
-  "version": 5,
-  "note": "Correzione 19/11/2026: V02 usa la nuova immagine arancio allegata dall'utente; la precedente V02-E è stata copiata e assegnata a V03. V03-E bocciata non viene utilizzata. Gli altri abbinamenti restano invariati.",
+  "version": 6,
+  "note": "Aggiornamento social: Eventi 1/2/3 + La mia voce 2 con le quattro cover utente 1080×1350. Le precedenti copertine V01–V05 sono conservate.",
   "covers": {
     "deborah_media/AQNaZpAdoFfd0VXdn0SLpQzMcJ_bFDlhlMvx4UQJXLFm3GkIZUpRxTsMSwUHyrMPaSVDCt5qX7ECfZsAYtHvSBhKzy1yOdtUE5TxyHk.mp4": "assets/copertine/prototipi/V01-F_con-quale-brano_prototipo.webp",
     "deborah_media/AQNXFOCJHgNHNgGljCNciKX6gMVnHxlx0eNYs27tPjhC2ahiAcEqIIOTEelmlpgR4KsLA2ZyoBGnn_Dj1gOER0it3o5XzYIYcZ1cAHU.mp4": "assets/copertine/prototipi/V02-G_per-sempre-si-nuova.webp",
     "deborah_media/AQOYLfrawBnk5Wka0ygxaTCpXlLH4ka3_A1WrWSDd8qxiAXGkp07tnudvIp9XeZZBrCi_oib78aJZvpivgtLQSoH9ERRwFkJNJZhEyU.mp4": "assets/copertine/prototipi/V03-F_quando-il-mio-cuore_selezionata.webp",
     "deborah_media/tiktok_debora.anastasio_7702445165201362209.mp4": "assets/copertine/prototipi/V04-E_tutto-sposi_prototipo.webp",
-    "deborah_media/deborah_kiton_arco_slide_fluido_elegante_video_completo.mp4": "assets/copertine/prototipi/V05-E_kiton_prototipo.webp"
+    "deborah_media/deborah_kiton_arco_slide_fluido_elegante_video_completo.mp4": "assets/copertine/prototipi/V05-E_kiton_prototipo.webp",
+    "deborah_media/eventi 1.mp4": "assets/copertine/social/eventi-1.webp",
+    "deborah_media/eventi 2.mp4": "assets/copertine/social/eventi-2.webp",
+    "deborah_media/eventi 3.mp4": "assets/copertine/social/eventi-3.webp",
+    "deborah_media/la mia voce 2.mp4": "assets/copertine/social/la-mia-voce-2.webp"
   }
 }

@@ -13,17 +13,11 @@
     rings:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=85"
   };
   var uploaded={
-    pink:"./assets/deborah-cover-rosa-4x5.webp",
-    gallery:"./assets/deborah-sanvalentino-originale-hq.jpg",
     blueArchive:"./assets/deborah-sanvalentino-originale-hq.jpg"
   };
-  // Feed Instagram: solo materiali reali e contenuti distinti.
-  // I cinque video vengono aggiunti dal catalogo verificato in video-integration.js.
-  // Le due foto statiche sono uniche e non vengono duplicate per riempire la griglia.
+  // La foto rosa non è più un post. Otto video curati e una locandina
+  // storica formano i nove contenuti social, senza duplicazioni.
   var posts=[
-    {title:"Deborah Anastasio",type:"Fotografia",img:uploaded.pink,
-      caption:"Ciao ragazzi! Un saluto grande da me. Ci vediamo presto con tanta musica! ❤️",
-      editorialStatic:true},
     {title:"San Valentino · Villa Gauro",type:"Archivio",img:uploaded.blueArchive,
       caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
       editorialStatic:true}

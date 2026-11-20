@@ -41,8 +41,8 @@ function updateMedia(items){
       headline:"",method:"",photoPost:false
     });
   });
-  // Un unico post fotografico TikTok, distinto dai cinque video.
-  videoData.splice(Math.min(2,videoData.length),0,{
+  // La locandina resta il nono contenuto, dopo gli otto video.
+  videoData.push({
     title:"San Valentino · Villa Gauro",
     headline:"",
     caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
@@ -51,21 +51,22 @@ function updateMedia(items){
     photoPost:true,src:null,method:""
   });
 
-  // Instagram: le due foto originali presenti nel modello più ciascun video una volta sola.
-  var photoPosts=demo.posts.filter(function(p){return p.editorialStatic && p.img;});
+  // Instagram: otto Reel, poi la sola locandina d'archivio.
+  // Nessuna fotografia rosa tra i post e nessun contenuto ripetuto.
+  var photoPosts=demo.posts.filter(function(p){return p.editorialStatic && p.img && !/deborah-cover-rosa-4x5\.webp/.test(p.img);});
   var uniquePhotos=[];
   var usedImages={};
   photoPosts.forEach(function(p){
     if(!usedImages[p.img]){usedImages[p.img]=true;uniquePhotos.push(p);}
   });
   demo.posts.length=0;
-  uniquePhotos.forEach(function(p){demo.posts.push(p);});
   items.forEach(function(asset){
     demo.posts.push({
       title:asset.title,type:"Video",videoSrc:asset.src,img:asset.cover,cover:asset.cover,
       caption:asset.caption||("Deborah Anastasio · "+asset.title)
     });
   });
+  uniquePhotos.forEach(function(p){demo.posts.push(p);});
   var grid=document.getElementById("ig-grid");
   if(grid){
     grid.innerHTML=demo.posts.map(function(p,i){
@@ -186,6 +187,7 @@ function chooseVideoFiles(repositoryTree,verifiedInventory){
       .map(function(e){return e.path;})):null;
   var seen={};
   return verified.filter(function(entry){
+    if(entry.featured===false)return false;
     var identity=entry.sha||entry.path;
     if(!entry.path || seen[identity] || (present && !present.has(entry.path)))return false;
     seen[identity]=true;
