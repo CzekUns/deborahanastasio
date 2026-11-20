@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#441a2d">
+<title>Provini copertine delle storie — Deborah Anastasio</title>
+<style>
+:root{--wine:#451729;--plum:#24161f;--ivory:#f9f5ef;--gold:#d5ac7d;--muted:#726871}
+*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--plum);font:15px/1.55 system-ui,-apple-system,sans-serif}button{font:inherit}
+header{background:var(--wine);color:#fff;padding:34px max(20px,calc((100vw - 1180px)/2));}
+.eyebrow{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:700}
+h1,h2{font-family:Georgia,serif;font-weight:500;letter-spacing:-.035em}h1{font-size:clamp(32px,5vw,56px);line-height:1.09;margin:11px 0 13px}
+header p{max-width:700px;color:#eadce2;margin:0 0 14px}
+header a{color:#f4d1ad}
+main{width:min(1180px,calc(100% - 38px));margin:35px auto 125px}
+.notice{border-left:3px solid var(--gold);padding:13px 16px;margin:0 0 30px;background:#eee5df;font-size:13px}
+.group{margin:0 0 55px}.group-head{display:flex;justify-content:space-between;align-items:end;gap:15px;border-bottom:1px solid #d2c7c3;margin-bottom:15px;padding:0 0 12px}
+.group h2{font-size:clamp(29px,3.3vw,41px);margin:0}.group-head small{color:#705f66}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.frame{padding:0;border:2px solid transparent;background:white;box-shadow:0 1px 8px #30132415;cursor:pointer;color:inherit;min-width:0;text-align:left;position:relative}
+.frame:hover{border-color:#c9a788}.frame[aria-pressed="true"]{border-color:var(--wine);box-shadow:0 0 0 2px #d7b38a}
+.frame img{width:100%;height:280px;object-fit:contain;display:block;background:#21151b}
+.frame-label{padding:11px 12px;display:flex;justify-content:space-between;gap:4px;align-items:center}
+.frame-label b{letter-spacing:.04em;font-size:13px}.frame-label em{font-size:12px;color:#76636b;font-style:normal}
+.frame .tick{position:absolute;right:10px;top:10px;width:28px;height:28px;border-radius:50%;background:#ffffffcf;color:#451729;border:1px solid #ffffff8f;text-align:center;padding:2px;font-weight:900}
+.frame[aria-pressed="true"] .tick{color:white;background:var(--wine)}
+.choose{display:flex;gap:9px;align-items:center}.choose button{background:var(--wine);color:white;border:0;padding:13px 17px;cursor:pointer}.choose button:disabled{opacity:.5;cursor:not-allowed}
+.sticky{position:fixed;bottom:0;left:0;right:0;background:#fcfaf8f5;border-top:1px solid #d8c7bf;backdrop-filter:blur(12px);z-index:5;padding:12px max(16px,calc((100vw - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:15px}
+.selection{min-width:0;font-weight:600;font-size:13px}.selection small{display:block;font-weight:400;color:#806b76}.selected-list{font-weight:400;color:#6e344d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55vw}
+.viewer{position:fixed;inset:0;background:#170d14f5;z-index:10;display:flex;align-items:center;justify-content:center;padding:24px;flex-direction:column;gap:12px;color:white}
+.viewer[hidden]{display:none}.viewer img{display:block;max-width:100%;max-height:76dvh;object-fit:contain}.viewer .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.viewer button{background:#faf1e8;color:var(--wine);border:0;padding:11px 15px;cursor:pointer}
+.viewer .close{position:absolute;right:16px;top:15px;background:#fff2}
+@media(max-width:880px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.frame img{height:240px}}
+@media(max-width:610px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.frame img{height:245px}.frame-label{padding:8px}.frame-label b{font-size:11px}.frame-label em{font-size:10px}.sticky{padding:10px;gap:7px}.choose button{padding:12px 10px;font-size:12px}.selected-list{max-width:38vw}main{width:calc(100% - 24px)}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">DEBORAH ANASTASIO · STORIE IN EVIDENZA</div>
+  <h1>I fotogrammi da scegliere.</h1>
+  <p>Otto provini reali per ciascuno dei cinque video: Eventi 1, 2 e 3; La mia voce 1 e 2. Tocca le immagini che preferisci: diventeranno candidate per il ritocco con ImageGen.</p>
+  <a href="./#instagram">Torna a Instagram</a>
+</header>
+<main>
+  <p class="notice">Queste immagini sono fotogrammi originali, senza generazione AI. Sono selezionati privilegiando nitidezza ed esposizione in diverse parti del filmato; la scelta della posa più espressiva è tua. Nessuna copertina del sito viene cambiata finché non approvi i ritocchi.</p>
+  <div id="gallery" aria-live="polite"><p>Caricamento dei provini…</p></div>
+</main>
+<div class="sticky" aria-label="Fotogrammi selezionati">
+  <div class="selection"><span id="count">0 selezionati</span><small class="selected-list" id="ids">Scegli uno o più scatti</small></div>
+  <div class="choose"><button type="button" id="clear" disabled>Azzera</button><button type="button" id="copy" disabled>Copia codici</button></div>
+</div>
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Anteprima fotogramma">
+  <button type="button" id="close" class="close" aria-label="Chiudi anteprima">×</button>
+  <img id="large" alt="Fotogramma ingrandito">
+  <div id="detail"></div><div class="actions"><button type="button" id="select">Seleziona</button><button type="button" id="save">Apri foto originale</button></div>
+</div>
+<script>
+(async function(){
+  const container=document.getElementById('gallery');
+  let data;
+  try{
+    const response=await fetch('./assets/storie/provini/index.json?v=1',{cache:'no-store'});
+    if(!response.ok)throw new Error('I provini non sono ancora stati generati ('+response.status+').');
+    data=await response.json();
+  }catch(e){container.innerHTML='<p>Non riesco a caricare i fotogrammi. '+e.message+' Riprova dopo la generazione dei provini.</p>';return}
+  const selected=new Set(); const frames=new Map();
+  const refresh=()=>{
+    document.getElementById('count').textContent=selected.size+' selezionat'+(selected.size===1?'o':'i');
+    document.getElementById('ids').textContent=[...selected].sort().join(' · ')||'Scegli uno o più scatti';
+    document.getElementById('copy').disabled=selected.size===0;
+    document.getElementById('clear').disabled=selected.size===0;
+    document.querySelectorAll('.frame').forEach(b=>{const yes=selected.has(b.dataset.id);b.setAttribute('aria-pressed',String(yes));b.querySelector('.tick').textContent=yes?'✓':'+'});
+  };
+  const toggle=id=>{selected.has(id)?selected.delete(id):selected.add(id);refresh()};
+  const gallery=document.createDocumentFragment();
+  for(const video of data.videos){
+    const section=document.createElement('section');section.className='group';
+    section.innerHTML='<div class="group-head"><h2></h2><small></small></div><div class="grid"></div>';
+    section.querySelector('h2').textContent=video.title;
+    section.querySelector('small').textContent='8 proposte · '+Math.round(video.durationSeconds)+' secondi di video';
+    const grid=section.querySelector('.grid');
+    for(const shot of video.frames){
+      frames.set(shot.id,{...shot,title:video.title});
+      const button=document.createElement('button');button.className='frame';button.type='button';
+      button.dataset.id=shot.id;button.setAttribute('aria-pressed','false');
+      button.innerHTML='<img loading="lazy"><span class="tick">+</span><span class="frame-label"><b></b><em></em></span>';
+      button.querySelector('img').src=shot.image;
+      button.querySelector('img').alt='Fotogramma '+shot.id+' da '+video.title;
+      button.querySelector('b').textContent=shot.id;
+      button.querySelector('em').textContent=shot.timeLabel;
+      button.addEventListener('click',()=>toggle(shot.id));
+      button.addEventListener('contextmenu',event=>{event.preventDefault();openViewer(shot.id)});
+      const zoom=document.createElement('button');zoom.type='button';zoom.textContent='⌕';zoom.title='Ingrandisci '+shot.id;
+      zoom.style.cssText='position:absolute;bottom:45px;right:10px;border:0;background:#fff;color:#451729;border-radius:50%;width:28px;height:28px;cursor:pointer';
+      zoom.addEventListener('click',event=>{event.stopPropagation();openViewer(shot.id)});
+      button.appendChild(zoom);
+      grid.appendChild(button);
+    }gallery.appendChild(section);
+  }
+  container.replaceChildren(gallery); refresh();
+  document.getElementById('clear').addEventListener('click',()=>{selected.clear();refresh()});
+  document.getElementById('copy').addEventListener('click',async()=>{
+    const codes=[...selected].sort().join(', ');
+    try{await navigator.clipboard.writeText(codes);document.getElementById('copy').textContent='Copiato ✓'}
+    catch(e){prompt('Copia questi codici e inviali in chat:',codes)}
+  });
+  const viewer=document.getElementById('viewer');let activeId=null;const large=document.getElementById('large');
+  function openViewer(id){activeId=id;const s=frames.get(id);large.src=s.image;document.getElementById('detail').textContent=s.title+' · '+id+' · '+s.timeLabel;viewer.hidden=false;document.getElementById('select').textContent=selected.has(id)?'Deseleziona':'Seleziona';document.getElementById('close').focus()}
+  function closeViewer(){viewer.hidden=true;large.removeAttribute('src');activeId=null}
+  document.getElementById('close').addEventListener('click',closeViewer);
+  document.getElementById('select').addEventListener('click',()=>{if(activeId){toggle(activeId);document.getElementById('select').textContent=selected.has(activeId)?'Deseleziona':'Seleziona'}});
+  document.getElementById('save').addEventListener('click',()=>{if(activeId)window.open(frames.get(activeId).image,'_blank','noopener')});
+  viewer.addEventListener('click',event=>{if(event.target===viewer)closeViewer()});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.hidden)closeViewer()});
+})();
+</script>
+</body>
+</html>
