@@ -151,6 +151,7 @@
   position: relative;
   display: block;
   font: 700 6px/1.15 "DM Sans", sans-serif;
+  transform: translateY(-2px);
   color: #fff8ee;
   letter-spacing: .08em;
   margin-top: -1px;
