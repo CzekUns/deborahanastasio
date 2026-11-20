@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Backstage"><title>Backstage</title><defs><linearGradient id="gold" x1="24" y1="24" x2="76" y2="78" gradientUnits="userSpaceOnUse"><stop stop-color="#b68243"/><stop offset=".48" stop-color="#d7b47b"/><stop offset="1" stop-color="#9e6a34"/></linearGradient><linearGradient id="light" x1="44" y1="34" x2="58" y2="72" gradientUnits="userSpaceOnUse"><stop stop-color="#ead4af" stop-opacity=".25"/><stop offset="1" stop-color="#e4c186" stop-opacity=".8"/></linearGradient></defs><circle cx="50" cy="50" r="50" fill="#faf3e6"/><circle cx="50" cy="50" r="44.5" fill="none" stroke="#d8bc91" stroke-width=".8"/><path d="M27 26h46v49H27Z" fill="#f0dfc5"/>
+<path d="M45 31Q44 47 34 55L28 74H72L66 55Q56 47 55 31Z" fill="#faf3e6"/>
+<g fill="none" stroke="url(#gold)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M25 24h50M27 27v48m46-48v48"/>
+<path d="M28 28q9 10 22 0 13 10 22 0" fill="#e6c99a"/>
+<path d="M45 34Q43 49 32 55M55 34Q57 49 68 55"/>
+<path d="M36 35q2 13-7 19m35-19q-2 13 7 19"/>
+<path d="M29 57l6 1m36-1-6 1M34 59l4 15m28-15-4 15M31 63l-1 11m39-11 1 11"/>
+<path d="M25 78h50" stroke="#742c42" stroke-width="1.8"/>
+</g></svg>
