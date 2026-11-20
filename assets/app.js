@@ -12,18 +12,11 @@
     event:"https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85",
     rings:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=85"
   };
-  var uploaded={
-    blueArchive:"./assets/deborah-sanvalentino-originale-hq.jpg"
-  };
-  // La foto rosa non è più un post. Otto video curati e una locandina
-  // storica formano i nove contenuti social, senza duplicazioni.
-  var posts=[
-    {title:"San Valentino · Villa Gauro",type:"Archivio",img:uploaded.blueArchive,
-      caption:"Un ricordo di una serata di San Valentino a Villa Gauro. Bacio grande! ❤️ #DeborahAnastasio #Live",
-      editorialStatic:true}
-  ];
+  // I nove contenuti social sono nove video originali, incluso Tutto Sposi.
+  // Nessuna locandina di San Valentino o foto rosa nel feed.
+  var posts=[];
   var grid=document.getElementById("ig-grid");
-  if(grid){
+  if(grid && posts.length){
     grid.innerHTML=posts.map(function(p,i){
       return '<button data-post="'+i+'" class="ig-tile image-tile"><img src="'+p.img+'" alt="'+p.title.replace(/"/g,"&quot;")+'" loading="lazy"></button>';
     }).join("");
@@ -254,7 +247,7 @@
     videoIndex=(n+videos.length)%videos.length;
     var v=videos[videoIndex];
     videoImage.src=v.photo;
-    videoImage.alt=v.photoPost?"Locandina San Valentino Dinner Show Villa Gauro, foto d’archivio":"Copertina del contenuto di Deborah Anastasio";
+    videoImage.alt=v.photoPost?"Fotografia di Deborah Anastasio":"Copertina del contenuto di Deborah Anastasio";
     videoPlayer.classList.toggle("has-photo-post",!!v.photoPost);
     videoPlay.hidden=!!v.photoPost;
     videoHeadline.innerHTML=v.headline||"";
