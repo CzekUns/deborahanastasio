@@ -132,7 +132,13 @@ main{width:min(1180px,calc(100% - 38px));margin:35px auto 125px}
       container.append(message,retry);return;
     }
   }
-  const selected=new Set(); const frames=new Map();
+  // A comma-separated link to selected candidates preserves the five choices.
+  const selected=new Set(
+    (new URLSearchParams(location.search).get('selected')||'')
+      .split(',').map(x=>x.trim().toUpperCase())
+      .filter(x=>/^(E[123]|V[12])-0[1-8]$/.test(x))
+  );
+  const frames=new Map();
   const refresh=()=>{
     document.getElementById('count').textContent=selected.size+' selezionat'+(selected.size===1?'o':'i');
     document.getElementById('ids').textContent=[...selected].sort().join(' · ')||'Scegli uno o più scatti';
