@@ -293,3 +293,31 @@
 @media(prefers-reduced-motion:reduce){
   .pitch-demonstration .concept-image.platform-logo-art img{transition:none}
 }
+
+
+/* Il pensierino per Deborah: ultimo elemento della presentazione personale. */
+.pitch-gift{background:#f6f1e9;padding:clamp(70px,9vw,125px) 25px;scroll-margin-top:96px}
+.pitch-gift-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(250px,.8fr);align-items:center;gap:clamp(40px,7vw,104px)}
+.pitch-gift-copy .eyebrow{color:#90586b}
+.pitch-gift h2{font:500 clamp(42px,5vw,67px)/1.14 var(--serif,Georgia,serif);letter-spacing:-.04em;color:#32242a;margin:27px 0 20px}
+.pitch-gift h2 em{color:#762c47}
+.pitch-gift-copy>p{font:15px/1.9 var(--sans,"DM Sans",sans-serif);color:#63565b;max-width:575px;margin:0 0 16px}
+.pitch-gift-copy>.pitch-gift-lead{font:italic 500 clamp(24px,2.9vw,34px)/1.4 var(--serif,Georgia,serif);color:#702c46;margin-bottom:17px}
+.pitch-gift-download{display:inline-flex;align-items:center;gap:14px;background:#5d2137;color:#fffdf9;text-decoration:none;font:700 13px/1.4 var(--sans,"DM Sans",sans-serif);padding:17px 24px;margin-top:28px;transition:background .2s,transform .2s}
+.pitch-gift-download>span{font-size:22px;font-weight:400;line-height:.8}
+.pitch-gift-download:hover,.pitch-gift-download:focus-visible{background:#842d4e;transform:translateY(-2px)}
+.pitch-gift-file{display:block;margin-top:14px;font:700 10px/1.5 var(--sans,"DM Sans",sans-serif);letter-spacing:.12em;color:#82747a}
+.pitch-gift-signature{display:block;font:italic 31px/1.4 var(--serif,Georgia,serif);color:#7a4656;margin-top:33px}
+.pitch-gift-preview{position:relative;background:#e9dcd2;padding:17px;box-shadow:12px 18px 0 #e3d5ce;max-width:395px;justify-self:center}
+.pitch-gift-preview:after{content:"✦";position:absolute;right:-14px;top:-22px;color:#b89363;font-size:37px;line-height:1}
+.pitch-gift-preview img{display:block;width:100%;height:auto;aspect-ratio:440/622;object-fit:contain;background:#fdfaf7;box-shadow:0 7px 22px #4c242a18}
+@media(max-width:800px){.pitch-gift-inner{gap:30px}.pitch-gift-preview{max-width:330px}.pitch-gift h2{font-size:clamp(37px,5.3vw,55px)}}
+@media(max-width:660px){
+ .pitch-gift{padding:68px 24px 85px}
+ .pitch-gift-inner{grid-template-columns:1fr;gap:46px}
+ .pitch-gift h2{font-size:clamp(39px,9.5vw,52px)}
+ .pitch-gift-copy>p{font-size:14px}
+ .pitch-gift-download{min-height:48px}
+ .pitch-gift-preview{max-width:min(79vw,310px);justify-self:center;box-shadow:8px 12px 0 #e3d5ce}
+}
+@media(prefers-reduced-motion:reduce){.pitch-gift-download{transition:none}}
