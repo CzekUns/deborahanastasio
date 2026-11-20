@@ -1,5 +1,5 @@
 {
-  "status": "selected-for-imagegen-not-yet-edited",
+  "status": "selected-reference-frames-not-yet-faithfully-enhanced",
   "selectedBy": "user",
   "context": "Cinque fotogrammi selezionati dalla pagina provini-storie.html generati nel browser con estrazione in otto punti per video",
   "sourceMode": "HTML5 video canvas browser fallback",
@@ -28,11 +28,11 @@
       "relativeTimestamp": 0.336875
     },
     {
-      "id": "V1-01",
+      "id": "V1-07",
       "video": "La mia voce 1",
       "source": "deborah_media/la mia voce 1.mp4",
-      "frame": 1,
-      "relativeTimestamp": 0.119375
+      "frame": 7,
+      "relativeTimestamp": 0.771875
     },
     {
       "id": "V2-04",
@@ -41,5 +41,7 @@
       "frame": 4,
       "relativeTimestamp": 0.445625
     }
-  ]
+  ],
+  "note": "V1-07 replaces earlier V1-01 based on uploaded selected contact sheet. Ignore earlier generic AI portraits; original frames remain reference.",
+  "reference": "Deborah-selezione-fotogrammi.jpg (user upload)"
 }
