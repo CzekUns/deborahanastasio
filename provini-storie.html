@@ -17,6 +17,7 @@ main{width:min(1180px,calc(100% - 38px));margin:35px auto 125px}
 .group{margin:0 0 55px}.group-head{display:flex;justify-content:space-between;align-items:end;gap:15px;border-bottom:1px solid #d2c7c3;margin-bottom:15px;padding:0 0 12px}
 .group h2{font-size:clamp(29px,3.3vw,41px);margin:0}.group-head small{color:#705f66}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.frame-wrapper{position:relative;min-width:0}.frame-wrapper>.frame{width:100%;display:block}
 .frame{padding:0;border:2px solid transparent;background:white;box-shadow:0 1px 8px #30132415;cursor:pointer;color:inherit;min-width:0;text-align:left;position:relative}
 .frame:hover{border-color:#c9a788}.frame[aria-pressed="true"]{border-color:var(--wine);box-shadow:0 0 0 2px #d7b38a}
 .frame img{width:100%;height:280px;object-fit:contain;display:block;background:#21151b}
@@ -95,8 +96,7 @@ main{width:min(1180px,calc(100% - 38px));margin:35px auto 125px}
       const zoom=document.createElement('button');zoom.type='button';zoom.textContent='⌕';zoom.title='Ingrandisci '+shot.id;
       zoom.style.cssText='position:absolute;bottom:45px;right:10px;border:0;background:#fff;color:#451729;border-radius:50%;width:28px;height:28px;cursor:pointer';
       zoom.addEventListener('click',event=>{event.stopPropagation();openViewer(shot.id)});
-      button.appendChild(zoom);
-      grid.appendChild(button);
+      const wrapper=document.createElement('div');wrapper.className='frame-wrapper';wrapper.append(button,zoom);grid.appendChild(wrapper);
     }gallery.appendChild(section);
   }
   container.replaceChildren(gallery); refresh();
