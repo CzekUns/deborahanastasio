@@ -97,7 +97,7 @@
   function openPost(i){
     var post=posts[i];if(!post)return;
     var html='<span class="dialog-kicker">INSTAGRAM / POST '+String(i+1).padStart(2,"0")+'</span>';
-    if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" poster="'+post.img+'" autoplay muted playsinline controls preload="auto" aria-label="Video di Deborah Anastasio"></video>';
+    if(post.videoSrc)html+='<video class="dialog-video" src="'+post.videoSrc+'" playsinline controls preload="auto" aria-label="Video di Deborah Anastasio"></video>';
     else if(post.img)html+='<img class="dialog-photo" src="'+post.img+'" alt="Foto di anteprima del post">';
     html+='<h2 id="dialog-title">'+escapeText(post.title)+'</h2>';
     html+='<div class="dialog-sample"><b>LA DIDASCALIA</b><p>'+paragraphs(post.caption)+'</p></div>';
@@ -108,7 +108,7 @@
     var openedVideo=modalContent.querySelector("video.dialog-video");
     if(openedVideo){
       if(window.DeborahMedia)window.DeborahMedia.play(openedVideo,true);
-      else openedVideo.play().catch(function(){ openedVideo.muted=true; openedVideo.play().catch(function(){}); });
+      else openedVideo.play().catch(function(){});
     }
   }
   function openStory(i){
@@ -127,7 +127,7 @@
     var progress=story.clips.map(function(_,i){return '<i class="'+(i<=activeHighlightClip?'watched':'')+'"></i>';}).join("");
     var markup='<div class="dab-highlight-dialog"><span class="dialog-kicker">STORIE / '+escapeText(story.title)+' · '+(activeHighlightClip+1)+' / '+story.clips.length+'</span>'+
       '<div class="dab-highlight-progress">'+progress+'</div>'+
-      '<video class="dab-highlight-dialog-video" src="'+encodeURI(clip.src)+'" playsinline muted autoplay preload="auto" aria-label="'+escapeText(clip.label)+'"></video>'+
+      '<video class="dab-highlight-dialog-video" src="'+encodeURI(clip.src)+'" playsinline preload="auto" aria-label="'+escapeText(clip.label)+'"></video>'+
       '<div class="dab-highlight-dialog-actions"><button type="button" data-highlight-step="-1" aria-label="Video precedente">←</button>'+
       '<button type="button" data-highlight-sound aria-label="Attiva o disattiva audio">♫ Audio</button>'+
       '<button type="button" data-highlight-pause aria-label="Metti in pausa">Ⅱ</button>'+
@@ -213,7 +213,7 @@
       if(a==="tiktok-info")openModal(titleDialog("TIKTOK / PRODUZIONE",videos[videoIndex].title,videos[videoIndex].method));
     }
     var video=ev.target.closest("[data-video]");
-    if(video)setVideo(Number(video.dataset.video));
+    if(video)setVideo(Number(video.dataset.video),true);
   });
   closeBtn.addEventListener("click",closeModal);
   modal.addEventListener("click",function(ev){if(ev.target===modal)closeModal();});
@@ -225,7 +225,7 @@
     if(!modal.hidden || ev.defaultPrevented || !canStepVideo())return;
     if(ev.key==="ArrowDown"||ev.key==="ArrowUp"){
       ev.preventDefault();
-      setVideo(videoIndex+(ev.key==="ArrowDown"?1:-1));
+      setVideo(videoIndex+(ev.key==="ArrowDown"?1:-1),true);
     }
   });
   var videoIndex=0;
@@ -241,12 +241,13 @@
       !videoPlayer.classList.contains("tt-native-open") &&
       !document.body.classList.contains("native-overlay-visible");
   }
-  function setVideo(n){
+  function setVideo(n,fromGesture){
     if(!videos.length)return;
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     videoIndex=(n+videos.length)%videos.length;
     var v=videos[videoIndex];
     videoImage.src=v.photo;
+    videoImage.hidden=!!v.src || !v.photoPost;
     videoImage.alt=v.photoPost?"Fotografia di Deborah Anastasio":"Copertina del contenuto di Deborah Anastasio";
     videoPlayer.classList.toggle("has-photo-post",!!v.photoPost);
     videoPlay.hidden=!!v.photoPost;
@@ -263,10 +264,10 @@
     videoPlayer.classList.add("playing");
     videoPlayer.classList.remove("paused");
     videoPlay.textContent="Ⅱ";
-    window.dispatchEvent(new CustomEvent("deborah:videochange",{detail:{index:videoIndex}}));
+    window.dispatchEvent(new CustomEvent("deborah:videochange",{detail:{index:videoIndex,fromGesture:!!fromGesture}}));
   }
-  document.getElementById("video-prev").addEventListener("click",function(){setVideo(videoIndex-1);});
-  document.getElementById("video-next").addEventListener("click",function(){setVideo(videoIndex+1);});
+  document.getElementById("video-prev").addEventListener("click",function(){setVideo(videoIndex-1,true);});
+  document.getElementById("video-next").addEventListener("click",function(){setVideo(videoIndex+1,true);});
   videoLike.addEventListener("click",function(){likes[videoIndex]=!likes[videoIndex];videoLike.classList.toggle("liked",likes[videoIndex]);videoLike.setAttribute("aria-pressed",String(likes[videoIndex]));videoLike.querySelector("span").textContent=likes[videoIndex]?"♥":"♡";});
   videoPlay.addEventListener("click",function(){
     var playing=videoPlayer.classList.toggle("playing");
@@ -286,7 +287,7 @@
     var point=e.changedTouches[0];
     var delta=point.clientY-start.y;
     if(Math.abs(delta)>55 && Math.abs(delta)>Math.abs(point.clientX-start.x)*1.3){
-      setVideo(videoIndex+(delta<0?1:-1));
+      setVideo(videoIndex+(delta<0?1:-1),true);
     }
   },{passive:true});
   videoPlayer.addEventListener("touchcancel",function(){touchStart=null;},{passive:true});
@@ -297,7 +298,7 @@
     var now=performance.now();
     if(now-lastWheel<480||!e.deltaY)return;
     lastWheel=now;
-    setVideo(videoIndex+(e.deltaY>0?1:-1));
+    setVideo(videoIndex+(e.deltaY>0?1:-1),true);
   },{passive:false});
   window.DeborahDemo={posts:posts,stories:stories,videos:videos,dabGallery:dabGallery,setVideo:setVideo,getVideoIndex:function(){return videoIndex;}};
   window.addEventListener("hashchange",route);
