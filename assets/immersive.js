@@ -148,7 +148,7 @@
     if(!reelList.length)return;
     selectedReel=selectedReel%reelList.length;
     var v=reelList[selectedReel];
-    var picture=v.src?'<video src="'+esc(v.src)+'" poster="'+esc(v.photo)+'" playsinline autoplay muted loop preload="metadata" controls class="ig-reel-video" aria-label="Reel di Deborah Anastasio"></video>':'<img src="'+esc(v.photo)+'" alt="Immagine dal mondo musicale di Deborah" class="ig-reel-photo">';
+    var picture=v.src?'<video src="'+esc(v.src)+'" playsinline loop preload="metadata" controls class="ig-reel-video" aria-label="Reel di Deborah Anastasio"></video>':'<img src="'+esc(v.photo)+'" alt="Immagine dal mondo musicale di Deborah" class="ig-reel-photo">';
     igScreen.innerHTML='<div class="ig-reels-stage">'+picture+'<div class="ig-reels-gradient"></div><span class="ig-reel-top">Reel <small>'+(v.src?"DAL VIVO":"FOTO")+'</small></span>'+(v.src?'':'<p class="ig-reel-headline">'+v.headline+'</p>')+'<div class="ig-reel-actions"><button type="button" data-native-reel-like aria-label="Metti mi piace">'+symbol("heart")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><div class="ig-reel-bottom">'+logo()+'<b>deborah.anastasio</b><p>'+esc(v.caption)+'</p><small>'+(v.src?"Deborah Anastasio":"Dal mio archivio")+'</small></div><div class="ig-reel-switch"><button type="button" data-native-reel-step="-1" aria-label="Reel precedente">↑</button><button type="button" data-native-reel-step="1" aria-label="Reel successivo">↓</button></div></div>';
     var reel=igScreen.querySelector("video.ig-reel-video");
     if(reel && window.DeborahMedia)window.DeborahMedia.play(reel,!!userGesture);
@@ -185,6 +185,7 @@
       b.setAttribute("aria-current",b.dataset.ttScreen===screen?"page":"false");
     });
     if(screen==="home"){
+      if(window.DeborahMedia)window.DeborahMedia.requestSound();
       ttPanel.innerHTML="";
       document.dispatchEvent(new Event("deborah:contextchange"));
       return;
@@ -197,7 +198,7 @@
     ttPanel.scrollTop=0;
     document.dispatchEvent(new Event("deborah:contextchange"));
   }
-  function setVideoNative(index){setTtScreen("home");demo.setVideo(index);}
+  function setVideoNative(index){setTtScreen("home");demo.setVideo(index,true);}
   function showOverlay(html,type){
     if(window.DeborahMedia)window.DeborahMedia.stopAll();
     closeFocus=document.activeElement;
@@ -239,13 +240,13 @@
   document.body.appendChild(overlay);
   function openPost(i){
     var p=posts[i];if(!p)return;
-    var visual=p.videoSrc?'<div class="ig-post-video-frame"><video class="native-detail-video" src="'+esc(p.videoSrc)+'" poster="'+esc(p.img)+'" controls playsinline autoplay muted loop preload="auto" aria-label="Video originale Deborah Anastasio"></video></div>':p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Copertina per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
+    var visual=p.videoSrc?'<div class="ig-post-video-frame"><video class="native-detail-video" src="'+esc(p.videoSrc)+'" controls playsinline loop preload="auto" aria-label="Video originale Deborah Anastasio"></video></div>':p.img?'<img class="native-detail-photo" src="'+esc(p.img)+'" alt="Copertina per '+esc(p.title)+'">':'<div class="native-detail-poster"><span>'+esc(p.title)+'</span></div>';
     showOverlay('<div class="native-detail"><header class="native-detail-top"><button type="button" data-native-close aria-label="Indietro">'+symbol("back")+'</button><b>Post</b><button data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></header><div class="native-detail-scroll"><div class="native-detail-author">'+logo()+'<b>deborah.anastasio</b></div>'+visual+'<div class="native-detail-actions"><button type="button" data-native-like="'+i+'" aria-label="Mi piace">'+symbol("heart")+'</button><button type="button" data-native-comment="'+i+'" aria-label="Commenti">'+symbol("comment")+'</button><button type="button" data-native-action="share" aria-label="Condividi">'+symbol("send")+'</button></div><p class="native-detail-caption"><b>deborah.anastasio</b> '+plain(p.caption)+'</p><div class="native-local-comments" id="ig-local-comments">'+renderLocalComments("ig-"+i)+'</div></div><form class="native-comment-form" data-comment-form="ig-'+i+'"><input name="comment" maxlength="180" placeholder="Scrivi un commento di prova…" aria-label="Commento di prova" required><button type="submit">Invia</button></form></div>',"post");
     syncLikes();
     var openedVideo=overlay.querySelector("video.native-detail-video");
     if(openedVideo){
       if(window.DeborahMedia)window.DeborahMedia.play(openedVideo,true);
-      else openedVideo.play().catch(function(){ openedVideo.muted=true; openedVideo.play().catch(function(){}); });
+      else openedVideo.play().catch(function(){});
     }
   }
   function renderLocalComments(key){
@@ -261,7 +262,7 @@
         return '<span class="'+(idx===selectedClipFrame?'current':idx<selectedClipFrame?'watched':'')+'"></span>';
       }).join("");
       var body='<div class="native-story-view native-highlight-video-story">'+
-        '<video class="native-highlight-video" src="'+esc(encodeURI(clip.src))+'" autoplay muted playsinline preload="auto" aria-label="'+esc(clip.label)+'"></video>'+
+        '<video class="native-highlight-video" src="'+esc(encodeURI(clip.src))+'" playsinline preload="auto" aria-label="'+esc(clip.label)+'"></video>'+
         '<div class="native-story-progress" aria-label="Video '+(selectedClipFrame+1)+' di '+s.clips.length+'">'+marks+'</div>'+
         '<header class="native-story-header">'+logo()+'<b>deborah.anastasio · '+esc(s.title)+'</b>'+
         '<button type="button" class="native-highlight-audio" data-highlight-sound aria-label="Attiva o disattiva audio">♫ Audio</button>'+
@@ -293,7 +294,7 @@
           var caption=overlay.querySelector(".native-highlight-bottom span");
           if(caption && player.isConnected)caption.textContent="Video non disponibile";
         });
-        var promise=window.DeborahMedia?window.DeborahMedia.play(player,!fromAutomatic):player.play().catch(function(){player.muted=true;return player.play().catch(function(){});});
+        var promise=window.DeborahMedia?window.DeborahMedia.play(player,!fromAutomatic):player.play().catch(function(){});
         if(promise && promise.then)promise.then(syncAudio);
       }
       return;
@@ -393,7 +394,7 @@
     if(element.hasAttribute("data-ig-screen")){setIgScreen(element.dataset.igScreen,true);return;}
     if(element.hasAttribute("data-tt-screen")){setTtScreen(element.dataset.ttScreen);return;}
     if(element.hasAttribute("data-ig-tab")){setIgFilter(element.dataset.igTab);return;}
-    if(element.hasAttribute("data-tt-step")){demo.setVideo(demo.getVideoIndex()+Number(element.dataset.ttStep));return;}
+    if(element.hasAttribute("data-tt-step")){demo.setVideo(demo.getVideoIndex()+Number(element.dataset.ttStep),true);return;}
     if(element.hasAttribute("data-native-post")){openPost(Number(element.dataset.nativePost));return;}
     if(element.hasAttribute("data-native-story")){openStory(Number(element.dataset.nativeStory));return;}
     if(element.hasAttribute("data-highlight-sound")){
@@ -511,7 +512,7 @@
     var delta=point.clientY-start.y;
     if(Math.abs(delta)>55&&Math.abs(delta)>Math.abs(point.clientX-start.x)*1.3){
       selectedReel=(selectedReel+(delta<0?1:-1)+reelItems().length)%reelItems().length;
-      renderIgReel();
+      renderIgReel(true);
     }
   },{passive:true});
   igScreen.addEventListener("touchcancel",function(){swipeStart=null;},{passive:true});

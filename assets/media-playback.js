@@ -1,9 +1,9 @@
-/* Deborah Anastasio — one active media player, shared sound preference.
-   Browsers disallow unsolicited unmuted autoplay. A user gesture can enable
-   sound for this browsing session; all subsequent videos reuse the choice. */
+/* Deborah Anastasio — one active video, sound enabled on opening.
+   When audible autoplay is blocked, offer an explicit play-with-audio button. */
 (function () {
   "use strict";
-  var soundRequested=false;
+  var soundRequested=true;
+  var playbackRequest=0;
   var active=null;
   var handlersBound=false;
   var observer=null;
@@ -21,6 +21,7 @@
   }
   function safePause(v){
     if(!v || typeof v.pause!=="function")return;
+    if(active===v)playbackRequest++;
     try{v.pause();}catch(e){}
     if(active===v)active=null;
   }
@@ -29,6 +30,9 @@
   }
   function stopAll(except){
     document.querySelectorAll("video").forEach(function(v){if(v!==except)safePause(v);});
+    document.querySelectorAll("[data-deborah-start]").forEach(function(button){
+      if(button.mediaVideo!==except)button.remove();
+    });
   }
   function blockedByScreen(v){
     if(!v || !v.isConnected || document.hidden || v.hidden || v.closest(".has-photo-post"))return true;
@@ -77,49 +81,57 @@
     if(!v || blockedByScreen(v)){safePause(v);return Promise.resolve(false);}
     stopAll(v);
     active=v;
+    var request=++playbackRequest;
     v.muted=!withSound;
+    v.defaultMuted=false;
+    v.removeAttribute("muted");
     var promise;
     try{promise=v.play();}catch(e){promise=Promise.reject(e);}
     if(!promise || !promise.catch)return Promise.resolve(true);
-    return promise.then(function(){return true;}).catch(function(){
-      // A mobile browser may reject an unmuted autoplay. Fall back to muted
-      // playback and leave the visible button available for a user gesture.
-      if(blockedByScreen(v) || active!==v)return false;
-      v.muted=true;
-      try{
-        var second=v.play();
-        if(second && second.catch)return second.then(function(){return true;}).catch(function(){return false;});
-        return true;
-      }catch(e){return false;}
+    return promise.then(function(){
+      if(request!==playbackRequest || blockedByScreen(v))return false;
+      document.querySelectorAll("[data-deborah-start]").forEach(function(b){
+        if(b.mediaVideo===v)b.remove();
+      });
+      dispatchSound();
+      return true;
+    }).catch(function(error){
+      if(request!==playbackRequest || blockedByScreen(v) || active!==v)return false;
+      if(error.name==="NotAllowedError"){
+        v.pause();
+        var host=v.closest(".ig-post-video-frame,.ig-reels-stage,.native-story-view,.dialog-card,#tiktok-player");
+        if(host && !host.querySelector("[data-deborah-start]")){
+          var button=document.createElement("button");
+          button.type="button";
+          button.className="deb-start-with-audio";
+          button.dataset.deborahStart="true";
+          button.mediaVideo=v;
+          button.textContent="▶ Avvia con audio";
+          host.appendChild(button);
+        }
+      }
+      return false;
     });
   }
   function play(v,fromGesture){
     if(!v)return Promise.resolve(false);
-    if(fromGesture)soundRequested=true;
+    if(fromGesture){
+      soundRequested=true;
+      v.volume=1;
+    }
     dispatchSound();
     return attemptPlay(v,soundRequested);
+  }
+  function requestSound(){
+    soundRequested=true;
+    dispatchSound();
   }
   function toggleSound(v){
     v=v||active||document.querySelector("#deborah-video-playback");
     if(!v || blockedByScreen(v))return;
     soundRequested=!soundRequested;
+    attemptPlay(v,soundRequested);
     dispatchSound();
-    if(soundRequested){
-      // This function is invoked directly by a click/tap, which can unlock
-      // audible playback on iOS/Android. Keep audio on when switching clips.
-      v.muted=false;
-      stopAll(v);
-      active=v;
-      var p=v.play();
-      if(p && p.catch)p.catch(function(){
-        if(blockedByScreen(v) || active!==v)return;
-        v.muted=true;
-        v.play().catch(function(){});
-      });
-    }else{
-      v.muted=true;
-      if(v.paused && !blockedByScreen(v))v.play().catch(function(){});
-    }
   }
   function refreshContext(){
     document.querySelectorAll("video").forEach(function(v){if(blockedByScreen(v))safePause(v);});
@@ -131,6 +143,13 @@
   }
 
   document.addEventListener("click",function(event){
+    var start=event.target.closest("[data-deborah-start]");
+    if(start){
+      event.preventDefault();
+      event.stopPropagation();
+      play(start.mediaVideo,true);
+      return;
+    }
     var button=event.target.closest("[data-deborah-audio-toggle]");
     if(!button)return;
     event.preventDefault();
@@ -170,7 +189,9 @@
       var removed=false,added=false;
       changes.forEach(function(change){
         change.removedNodes.forEach(function(node){
-          videos(node).forEach(safePause);
+          videos(node).forEach(function(v){
+            if(!v.isConnected || blockedByScreen(v))safePause(v);
+          });
           removed=true;
         });
         if(change.addedNodes.length)added=true;
@@ -187,7 +208,8 @@
     stopAll:stopAll,
     toggleSound:toggleSound,
     refreshContext:refreshContext,
-    isSoundRequested:function(){return soundRequested;}
+    isSoundRequested:function(){return soundRequested;},
+    requestSound:requestSound
   };
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",startObserver,{once:true});
   else startObserver();

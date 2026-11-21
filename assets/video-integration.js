@@ -82,9 +82,9 @@ function ensureVideo(){
   video.setAttribute("playsinline","");
   video.setAttribute("webkit-playsinline","");
   video.preload="metadata";
-  video.autoplay=true;
+  video.autoplay=false;
   video.loop=true;
-  video.muted=true;
+  video.muted=false;
   video.controls=false;
   video.setAttribute("aria-label","Video originale Deborah Anastasio");
   videoStage.insertBefore(video,videoStage.querySelector(".video-vignette"));
@@ -92,9 +92,11 @@ function ensureVideo(){
     video.classList.toggle("portrait-video",video.videoHeight>video.videoWidth);
   });
   video.addEventListener("error",function(){
-    player.classList.remove("has-real-video");
-    video.hidden=true;
-    videoImage.hidden=false;
+    player.classList.add("has-real-video");
+    video.hidden=false;
+    videoImage.hidden=true;
+    var note=player.querySelector(".video-concept");
+    if(note)note.textContent="Video non disponibile";
     if(soundBtn)soundBtn.hidden=true;
   });
   soundBtn=document.createElement("button");
@@ -112,10 +114,10 @@ function ensureVideo(){
   if(playbackButton)playbackButton.addEventListener("click",function(){
     if(!ready || !demo.videos[demo.getVideoIndex()].src)return;
     if(player.classList.contains("paused"))video.pause();
-    else if(window.DeborahMedia)window.DeborahMedia.play(video,false);
+    else if(window.DeborahMedia)window.DeborahMedia.play(video,true);
   });
 }
-function syncPlayer(){
+function syncPlayer(event){
   if(!ready || !player)return;
   ensureVideo();
   var index=demo.getVideoIndex();
@@ -147,7 +149,7 @@ function syncPlayer(){
     video.setAttribute("src",url);
     video.load();
   }
-  video.poster=entry.cover||entry.photo||"";
+  video.removeAttribute("poster");
   video.muted=!(window.DeborahMedia && window.DeborahMedia.isSoundRequested());
   video.hidden=false;
   videoImage.hidden=true;
@@ -158,7 +160,7 @@ function syncPlayer(){
   if(note)note.textContent="Deborah Anastasio";
   if(soundBtn)soundBtn.hidden=false;
   if(!player.classList.contains("paused") && location.hash==="#tiktok" && !player.classList.contains("tt-native-open")){
-    if(window.DeborahMedia)window.DeborahMedia.play(video,false);
+    if(window.DeborahMedia)window.DeborahMedia.play(video,!!(event && event.detail && event.detail.fromGesture));
   }else video.pause();
 }
 // Route/visibility/overlay lifecycle is owned by the shared media manager.
