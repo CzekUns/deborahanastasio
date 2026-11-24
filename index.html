@@ -21,6 +21,20 @@
   <script defer src="./assets/app.js?v=audio-direct-video-20261121"></script>
   <script defer src="./assets/immersive.js?v=audio-direct-video-20261121"></script>
   <script defer src="./assets/video-integration.js?v=audio-direct-video-20261121"></script>
+  <style id="site-typography">
+    /* Three type scales, two families, scoped to the website prototype only. */
+    #view-sito { --site-title: clamp(36px,5vw,64px); --site-subtitle: clamp(24px,3vw,32px); --site-body: 16px; }
+    #view-sito, #view-sito :where(p,a,button,span,small,strong,div,li,label,input,textarea) { font-family: "DM Sans",sans-serif; }
+    #view-sito, #view-sito :is(p,a,button,span,small,strong,li,label,input,textarea,.eyebrow,.lead,.site-band-lead,.site-footer span,.dab-gallery-item-caption strong) { font-size:var(--site-body) !important; }
+    #view-sito :is(h1,h2,blockquote) { font-family:"Playfair Display",serif !important; font-size:var(--site-title) !important; line-height:1.15; }
+    #view-sito h3 { font-family:"Playfair Display",serif !important; font-size:var(--site-subtitle) !important; line-height:1.25; }
+    #view-sito :is(h1,h2,h3,blockquote) em { font-family:inherit; font-size:inherit !important; }
+    #view-sito .site-logo-seal small { font-size:inherit !important; }
+    #view-sito .site-nav { gap:12px; }
+    #view-sito .site-nav > button { white-space:nowrap; letter-spacing:0; }
+    #view-sito .eyebrow, #view-sito .service-detail > span { letter-spacing:.09em; }
+    @media(max-width:540px) { #view-sito { --site-title:36px; --site-subtitle:24px; --site-body:14px; } #view-sito .site-nav > button { padding:8px; } #view-sito .site-hero-text .btn { gap:12px; } }
+  </style>
 </head>
 <body>
 <div class="concept-banner" role="note"><span class="dot"></span> Presentazione personale per Deborah Anastasio · Prototipi social e sito · Nulla pubblicato sui profili reali</div>
