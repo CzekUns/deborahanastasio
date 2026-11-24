@@ -322,5 +322,21 @@
 }
 @media(prefers-reduced-motion:reduce){.pitch-gift-download{transition:none}}
 
-/* Follow-up on collecting original event footage from photographers. */
-.pitch-materials-grid .pitch-materials-recovery{margin-top:19px;padding-top:17px;border-top:1px solid #d8c8c5}
+
+/* 24 nov 2026: la navigazione alle demo parte esclusivamente dalle card finali. */
+.app-header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.app-header .identity{flex-shrink:0;min-width:0}
+@media(max-width:800px){
+  .app-header{flex-direction:row;justify-content:center;min-height:77px;padding:12px 20px}
+  .app-header .identity{align-self:auto}
+}
+@media(max-width:540px){
+  .app-header{min-height:71px}
+}
+.pitch-demonstration#pitch-demos{scroll-margin-top:28px}
+.pitch-materials-grid>.pitch-materials-third{grid-column:1/-1;background:#f7f0e9;padding:36px clamp(25px,4vw,58px) 42px;border-top:2px solid #8b5061}
+.pitch-materials-grid>.pitch-materials-third h3{max-width:780px;margin:22px 0 19px}
+.pitch-materials-grid>.pitch-materials-third p{max-width:910px}
+@media(max-width:600px){
+  .pitch-materials-grid>.pitch-materials-third{grid-column:auto;padding:29px 25px 32px}
+}

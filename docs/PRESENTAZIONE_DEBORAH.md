@@ -32,3 +32,8 @@ La homepage vive nel primo `<section data-view="visione">` di `index.html`; i su
 La pagina iniziale è una proposta. Profili Instagram/TikTok e sito sono **simulazioni**, non gli account reali. Le copertine, i testi e la struttura possono essere approvati e sostituiti progressivamente; i video effettivamente presenti sono collegati dal manifesto `assets/videos.json` e dal sistema `assets/video-integration.js`. Le nuove copertine devono essere collegate tramite `assets/video-covers.json`, senza cambiare i file video.
 
 Non presentare eventuali funzionalità simulate (commenti, follower, richieste, messaggi) come interazioni realmente pubblicate o spedite.
+## Navigazione dopo la lettura — 24 novembre 2026
+
+La barra di navigazione in alto è stata rimossa. Nella prima pagina i rimandi anticipati a Instagram, TikTok e sito portano **alla sezione `#pitch-demos`**, non direttamente dentro le simulazioni. Solo le tre card con i loghi, poste verso la fine della presentazione, aprono le viste corrispondenti. I link diretti `#instagram`, `#tiktok` e `#sito` rimangono validi per le demo e i ritorni interni.
+
+La sezione sulla qualità del materiale è ora suddivisa in tre card autonome: 01 conservare gli originali; 02 valorizzare senza trasformare; 03 recuperare foto e video direttamente dai fotografi e videomaker, quando autorizzato.
