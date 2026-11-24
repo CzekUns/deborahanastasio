@@ -194,7 +194,23 @@
         <span class="pitch-gift-signature">Simone</span>
       </div>
       <div class="pitch-gift-preview">
-        <object data="./assets/documenti/Contratto_Deborah_Anastasio.pdf?v=e04e8b22#page=1&amp;toolbar=0&amp;navpanes=0" type="application/pdf" aria-label="Anteprima del contratto aggiornato" style="display:block;width:100%;aspect-ratio:210/297;border:0"><a href="./assets/documenti/Contratto_Deborah_Anastasio.pdf?v=e04e8b22" target="_blank" rel="noopener">Visualizza il contratto aggiornato (PDF) ↗</a></object>
+        <a href="./assets/documenti/Contratto_Deborah_Anastasio.pdf" target="_blank" rel="noopener" aria-label="Apri il contratto aggiornato"><canvas id="contract-preview" role="img" aria-label="Anteprima del contratto aggiornato" style="display:block;width:100%;height:auto;aspect-ratio:210/297;background:#fff"></canvas></a><p id="contract-preview-status" style="font-size:.8rem">Caricamento anteprima…</p><script type="module">
+      const status = document.getElementById('contract-preview-status');
+      try {
+        const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs');
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs';
+        const pdf = await pdfjs.getDocument('./assets/documenti/Contratto_Deborah_Anastasio.pdf?v=e04e8b22').promise;
+        const page = await pdf.getPage(1);
+        const canvas = document.getElementById('contract-preview');
+        const viewport = page.getViewport({scale: 1.6});
+        canvas.width = Math.ceil(viewport.width); canvas.height = Math.ceil(viewport.height);
+        await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+        status.hidden = true;
+      } catch (error) {
+        document.getElementById('contract-preview').hidden = true;
+        status.textContent = 'Tocca “Scarica il contratto” per visualizzare il PDF aggiornato.';
+      }
+      </script>
       </div>
     </div>
   </section>
