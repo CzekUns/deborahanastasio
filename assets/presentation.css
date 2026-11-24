@@ -321,3 +321,6 @@
  .pitch-gift-preview{max-width:min(79vw,310px);justify-self:center;box-shadow:8px 12px 0 #e3d5ce}
 }
 @media(prefers-reduced-motion:reduce){.pitch-gift-download{transition:none}}
+
+/* Follow-up on collecting original event footage from photographers. */
+.pitch-materials-grid .pitch-materials-recovery{margin-top:19px;padding-top:17px;border-top:1px solid #d8c8c5}
